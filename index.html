@@ -32,7 +32,7 @@
 
                     </ul>
 
-                    <form class="d-flex my-2 my-lg-0">
+                    <form class="d-flex my-2 my-lg-0" id="searchByName">
                         <input class="form-control" type="text" placeholder="Por Nombre" />
                         <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">
                             Buscar
@@ -64,21 +64,7 @@
     <main>
         <div class="container">
             <div class="row flex-wrap  justify-content-between">
-                <div class="col-12 col-sm-6 col-lg-4  col-xl-3 my-4">
-                    <div class="card h-100">
-                        <img class="card-img-top"
-                            src="https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg" alt="Title" />
-                        <div class="card-body ">
-                            <h4 class="card-title text-center">Ingredientes</h4>
-                            <div>
-                                <ul>
-                                    <li>Fresas</li>
-                                </ul>
-                            </div>
-                            <p class="card-text">Text</p>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
                     <div class="card h-100">
                         <img class="card-img-top bb position-relative"
@@ -98,7 +84,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <h4 class="card-title my-4 bg-success rounded-2 p-2"><strong>Ingredientes</strong></h4>
+                            <h5 class="card-title my-4 bg-success rounded-2 p-2 text-center"><strong>Ingredientes Principales</strong></h5>
                             <div class="row flex-wrap justify-content-center align-content-center shadow rounded-3 m-2">
                                 <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
                                     <div class="bg-cardbody rounded-4">
@@ -133,32 +119,46 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-4  col-xl-3 my-4">
-                    <div class="card h-100">
-                        <img class="card-img-top"
-                            src="https://www.themealdb.com/images/media/meals/hqaejl1695738653.jpg" alt="Title" />
-                        <div class="card-body">
-                            <h4 class="card-title">Title</h4>
-                            <p class="card-text">Text</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
-                    <div class="card h-100">
-                        <img class="card-img-top"
-                            src="https://www.themealdb.com/images/media/meals/hqaejl1695738653.jpg" alt="Title" />
-                        <div class="card-body">
-                            <h4 class="card-title">Title</h4>
-                            <p class="card-text">Text</p>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
 
+            <!--div para los resultados-->
+            <div class="results">
+            </div>
 
-
+            <template id="meal">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
+                    <div class="card h-100">
+                        <img class="card-img-top bb position-relative"
+                            src="" alt="Title" />
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between shadow p-3 rounded-5">
+                                <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
+                                    <strong></strong>
+                                </div>
+                                <div class="w-50 d-flex justify-content-center align-items-center">
+                                    <div class=" w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
+                                        
+                                    </div>
+                                    <img src="" alt=""
+                                        class="ml-2 mr-2 d-sm-flex">
+                                </div>
+                            </div>
+                            <hr>
+                            <h4 class="card-title my-4 bg-success rounded-2 p-2 text-center">
+                                <strong></strong>
+                            </h4>
+                            <div class="row flex-wrap justify-content-center align-content-center shadow rounded-3 m-2">
+                                <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
+                                    <div class="bg-cardbody rounded-4">
+                                        <img src=""alt="" class="card-img-top">
+                                    </div>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
 
 
 
@@ -166,6 +166,7 @@
     <footer>
         <!-- place footer here -->
     </footer>
+    <script src="searchByName.js"></script>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
