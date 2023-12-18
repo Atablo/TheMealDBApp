@@ -1,13 +1,14 @@
 let formulario=document.getElementById("searchByName");
 let plantilla=document.getElementById("meal");
 let resultados= document.getElementById("results");
-const urlComidas="www.themealdb.com/api/json/v1/1/search.php?";
+const urlComidas="www.themealdb.com/api/json/v1/1/search.php";
+let nombreComida=document.getElementById("mealName")
 
 
 formulario.addEventListener("submit",e=>{
     e.preventDefault();
-    nombreComida=nombreComida.trim();
-    getMealsByName(nombreComidaRecortado).then(
+    nombreComida=nombreComida.value.trim();
+    getMealsByName(nombreComida).then(
         comidas=>{
             pintaComidas(comidas)
         }
