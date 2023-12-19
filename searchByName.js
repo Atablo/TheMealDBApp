@@ -2,7 +2,6 @@ let formulario = document.getElementById("searchByName");
 let plantilla = document.getElementById("meal").content;
 let resultados = document.getElementById("results");
 const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
-let nombreComida = document.getElementById("mealName");
 let divResultados = document.getElementById("results");
 
 
@@ -10,29 +9,19 @@ function pintaComidas(comidas) {
     divResultados.innerHTML = "";
     const fragment = new DocumentFragment();
 
-    console.log(comidas);
-
     comidas.meals.forEach(comida => {
-
         let clone = plantilla.cloneNode(true);//copiamos toda la temlate con lo que venga dentro
-
         //ponemos la imgaen
         let imagen = clone.getElementById("mealImage");
         console.log(imagen);
         imagen.src = comida.strMealThumb;
-        
         //le ponemos también el pais de la comida
         clone.getElementById("country").textContent = comida.strArea;
-
         //establecemos el tipo de comida
         clone.getElementById("type").textContent = comida.strCategory;
-
-        
-
         //obtenemos el pais y de paso se lo ponemos
         let countryName = comida.strArea;
         clone.querySelector("strong#country").textContent = countryName;
-
         //ahora le establecemos la foto usando el nombre del pais
         imagen = clone.getElementById("countryFlag");
         countryName = countryName.toLowerCase();
@@ -42,10 +31,8 @@ function pintaComidas(comidas) {
             Al igual que America no es am,si no us,eso habría que arreglarlo
         */ 
         imagen.src = "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
-
         //le ponemos ahora el nombre
         clone.querySelector("#mealName").textContent = comida.strMeal;
-
         //ahora le ponemos los nombres de los 4 ingredientes principales
         clone.querySelector("#ingredient1").textContent = comida.strIngredient1;
         clone.querySelector("#ingredient2").textContent = comida.strIngredient2;
@@ -60,6 +47,7 @@ function pintaComidas(comidas) {
 
 formulario.addEventListener("submit", e => {
     e.preventDefault();
+    let nombreComida = document.getElementById("mealName");
     nombreComida = nombreComida.value.trim();
     getMealsByName(nombreComida).then(
         comidas => {
