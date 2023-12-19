@@ -26,11 +26,6 @@ main {
 }
 
 
-.bb {
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-}
-
 hr {
     border: 2px solid rgb(0, 0, 0);
     opacity: 100%;
