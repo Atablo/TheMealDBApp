@@ -123,7 +123,7 @@
             </div>
 
             <!--div para los resultados-->
-            <div class="results">
+            <div id="results">
             </div>
 
             <template id="meal">
@@ -133,14 +133,14 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between shadow p-3 rounded-5">
                                 <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
-                                    <p id="type" class="align-items-center"></p>
+                                    <strong id="type" class="align-items-center"></strong>
                                 </div>
                                 <div class="w-50 d-flex justify-content-center align-items-center">
                                     <div
                                         class=" w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
                                         <strong id="country"></strong>
                                     </div>
-                                    <img src="" alt="" class="ml-2 mr-2 d-sm-flex">
+                                    <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag">
                                 </div>
                             </div>
                             <p class="text-center mt-2 fs-3 fw-bold" id="mealName"></p>
