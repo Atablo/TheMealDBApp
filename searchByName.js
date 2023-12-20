@@ -2,6 +2,7 @@ let formulario = document.getElementById("searchByName");
 let plantilla = document.getElementById("meal").content;
 let resultados = document.getElementById("results");
 const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
+const urlFotoIngredientes="https://www.themealdb.com/images/ingredients/"
 let divResultados = document.getElementById("results");
 
 //arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas
@@ -44,8 +45,20 @@ function pintaComidas(comidas) {
         clone.querySelector("#ingredient3").textContent = comida.strIngredient3;
         clone.querySelector("#ingredient4").textContent = comida.strIngredient4;
 
-        fragment.appendChild(clone);
+        //para construir la foto de los ingredientes necesitamos saber sus nombres
+        let imagenIngrediente1=clone.getElementById("ingredient1image");
+        imagenIngrediente1.src=urlFotoIngredientes+comida.strIngredient1+".png"
 
+        let imagenIngrediente2=clone.getElementById("ingredient2image");
+        imagenIngrediente2.src=urlFotoIngredientes+comida.strIngredient2+".png"
+
+        let imagenIngrediente3=clone.getElementById("ingredient3image");
+        imagenIngrediente3.src=urlFotoIngredientes+comida.strIngredient3+".png"
+
+        let imagenIngrediente4=clone.getElementById("ingredient4image");
+        imagenIngrediente4.src=urlFotoIngredientes+comida.strIngredient4+".png"
+
+        fragment.appendChild(clone);
     });
     divResultados.appendChild(fragment);
 }
