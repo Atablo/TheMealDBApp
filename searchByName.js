@@ -5,9 +5,11 @@ const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
 let divResultados = document.getElementById("results");
 
 //arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas
-const region = ['British', 'America', 'French', 'Canadian', 'Jamaican', 'Chinese', 'Dutch', 'Egyptian', 'Greek',
+const region = ['British', 'American', 'French', 'Canadian', 'Jamaican', 'Chinese', 'Dutch', 'Egyptian', 'Greek',
     'Indian', 'Irish', 'Italian', 'Japanese', 'Kenian', 'Malaysian', 'Mexican', 'Moroccan', 'Croatian', 'Norwegian', 'Portuguese',
     'Russian', 'Argentinian', 'Spanish', 'Slovakian', 'Thai', 'Arabian', 'Vietnamese', 'Turkish', 'Syrian', 'Argelian', 'Tunisian', 'Poli', 'Filipino'];
+
+
 const countryFlags = ['gb', 'us', 'fr', 'ca', 'jm', 'cn', 'nl', 'eg', 'gr', 'in', 'ie', 'it', 'jp', 'kn', 'my', 'mx', 'ma', 'hr', 'no',
     'pt', 'ru', 'ar', 'es', 'sk', 'th', 'sa', 'vn', 'tr', 'sy', 'dz', 'tn', 'pl', 'ph'];
 
@@ -28,18 +30,13 @@ function pintaComidas(comidas) {
         //obtenemos el pais y de paso se lo ponemos
         let countryName = comida.strArea;
         clone.querySelector("strong#country").textContent = countryName;
-        //ahora le establecemos la foto usando el nombre del pais
-
 
         imagen = clone.getElementById("countryFlag");
-        countryName = countryName.toLowerCase();
-        let countryAbrev = countryName.substring(0, 2);
-        /*
-            Realmente no se cogen las dos primeras letras,pues uk es señalado como gb,y no gr
-            Al igual que America no es am,si no us,eso habría que arreglarlo
-        */
-        imagen.src = "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
-        //le ponemos ahora el nombre
+        imagen.src = establishFlag(countryName);
+        //ahora le establecemos la foto usando el nombre del pais con el siguiente método
+
+
+        //le ponemos ahora el nombre de la comida
         clone.querySelector("#mealName").textContent = comida.strMeal;
         //ahora le ponemos los nombres de los 4 ingredientes principales
         clone.querySelector("#ingredient1").textContent = comida.strIngredient1;
@@ -73,3 +70,19 @@ async function getMealsByName(nombreComida) {
 }
 
 
+
+function establishFlag(nombrePais) {
+
+    //tenemos que buscar el pais y obtener el indice
+    let indice = region.indexOf(nombrePais);
+    //con ese indice sacamos la abreviación
+    let countryAbrev = countryFlags[indice];
+    console.log(countryAbrev);
+    //y establecemos esa abreviación
+
+
+
+    return ("https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png");
+
+
+}
