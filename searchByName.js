@@ -4,6 +4,12 @@ let resultados = document.getElementById("results");
 const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
 let divResultados = document.getElementById("results");
 
+//arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas
+const region = ['British', 'America', 'French', 'Canadian', 'Jamaican', 'Chinese', 'Dutch', 'Egyptian', 'Greek',
+    'Indian', 'Irish', 'Italian', 'Japanese', 'Kenian', 'Malaysian', 'Mexican', 'Moroccan', 'Croatian', 'Norwegian', 'Portuguese',
+    'Russian', 'Argentinian', 'Spanish', 'Slovakian', 'Thai', 'Arabian', 'Vietnamese', 'Turkish', 'Syrian', 'Argelian', 'Tunisian', 'Poli', 'Filipino'];
+const countryFlags = ['gb', 'us', 'fr', 'ca', 'jm', 'cn', 'nl', 'eg', 'gr', 'in', 'ie', 'it', 'jp', 'kn', 'my', 'mx', 'ma', 'hr', 'no',
+    'pt', 'ru', 'ar', 'es', 'sk', 'th', 'sa', 'vn', 'tr', 'sy', 'dz', 'tn', 'pl', 'ph'];
 
 function pintaComidas(comidas) {
     divResultados.innerHTML = "";
@@ -23,13 +29,15 @@ function pintaComidas(comidas) {
         let countryName = comida.strArea;
         clone.querySelector("strong#country").textContent = countryName;
         //ahora le establecemos la foto usando el nombre del pais
+
+
         imagen = clone.getElementById("countryFlag");
         countryName = countryName.toLowerCase();
         let countryAbrev = countryName.substring(0, 2);
         /*
             Realmente no se cogen las dos primeras letras,pues uk es señalado como gb,y no gr
             Al igual que America no es am,si no us,eso habría que arreglarlo
-        */ 
+        */
         imagen.src = "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
         //le ponemos ahora el nombre
         clone.querySelector("#mealName").textContent = comida.strMeal;
