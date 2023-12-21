@@ -5,12 +5,8 @@ window.addEventListener("load", function () {
   const plantillaCard = document.querySelector("#meal").content;
   const divCards = document.querySelector("#results");
 
-  const btnNext = document.querySelector("#siguiente");
-  const btnPrevious = document.querySelector("#anterior");
-
   const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
   const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
-  const urlId = "https://www.themealdb.com/api/json/v1/1/";
 
   const region = [
     "British",
@@ -99,16 +95,10 @@ window.addEventListener("load", function () {
     return json;
   }
 
-  async function getMealById(id) {
-    const urlFetch = urlId + "lookup.php?i=" + id;
-    const response = await fetch(urlFetch);
-    const json = await response.json();
-    return json;
-  }
-
   busquedaIngrediente.addEventListener("submit", (e) => {
     e.preventDefault();
     console.log(nombreIngrediente.value);
+
     divCards.innerHTML = "";
 
     getIngredientsByName(nombreIngrediente.value.trim()).then((meals) => {
@@ -171,6 +161,6 @@ window.addEventListener("load", function () {
 
     divCards.appendChild(fragment);
 
-    console.log(divCards);
+    nombreIngrediente.value = "";
   }
 });
