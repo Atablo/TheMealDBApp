@@ -2,75 +2,175 @@ window.addEventListener("load", function () {
   const nombreIngrediente = document.querySelector("#nombreIngrediente");
   const busquedaIngrediente = document.querySelector("#searchByIngredient");
 
+  const plantillaCard = document.querySelector("#meal").content;
+  const divCards = document.querySelector("#results");
+
   const btnNext = document.querySelector("#siguiente");
   const btnPrevious = document.querySelector("#anterior");
 
+  const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
   const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
+  const urlId = "https://www.themealdb.com/api/json/v1/1/";
 
-  async function getMealsByName(name) {
-    const urlFetch = urlIngredients + "/filter.php?i=" + name;
+  const region = [
+    "British",
+    "American",
+    "French",
+    "Canadian",
+    "Jamaican",
+    "Chinese",
+    "Dutch",
+    "Egyptian",
+    "Greek",
+    "Indian",
+    "Irish",
+    "Italian",
+    "Japanese",
+    "Kenian",
+    "Malaysian",
+    "Mexican",
+    "Moroccan",
+    "Croatian",
+    "Norwegian",
+    "Portuguese",
+    "Russian",
+    "Argentinian",
+    "Spanish",
+    "Slovakian",
+    "Thai",
+    "Arabian",
+    "Vietnamese",
+    "Turkish",
+    "Syrian",
+    "Argelian",
+    "Tunisian",
+    "Poli",
+    "Filipino",
+  ];
+
+  const countryFlags = [
+    "gb",
+    "us",
+    "fr",
+    "ca",
+    "jm",
+    "cn",
+    "nl",
+    "eg",
+    "gr",
+    "in",
+    "ie",
+    "it",
+    "jp",
+    "kn",
+    "my",
+    "mx",
+    "ma",
+    "hr",
+    "no",
+    "pt",
+    "ru",
+    "ar",
+    "es",
+    "sk",
+    "th",
+    "sa",
+    "vn",
+    "tr",
+    "sy",
+    "dz",
+    "tn",
+    "pl",
+    "ph",
+  ];
+
+  async function getMealsByName(nombreComida) {
+    let urlFetch = urlComidas + "?s=" + nombreComida;
+    console.log(urlFetch);
+    let listaComidas = await fetch(urlFetch);
+    let json = await listaComidas.json();
+    return json;
+  }
+
+  async function getIngredientsByName(name) {
+    const urlFetch = urlIngredients + "filter.php?i=" + name;
     const response = await fetch(urlFetch);
     const json = await response.json();
     return json;
   }
 
-  function pintaMeals(meals) {
-    console.log(meals.results);
+  async function getMealById(id) {
+    const urlFetch = urlId + "lookup.php?i=" + id;
+    const response = await fetch(urlFetch);
+    const json = await response.json();
+    return json;
   }
 
   busquedaIngrediente.addEventListener("submit", (e) => {
     e.preventDefault();
     console.log(nombreIngrediente.value);
-    getMealsByName(nombreIngrediente.value.trim()).then((meals) => {
-      console.log(meals);
+    divCards.innerHTML = "";
 
+    getIngredientsByName(nombreIngrediente.value.trim()).then((meals) => {
       meals.meals.forEach((meal) => {
-        console.log(meal);
+        getMealsByName(meal.strMeal).then((meals) => {
+          pintarMeals(meals);
+        });
       });
     });
   });
 
-  //   const plantillaCard = document.querySelector("#template-card").content;
-  //   const divCards = document.querySelector("#lista-cards");
+  function establishFlag(nombrePais) {
+    //tenemos que buscar el pais y obtener el indice
+    let indice = region.indexOf(nombrePais);
+    //con ese indice sacamos la abreviación
+    let countryAbrev = countryFlags[indice];
+    console.log(countryAbrev);
+    //y establecemos esa abreviación
 
-  //   const divNavegacion = document.querySelector("#navegacion");
+    return "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
+  }
 
-  //   pageCounter = 1;
+  function pintarMeals(meals) {
+    const fragment = document.createDocumentFragment();
 
-  //   btnNext.addEventListener("click", (e) => {
-  //     pageCounter++;
-  //     getMealsByName(imgPlato.value.trim(), (page = pageCounter)).then((platos) => {
-  //       pintarCards(platos);
-  //     });
-  //   });
+    meals.meals.forEach((meal) => {
+      console.log(meal.strMealThumb);
+      //CAMBIAR TODOS LAS IDS A CLASES PORQUE SE REPITEN
+      plantillaCard.querySelector("#mealImage").src = meal.strMealThumb;
+      plantillaCard.querySelector("#mealName").textContent = meal.strMeal;
 
-  //   btnPrevious.addEventListener("click", (e) => {
-  //     pageCounter--;
-  //     getMealsByName(imgPlato.value.trim(), (page = pageCounter)).then((platos) => {
-  //       pintarCards(platos);
-  //     });
-  //   });
+      plantillaCard.querySelector("#type").textContent = meal.strCategory;
 
-  //   async function getCharactersByURL(URL) {
-  //     const response = await fetch(URL);
-  //     const json = await response.json();
-  //     return json;
-  //   }
+      plantillaCard.querySelector("#country").textContent = meal.strArea;
+      plantillaCard.querySelector("#countryFlag").src = establishFlag(meal.strArea);
 
-  //   function pintarCards(platos) {
-  //     divCards.innerHTML = "";
+      plantillaCard.querySelector("#ingredient1").textContent = meal.strIngredient1;
+      plantillaCard.querySelector(
+        "#ingredient1image"
+      ).src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient1}-small.png`;
 
-  //     const fragment = document.createDocumentFragment();
+      plantillaCard.querySelector("#ingredient2").textContent = meal.strIngredient2;
+      plantillaCard.querySelector(
+        "#ingredient2image"
+      ).src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient2}-small.png`;
 
-  //     platos.results.forEach((plato) => {
-  //       plantillaCard.querySelector(".imagenPersonaje").src = personaje.image;
-  //       plantillaCard.querySelector(".nombrePintado").textContent = personaje.name;
-  //       plantillaCard.querySelector(".estado-especiePintado").textContent = personaje.status + " - " + personaje.species;
-  //       plantillaCard.querySelector(".ubicacionPintado span").textContent = personaje.location.name;
+      plantillaCard.querySelector("#ingredient3").textContent = meal.strIngredient3;
+      plantillaCard.querySelector(
+        "#ingredient3image"
+      ).src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient3}-small.png`;
 
-  //       const clone = plantillaCard.cloneNode(true);
-  //       fragment.appendChild(clone);
-  //     });
-  //     divCards.appendChild(fragment);
-  //   }
+      plantillaCard.querySelector("#ingredient4").textContent = meal.strIngredient4;
+      plantillaCard.querySelector(
+        "#ingredient4image"
+      ).src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient4}-small.png`;
+
+      const clone = plantillaCard.cloneNode(true);
+      fragment.appendChild(clone);
+    });
+
+    divCards.appendChild(fragment);
+
+    console.log(divCards);
+  }
 });

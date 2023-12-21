@@ -42,7 +42,7 @@
 
             <form class="d-flex my-2 my-lg-0" id="searchByName">
               <input class="form-control" type="text" placeholder="Por Nombre" id="mealName" />
-              <button class="btn btn-outline-success my-2 my-sm-0 mr-10 ms-1" type="submit">Buscar</button>
+              <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">Buscar</button>
             </form>
             <form action="#" class="d-flex my-lg-0" id="searchByIngredient">
               <input class="form-control" type="text" placeholder="Por Ingrediente" id="nombreIngrediente" />
@@ -50,7 +50,7 @@
             </form>
             <form class="d-flex my-2 my-lg-0">
               <input class="form-control" type="text" placeholder="Por País" />
-              <button class="btn btn-outline-success my-2 my-sm-0 mr-10 ms-1" type="submit">Buscar</button>
+              <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">Buscar</button>
             </form>
           </div>
         </div>
@@ -63,10 +63,9 @@
           <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
             <div class="card h-100">
               <img
-                class="card-img-top position-relative"
+                class="card-img-top bb position-relative"
                 src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg"
-                alt="Title"
-                id="img-plato" />
+                alt="Title" />
               <div class="card-body">
                 <div class="d-flex justify-content-between shadow p-3 rounded-5">
                   <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
@@ -109,43 +108,67 @@
             </div>
           </div>
         </div>
-      </div>
-      <!--div para los resultados-->
-      <div class="results"></div>
-    </main>
 
-    <template id="meal">
-      <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
-        <div class="card h-100">
-          <img class="card-img-top bb position-relative" src="" alt="Title" />
-          <div class="card-body">
-            <div class="d-flex justify-content-between shadow p-3 rounded-5">
-              <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
-                <strong></strong>
-              </div>
-              <div class="w-50 d-flex justify-content-center align-items-center">
-                <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex"></div>
-                <img src="" alt="" class="ml-2 mr-2 d-sm-flex" />
-              </div>
-            </div>
-            <hr />
-            <h4 class="card-title my-4 bg-success rounded-2 p-2 text-center">
-              <strong>Ingredientes Principales</strong>
-            </h4>
-            <div class="row flex-wrap justify-content-center align-content-center shadow rounded-3 m-2">
-              <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
-                <div class="bg-cardbody rounded-4">
-                  <img src="" alt="" class="card-img-top" />
+        <!--div para los resultados-->
+        <div id="results" class="row flex-wrap justify-content-around"></div>
+
+        <template id="meal">
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
+            <div class="card h-100">
+              <img class="card-img-top bb position-relative" src="" alt="Title" id="mealImage" />
+              <div class="card-body">
+                <div class="d-flex justify-content-between shadow p-3 rounded-5">
+                  <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
+                    <strong id="type" class="align-items-center"></strong>
+                  </div>
+                  <div class="w-50 d-flex justify-content-center align-items-center">
+                    <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
+                      <strong id="country" class="fs-6"></strong>
+                    </div>
+                    <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag" />
+                  </div>
                 </div>
-                <p></p>
+                <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName"></p>
+                <hr />
+
+                <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
+                  <h4 class="card-title my-4 bg-light-subtle rounded-2 p-2 text-center">Ingredientes Principales</h4>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient1image" />
+                    </div>
+                    <p id="ingredient1"></p>
+                  </div>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient2image" />
+                    </div>
+                    <p id="ingredient2"></p>
+                  </div>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient3image" />
+                    </div>
+                    <p id="ingredient3"></p>
+                  </div>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient4image" />
+                    </div>
+                    <p id="ingredient4"></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </div>
-    </template>
-
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
     <script src="app.js"></script>
+    <script src="searchByName.js"></script>
     <!-- Bootstrap JavaScript Libraries -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
