@@ -45,7 +45,9 @@
               <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">Buscar</button>
             </form>
             <form action="#" class="d-flex my-lg-0" id="searchByIngredient">
-              <input class="form-control" type="text" placeholder="Por Ingrediente" id="nombreIngrediente" />
+              <input class="form-control" type="text" list="datalistOptions" placeholder="Por Ingrediente" id="nombreIngrediente" />
+              <datalist id="datalistOptions"></datalist>
+
               <button class="btn btn-outline-success my-2 my-sm-0 mr-10 ms-1" type="submit">Buscar</button>
             </form>
             <form class="d-flex my-2 my-lg-0">
@@ -111,62 +113,60 @@
 
         <!--div para los resultados-->
         <div id="results" class="row flex-wrap justify-content-around"></div>
+      </div>
+    </main>
 
-        <template id="meal">
-          <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
-            <div class="card h-100">
-              <img class="card-img-top bb position-relative" src="" alt="Title" id="mealImage" />
-              <div class="card-body">
-                <div class="d-flex justify-content-between shadow p-3 rounded-5">
-                  <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
-                    <strong id="type" class="align-items-center"></strong>
-                  </div>
-                  <div class="w-50 d-flex justify-content-center align-items-center">
-                    <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
-                      <strong id="country" class="fs-6"></strong>
-                    </div>
-                    <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag" />
-                  </div>
+    <template id="meal">
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
+        <div class="card h-100">
+          <img class="card-img-top bb position-relative" src="" alt="Title" id="mealImage" />
+          <div class="card-body">
+            <div class="d-flex justify-content-between shadow p-3 rounded-5">
+              <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
+                <strong id="type" class="align-items-center"></strong>
+              </div>
+              <div class="w-50 d-flex justify-content-center align-items-center">
+                <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
+                  <strong id="country" class="fs-6"></strong>
                 </div>
-                <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName"></p>
-                <hr />
+                <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag" />
+              </div>
+            </div>
+            <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName"></p>
+            <hr />
 
-                <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
-                  <h4 class="card-title my-4 bg-light-subtle rounded-2 p-2 text-center">Ingredientes Principales</h4>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="" alt="" class="card-img-top" id="ingredient1image" />
-                    </div>
-                    <p id="ingredient1"></p>
-                  </div>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="" alt="" class="card-img-top" id="ingredient2image" />
-                    </div>
-                    <p id="ingredient2"></p>
-                  </div>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="" alt="" class="card-img-top" id="ingredient3image" />
-                    </div>
-                    <p id="ingredient3"></p>
-                  </div>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="" alt="" class="card-img-top" id="ingredient4image" />
-                    </div>
-                    <p id="ingredient4"></p>
-                  </div>
+            <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
+              <h4 class="card-title my-4 bg-light-subtle rounded-2 p-2 text-center">Ingredientes Principales</h4>
+              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                <div class="bg-cardbody rounded-4">
+                  <img src="" alt="" class="card-img-top" id="ingredient1image" />
                 </div>
+                <p id="ingredient1"></p>
+              </div>
+              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                <div class="bg-cardbody rounded-4">
+                  <img src="" alt="" class="card-img-top" id="ingredient2image" />
+                </div>
+                <p id="ingredient2"></p>
+              </div>
+              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                <div class="bg-cardbody rounded-4">
+                  <img src="" alt="" class="card-img-top" id="ingredient3image" />
+                </div>
+                <p id="ingredient3"></p>
+              </div>
+              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                <div class="bg-cardbody rounded-4">
+                  <img src="" alt="" class="card-img-top" id="ingredient4image" />
+                </div>
+                <p id="ingredient4"></p>
               </div>
             </div>
           </div>
-        </template>
+        </div>
       </div>
-    </main>
-    <footer>
-      <!-- place footer here -->
-    </footer>
+    </template>
+
     <script src="app.js"></script>
     <script src="searchByName.js"></script>
     <!-- Bootstrap JavaScript Libraries -->

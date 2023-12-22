@@ -5,8 +5,11 @@ window.addEventListener("load", function () {
   const plantillaCard = document.querySelector("#meal").content;
   const divCards = document.querySelector("#results");
 
+  const datalistOptions = document.querySelector("#datalistOptions");
+
   const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
   const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
+  const listIngredients = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
 
   const region = [
     "British",
@@ -95,9 +98,21 @@ window.addEventListener("load", function () {
     return json;
   }
 
+  async function getAllIngredients() {
+    const urlFetch = listIngredients;
+    const response = await fetch(urlFetch);
+    const json = await response.json();
+    return json;
+  }
+
+  getAllIngredients().then((ingredients) => {
+    ingredients.meals.forEach((ingredient) => {
+      datalistOptions.innerHTML += `<option value="${ingredient.strIngredient}"></option>`;
+    });
+  });
+
   busquedaIngrediente.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(nombreIngrediente.value);
 
     divCards.innerHTML = "";
 
