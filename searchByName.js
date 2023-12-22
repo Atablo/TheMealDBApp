@@ -92,9 +92,6 @@ function establishFlag(nombrePais) {
     let countryAbrev = countryFlags[indice];
     console.log(countryAbrev);
     //y establecemos esa abreviación
-
-
-
     return ("https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png");
 
 

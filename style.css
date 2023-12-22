@@ -27,8 +27,8 @@ main {
 
 
 .bb {
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 hr {
@@ -38,4 +38,11 @@ hr {
 
 .w-30 {
     width: 30%;
+}
+
+
+
+#divIngredients a{
+    color: #000;
+    text-decoration: none;
 }

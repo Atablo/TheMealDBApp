@@ -29,29 +29,21 @@
                             <a class="nav-link active" href="#" aria-current="page">Home
                                 <span class="visually-hidden">(current)</span></a>
                         </li>
-
                     </ul>
-
                     <form class="d-flex my-2 my-lg-0" id="searchByName">
                         <input class="form-control" type="text" placeholder="Por Nombre" id="mealName" />
+                        <datalist id="datalistOptions"></datalist>
                         <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">
                             Buscar
                         </button>
                     </form>
-                    <form class="d-flex  my-lg-0 ">
-                        <input class="form-control  " type="text" placeholder="Por Ingrediente" />
+                    <form class="d-flex  my-lg-0 " id="searchByIngredient">
+                        <input class="form-control  " type="text" placeholder="Por Ingrediente"
+                            id="nombreIngrediente" />
                         <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">
                             Buscar
                         </button>
                     </form>
-                    <form class="d-flex my-2 my-lg-0">
-                        <input class="form-control" type="text" placeholder="Por País" />
-                        <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">
-                            Buscar
-                        </button>
-                    </form>
-
-
                 </div>
             </div>
         </nav>
@@ -64,7 +56,6 @@
     <main>
         <div class="container">
             <div class="row flex-wrap  justify-content-between">
-
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
                     <div class="card h-100">
                         <img class="card-img-top bb position-relative"
@@ -145,34 +136,42 @@
                             </div>
                             <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName"></p>
                             <hr>
-                           
-                            <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
-                                <h4 class="card-title my-4 bg-light-subtle rounded-2 p-2 text-center">
+
+                            <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2"id="divIngredients">
+                                <h4 class="card-title mb-4 bg-info-subtle rounded-2 p-2 text-center">
                                     Ingredientes Principales
                                 </h4>
                                 <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                                    <div class="bg-cardbody rounded-4">
-                                        <img src="" alt="" class="card-img-top" id="ingredient1image">
+                                    <div id="ingredient1link">
+                                        <div class="bg-cardbody rounded-4">
+                                            <img src="" alt="" class="card-img-top" id="ingredient1image">
+                                        </div>
+                                        <p id="ingredient1"></p>
                                     </div>
-                                    <p id="ingredient1"></p>
                                 </div>
                                 <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                                    <div class="bg-cardbody rounded-4">
-                                        <img src="" alt="" class="card-img-top" id="ingredient2image">
+                                    <div class="ingredient">
+                                        <div class="bg-cardbody rounded-4">
+                                            <img src="" alt="" class="card-img-top" id="ingredient2image">
+                                        </div>
+                                        <p id="ingredient2"></p>
                                     </div>
-                                    <p id="ingredient2"></p>
                                 </div>
                                 <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                                    <div class="bg-cardbody rounded-4">
-                                        <img src="" alt="" class="card-img-top" id="ingredient3image">
+                                    <div class="ingredient">
+                                        <div class="bg-cardbody rounded-4">
+                                            <img src="" alt="" class="card-img-top" id="ingredient3image">
+                                        </div>
+                                        <p id="ingredient3"></p>
                                     </div>
-                                    <p id="ingredient3"></p>
                                 </div>
                                 <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                                    <div class="bg-cardbody rounded-4">
-                                        <img src="" alt="" class="card-img-top" id="ingredient4image">
+                                    <div id="ingredient4link">
+                                        <div class="bg-cardbody rounded-4">
+                                            <img src="" alt="" class="card-img-top" id="ingredient4image">
+                                        </div>
+                                        <p id="ingredient4"></p>
                                     </div>
-                                    <p id="ingredient4"></p>
                                 </div>
                             </div>
                         </div>
@@ -185,6 +184,7 @@
         <!-- place footer here -->
     </footer>
     <script src="searchByName.js"></script>
+    <script src="searchByIngredient.js"></script>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
