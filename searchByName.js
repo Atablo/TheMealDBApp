@@ -2,7 +2,8 @@ let formulario = document.getElementById("searchByName");
 let plantilla = document.getElementById("meal").content;
 let resultados = document.getElementById("results");
 const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
-const urlFotoIngredientes="https://www.themealdb.com/images/ingredients/"
+const urlFotoIngredientes="https://www.themealdb.com/images/ingredients/";
+let mensajeWeb=document.getElementById("webMessage");
 let divResultados = document.getElementById("results");
 
 //arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas
@@ -70,6 +71,7 @@ formulario.addEventListener("submit", e => {
     getMealsByName(nombreComida).then(
         comidas => {
             pintaComidas(comidas)
+            mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con '"+nombreComida+"'";
         }
     )
 })

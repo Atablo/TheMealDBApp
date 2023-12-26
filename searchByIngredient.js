@@ -1,8 +1,10 @@
 window.addEventListener("load", function () {
+  let mensajeWeb=document.getElementById("webMessage");
+
   const nombreIngrediente = document.querySelector("#nombreIngrediente");
   const busquedaIngrediente = document.querySelector("#searchByIngredient");
 
-  const linkToIngredients = document.querySelectorAll("#divIngredientes a");
+  const divIngredients = document.querySelectorAll("#divIngredients");
 
   const plantillaCard = document.querySelector("#meal").content;
   const divCards = document.querySelector("#results");
@@ -119,9 +121,11 @@ window.addEventListener("load", function () {
     divCards.innerHTML = "";
 
     getIngredientsByName(nombreIngrediente.value.trim()).then((meals) => {
+      mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente'"+nombreIngrediente.value+"'";
       meals.meals.forEach((meal) => {
         getMealsByName(meal.strMeal).then((meals) => {
           pintarMeals(meals);
+
         });
       });
     });
@@ -182,14 +186,27 @@ window.addEventListener("load", function () {
 
     nombreIngrediente.value = "";
   }
-});
-let ingrediente = document.querySelectorAll(".ingrediente");
-urlsIngredientes.forEach(elemento => {
-  elemento.addEventListener("click",evento => {
-    divCards.innerHTML = "";
 
-    let nombreIngrediente=elemento.querySelector("p").textContent;
+  divCards.addEventListener("click",evento => {
+    let nombreIngrediente;
+    console.log("Has hecho click en una comida");
+    
 
+/*si hacemosclick en el nombre    
+    if(evento.target.parentNode.classList.contains("ingredient")){
+  
+      console.log("Has hecho click en el nombre del ingrediente "+ evento.target.parentNode.querySelector(".ingredient p").textContent);
+      evento.stopPropagation();
+    }
+*/
+//si hacemos click en la imagen
+    /*else*/
+    if(evento.target.parentNode.parentNode.classList.contains("ingredient")) {
+      nombreIngrediente=evento.target.parentNode.parentNode.querySelector(".ingredient p").textContent;
+      console.log("Has hecho click en la imagen del ingrediente "+ nombreIngrediente);
+      divCards.innerHTML = "";
+
+      mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente '"+nombreIngrediente+"'";
     getIngredientsByName(nombreIngrediente).then((meals) => {
       meals.meals.forEach((meal) => {
         getMealsByName(meal.strMeal).then((meals) => {
@@ -197,8 +214,11 @@ urlsIngredientes.forEach(elemento => {
         });
       });
     });
+      evento.stopPropagation();
+    }
+
+  
+
+    
   });
 });
- 
-
-
