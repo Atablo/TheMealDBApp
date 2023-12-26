@@ -80,8 +80,8 @@ formulario.addEventListener("submit", e => {
         }
     ).catch(
         //pinto el mensaje de su color
-         mensajeWeb.classList.remove("alert-info"),
-         mensajeWeb.classList.add("alert-danger"),
+        mensajeWeb.classList.remove("alert-info"),
+        mensajeWeb.classList.add("alert-danger"),
         mensajeWeb.querySelector("p").textContent="No existen resultados para la búsqueda de comida con '"+nombreComida+"'",
         
         

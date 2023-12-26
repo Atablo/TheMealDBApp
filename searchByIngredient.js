@@ -121,14 +121,20 @@ window.addEventListener("load", function () {
     divCards.innerHTML = "";
 
     getIngredientsByName(nombreIngrediente.value.trim()).then((meals) => {
-      mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente'"+nombreIngrediente.value+"'";
+
       meals.meals.forEach((meal) => {
         getMealsByName(meal.strMeal).then((meals) => {
           pintarMeals(meals);
-
-        });
+          mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente'"+nombreIngrediente.value+"'";
+          mensajeWeb.classList.remove("alert-danger"),
+          mensajeWeb.classList.add("alert-info")
+        })
       });
-    });
+    }).catch(
+      mensajeWeb.classList.remove("alert-info"),
+      mensajeWeb.classList.add("alert-danger"),
+      mensajeWeb.querySelector("p").textContent="No existen resultados para la búsqueda de comida con el ingrediente'"+nombreIngrediente.value+"'",
+    );
   });
 
 
