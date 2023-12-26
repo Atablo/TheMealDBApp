@@ -61,58 +61,14 @@
 
     <main>
       <div class="container">
-        <div class="row flex-wrap justify-content-between">
-          <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
-            <div class="card h-100">
-              <img
-                class="card-img-top bb position-relative"
-                src="https://www.themealdb.com/images/media/meals/oe8rg51699014028.jpg"
-                alt="Title" />
-              <div class="card-body">
-                <div class="d-flex justify-content-between shadow p-3 rounded-5">
-                  <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
-                    <strong>Dessert</strong>
-                  </div>
-                  <div class="w-50 d-flex justify-content-center align-items-center">
-                    <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">Russian</div>
-                    <img src="https://www.themealdb.com/images/icons/flags/big/32/ru.png" alt="" class="ml-2 mr-2 d-sm-flex" />
-                  </div>
-                </div>
-                <hr />
-                <h5 class="card-title my-4 bg-success rounded-2 p-2 text-center"><strong>Ingredientes Principales</strong></h5>
-                <div class="row flex-wrap justify-content-center align-content-center shadow rounded-3 m-2">
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="https://www.themealdb.com/images/ingredients/Strawberries-small.png" alt="" class="card-img-top" />
-                    </div>
-                    <p>Tomato</p>
-                  </div>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="https://www.themealdb.com/images/ingredients/Strawberries-small.png" alt="" class="card-img-top" />
-                    </div>
-                    <p>Tomato</p>
-                  </div>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="https://www.themealdb.com/images/ingredients/Strawberries-small.png" alt="" class="card-img-top" />
-                    </div>
-                    <p>Tomato</p>
-                  </div>
-                  <div class="col-3 col-sm-6 col-lg-3 col-xl-4 my-2 text-center">
-                    <div class="bg-cardbody rounded-4">
-                      <img src="https://www.themealdb.com/images/ingredients/Strawberries-small.png" alt="" class="card-img-top" />
-                    </div>
-                    <p>Tomato</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="alert alert-info my-5 text-center" role="alert" id="webMessage">
+          <p class="text-center fs-1">Bienvenido a nuestro catalogo de comidas</p>
+          <img src="https://www.themealdb.com/images/logo-small.png" alt="" style="width: 150px" />
         </div>
 
-        <!--div para los resultados-->
         <div id="results" class="row flex-wrap justify-content-around"></div>
+
+        <!--div para los resultados-->
       </div>
     </main>
 
@@ -137,25 +93,25 @@
 
             <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
               <h4 class="card-title my-4 bg-light-subtle rounded-2 p-2 text-center">Ingredientes Principales</h4>
-              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
                 <div class="bg-cardbody rounded-4">
                   <img src="" alt="" class="card-img-top" id="ingredient1image" />
                 </div>
                 <p id="ingredient1"></p>
               </div>
-              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
                 <div class="bg-cardbody rounded-4">
                   <img src="" alt="" class="card-img-top" id="ingredient2image" />
                 </div>
                 <p id="ingredient2"></p>
               </div>
-              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
                 <div class="bg-cardbody rounded-4">
                   <img src="" alt="" class="card-img-top" id="ingredient3image" />
                 </div>
                 <p id="ingredient3"></p>
               </div>
-              <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
                 <div class="bg-cardbody rounded-4">
                   <img src="" alt="" class="card-img-top" id="ingredient4image" />
                 </div>
