@@ -42,6 +42,6 @@ hr {
     width: 30%;
 }
 
-.ingredient img{
+.ingredient img:hover{
     cursor:pointer;
 }

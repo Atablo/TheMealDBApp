@@ -71,9 +71,21 @@ formulario.addEventListener("submit", e => {
     getMealsByName(nombreComida).then(
         comidas => {
             pintaComidas(comidas)
+
+            if (mensajeWeb.classList.contains("alert-danger")) {
+                mensajeWeb.classList.remove("alert-danger")
+                mensajeWeb.classList.add("alert-info")
+            }
             mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con '"+nombreComida+"'";
         }
-    )
+    ).catch(
+        //pinto el mensaje de su color
+         mensajeWeb.classList.remove("alert-info"),
+         mensajeWeb.classList.add("alert-danger"),
+        mensajeWeb.querySelector("p").textContent="No existen resultados para la búsqueda de comida con '"+nombreComida+"'",
+        
+        
+        )
 })
 
 async function getMealsByName(nombreComida) {
