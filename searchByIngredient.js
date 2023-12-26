@@ -125,10 +125,12 @@ window.addEventListener("load", function () {
       meals.meals.forEach((meal) => {
         getMealsByName(meal.strMeal).then((meals) => {
           pintarMeals(meals);
-          mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente'"+nombreIngrediente.value+"'";
+          
+        }).catch(
+          mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente'"+nombreIngrediente.value+"'",
           mensajeWeb.classList.remove("alert-danger"),
           mensajeWeb.classList.add("alert-info")
-        })
+        )
       });
     }).catch(
       mensajeWeb.classList.remove("alert-info"),
