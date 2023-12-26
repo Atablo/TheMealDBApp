@@ -5,5 +5,5 @@
 Hecho por:
 
 - Saúl Barrajón Ortiz
-- Yiyang Ji (Johnny)
+- Yiyang Ji
 - Pablo Atahonero García de Blas
