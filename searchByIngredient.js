@@ -146,11 +146,8 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 });
 
 divCards.addEventListener("click", (evento) => {
-  console.log("Has hecho click en una comida");
-
   if (evento.target.parentNode.parentNode.classList.contains("ingredient")) {
     let nombreIngrediente = evento.target.parentNode.parentNode.querySelector(".ingredient p").textContent;
-    console.log("Has hecho click en la imagen del ingrediente " + nombreIngrediente);
 
     divCards.innerHTML = "";
 
@@ -197,7 +194,10 @@ function pintarMeals(meals) {
     plantillaCard.querySelector("#type").textContent = meal.strCategory;
 
     plantillaCard.querySelector("#country").textContent = meal.strArea;
-    plantillaCard.querySelector("#countryFlag").src = establishFlag(meal.strArea);
+
+    if (plantillaCard.querySelector("#country").textContent != "Unknown") {
+      plantillaCard.querySelector("#countryFlag").src = establishFlag(meal.strArea);
+    }
 
     plantillaCard.querySelector("#ingredient1").textContent = meal.strIngredient1;
     plantillaCard.querySelector("#ingredient1image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient1}-small.png`;
@@ -242,9 +242,4 @@ function printTags(plantillaCard, meal) {
 /*
 Errores:
 1. Utilizar Ids está mal, cambiarlo todo a clases
-2. El array de paises, "Polish" (penúltimo pais) está mal escrito, escribirlo bien
-2. Hay platos que tienen pais "unknown", hay que comtemplar el caso para que no ejecute la funcion por ejemplo
-3. Llega un momento en el que peta la API, por demasiadas solicitudes creo, y te bloquean el traer datos
-4. Al recargar la página con el LiveServer, y el DevTools de Chrome da el siguiente error: "TypeError: function call() { [native code] } is not a constructor"
-    y no permite recargar la página hasta cerrar el DevTools (es posible abrirlo de nuevo una vez cerrado)
 */

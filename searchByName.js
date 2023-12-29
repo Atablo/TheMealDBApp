@@ -98,7 +98,11 @@ function pintaComidas(comidas) {
     clone.querySelector("strong#country").textContent = countryName;
 
     imagen = clone.getElementById("countryFlag");
-    imagen.src = establishFlag(countryName);
+
+    if (clone.querySelector("#country").textContent != "Unknown") {
+      imagen.src = establishFlag(countryName);
+    }
+
     //ahora le establecemos la foto usando el nombre del pais con el siguiente método
 
     //le ponemos ahora el nombre de la comida
