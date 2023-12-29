@@ -39,7 +39,6 @@
                 </a>
               </li>
             </ul>
-
             <form class="d-flex my-2 my-lg-0" id="searchByName">
               <input class="form-control" type="text" placeholder="Por Nombre" id="mealName" />
               <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">Buscar</button>
@@ -49,10 +48,6 @@
               <datalist id="datalistOptions"></datalist>
 
               <button class="btn btn-outline-success my-2 my-sm-0 mr-10 ms-1" type="submit">Buscar</button>
-            </form>
-            <form class="d-flex my-2 my-lg-0">
-              <input class="form-control" type="text" placeholder="Por País" />
-              <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">Buscar</button>
             </form>
           </div>
         </div>
@@ -66,65 +61,131 @@
           <img src="https://www.themealdb.com/images/logo-small.png" alt="" style="width: 150px" />
         </div>
 
-        <div id="results" class="row flex-wrap justify-content-around"></div>
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
+          <div class="card h-100">
+            <img class="card-img-top bb position-relative" src="" alt="Title" id="mealImage" />
+            <div class="card-body">
+              <div class="d-flex justify-content-between shadow p-3 rounded-5">
+                <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
+                  <strong id="type" class="align-items-center">Patata</strong>
+                </div>
+                <div class="w-50 d-flex justify-content-center align-items-center">
+                  <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
+                    <strong id="country" class="fs-6">Russian</strong>
+                  </div>
+                  <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag" />
+                </div>
+              </div>
+              <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName">Canguingos</p>
+              <hr />
 
-        <!--div para los resultados-->
-      </div>
-    </main>
-
-    <template id="meal">
-      <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
-        <div class="card h-100">
-          <img class="card-img-top bb position-relative" src="" alt="Title" id="mealImage" />
-          <div class="card-body">
-            <div class="d-flex justify-content-between shadow p-3 rounded-5">
-              <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
-                <strong id="type" class="align-items-center"></strong>
-              </div>
-              <div class="w-50 d-flex justify-content-center align-items-center">
-                <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
-                  <strong id="country" class="fs-6"></strong>
+              <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2" id="divIngredients">
+                <h4 class="card-title mb-4 bg-info-subtle rounded-2 p-2 text-center">Ingredientes Principales</h4>
+                <div class="ingredient col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                  <div class="bg-cardbody rounded-4">
+                    <img src="" alt="" class="card-img-top" id="ingredient1image" />
+                  </div>
+                  <p id="ingredient1">Ingrediente 1</p>
                 </div>
-                <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag" />
-              </div>
-            </div>
-            <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName"></p>
-            <hr />
-
-            <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
-              <h4 class="card-title my-4 bg-light-subtle rounded-2 p-2 text-center">Ingredientes Principales</h4>
-              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                <div class="bg-cardbody rounded-4">
-                  <img src="" alt="" class="card-img-top" id="ingredient1image" />
+                <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center ingredient">
+                  <div class="bg-cardbody rounded-4">
+                    <img src="" alt="" class="card-img-top" id="ingredient2image" />
+                  </div>
+                  <p id="ingredient2">Ingrediente 2</p>
                 </div>
-                <p id="ingredient1"></p>
-              </div>
-              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                <div class="bg-cardbody rounded-4">
-                  <img src="" alt="" class="card-img-top" id="ingredient2image" />
+                <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center ingredient">
+                  <div class="bg-cardbody rounded-4">
+                    <img src="" alt="" class="card-img-top" id="ingredient3image" />
+                  </div>
+                  <p id="ingredient3">Ingrediente 3</p>
                 </div>
-                <p id="ingredient2"></p>
-              </div>
-              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                <div class="bg-cardbody rounded-4">
-                  <img src="" alt="" class="card-img-top" id="ingredient3image" />
+                <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center ingredient">
+                  <div class="bg-cardbody rounded-4">
+                    <img src="" alt="" class="card-img-top" id="ingredient4image" />
+                  </div>
+                  <p id="ingredient4">Ingrediente 4</p>
                 </div>
-                <p id="ingredient3"></p>
               </div>
-              <div class="ingredient col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
-                <div class="bg-cardbody rounded-4">
-                  <img src="" alt="" class="card-img-top" id="ingredient4image" />
+              <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
+                <h5 class="mb-4 bg-info-subtle rounded-2 p-2 text-center">Tags</h5>
+                <div class="tags d-flex flex-wrap justify-content-center align-items-center text-center rounded-3">
+                  <p class="rounded-4 bg-secondary-subtle align-content-center mx-2">#Carne</p>
+                  <p class="rounded-4 bg-secondary-subtle align-content-center mx-2">#Pescado</p>
+                  <p class="rounded-4 bg-secondary-subtle align-content-center mx-2">#Carne</p>
+                  <p class="rounded-4 bg-secondary-subtle align-content-center mx-2">#Vegetarianadfadfa</p>
+                  <p class="rounded-4 bg-secondary-subtle align-content-center mx-2">#Carne</p>
+                  <p class="rounded-4 bg-secondary-subtle align-content-center mx-2">#Meat</p>
                 </div>
-                <p id="ingredient4"></p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </template>
 
-    <script src="app.js"></script>
+        <div id="results" class="row flex-wrap justify-content-around"></div>
+
+        <!--div para los resultados-->
+
+        <template id="meal">
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
+            <div class="card h-100">
+              <img class="card-img-top bb position-relative" src="" alt="Title" id="mealImage" />
+              <div class="card-body">
+                <div class="d-flex justify-content-between shadow p-3 rounded-5">
+                  <div class="bg-warning w-50 d-flex justify-content-center rounded-4 align-items-center">
+                    <strong id="type" class="align-items-center"></strong>
+                  </div>
+                  <div class="w-50 d-flex justify-content-center align-items-center">
+                    <div class="w-50 d-flex justify-content-center align-items-center d-none d-md-flex">
+                      <strong id="country" class="fs-6"></strong>
+                    </div>
+                    <img src="" alt="" class="ml-2 mr-2 d-sm-flex" id="countryFlag" />
+                  </div>
+                </div>
+                <p class="text-center mt-2 fs-3 fst-italic fw-bold" id="mealName"></p>
+                <hr />
+
+                <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2" id="divIngredients">
+                  <h4 class="card-title mb-4 bg-info-subtle rounded-2 p-2 text-center">Main ingredients</h4>
+                  <div class="ingredient col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient1image" />
+                    </div>
+                    <p id="ingredient1"></p>
+                  </div>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center ingredient">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient2image" />
+                    </div>
+                    <p id="ingredient2"></p>
+                  </div>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center ingredient">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient3image" />
+                    </div>
+                    <p id="ingredient3"></p>
+                  </div>
+                  <div class="col-3 col-sm-6 col-lg-3 col-xl-6 my-2 text-center ingredient">
+                    <div class="bg-cardbody rounded-4">
+                      <img src="" alt="" class="card-img-top" id="ingredient4image" />
+                    </div>
+                    <p id="ingredient4"></p>
+                  </div>
+                </div>
+                <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
+                  <h5 class="mb-4 bg-info-subtle rounded-2 p-2 text-center">Tags</h5>
+                  <div class="tags d-flex flex-wrap justify-content-center align-items-center text-center rounded-3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
     <script src="searchByName.js"></script>
+    <script src="searchByIngredient.js"></script>
     <!-- Bootstrap JavaScript Libraries -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

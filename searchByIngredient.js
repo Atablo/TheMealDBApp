@@ -1,18 +1,17 @@
 const nombreIngrediente = document.querySelector("#nombreIngrediente");
 const busquedaIngrediente = document.querySelector("#searchByIngredient");
 
-let mensajeWeb = document.getElementById("webMessage");
+let webMessage = document.getElementById("webMessage");
 
 const plantillaCard = document.querySelector("#meal").content;
 const divCards = document.querySelector("#results");
 
 const datalistOptions = document.querySelector("#datalistOptions");
 
-const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
 const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
 const listIngredients = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
 
-const region = [
+const regiones = [
   "British",
   "American",
   "French",
@@ -48,7 +47,7 @@ const region = [
   "Filipino",
 ];
 
-const countryFlags = [
+const banderaPaises = [
   "gb",
   "us",
   "fr",
@@ -83,13 +82,6 @@ const countryFlags = [
   "pl",
   "ph",
 ];
-
-async function getMealsByName(nombreComida) {
-  let urlFetch = urlComidas + "?s=" + nombreComida;
-  let listaComidas = await fetch(urlFetch);
-  let json = await listaComidas.json();
-  return json;
-}
 
 async function getIngredientsByName(name) {
   const urlFetch = urlIngredients + "filter.php?i=" + name;
@@ -128,24 +120,25 @@ busquedaIngrediente.addEventListener("submit", (e) => {
         console.log(meals.meals);
 
         if (meals.meals != null) {
-          mensajeWeb.classList.remove("alert-danger");
-          mensajeWeb.classList.add("alert-info");
+          webMessage.classList.remove("alert-danger");
+          webMessage.classList.add("alert-info");
 
-          mensajeWeb.querySelector("p").textContent = "Resultados para la búsqueda de comida con '" + nombreIngrediente.value + "'";
+          webMessage.querySelector("p").textContent = "Resultados para la búsqueda de comida con '" + nombreIngrediente.value + "'";
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
               pintarMeals(meals);
             });
           });
+          nombreIngrediente.value = "";
         } else {
           throw new Error("No existen resultados para la búsqueda de comida con '" + nombreIngrediente.value + "'");
         }
       })
       .catch((error) => {
-        mensajeWeb.classList.remove("alert-info");
-        mensajeWeb.classList.add("alert-danger");
-        mensajeWeb.querySelector("p").textContent = error;
+        webMessage.classList.remove("alert-info");
+        webMessage.classList.add("alert-danger");
+        webMessage.querySelector("p").textContent = error;
       });
   }
 });
@@ -159,7 +152,7 @@ divCards.addEventListener("click", (evento) => {
 
     divCards.innerHTML = "";
 
-    mensajeWeb.querySelector("p").textContent = "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente + "'";
+    webMessage.querySelector("p").textContent = "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente + "'";
     getIngredientsByName(nombreIngrediente).then((meals) => {
       meals.meals.forEach((meal) => {
         getMealsByName(meal.strMeal).then((meals) => {
@@ -173,9 +166,9 @@ divCards.addEventListener("click", (evento) => {
 
 function establishFlag(nombrePais) {
   //tenemos que buscar el pais y obtener el indice
-  let indice = region.indexOf(nombrePais);
+  let indice = regiones.indexOf(nombrePais);
   //con ese indice sacamos la abreviación
-  let countryAbrev = countryFlags[indice];
+  let countryAbrev = banderaPaises[indice];
   //y establecemos esa abreviación
 
   return "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
@@ -216,11 +209,32 @@ function pintarMeals(meals) {
     plantillaCard.querySelector("#ingredient4").textContent = meal.strIngredient4;
     plantillaCard.querySelector("#ingredient4image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient4}-small.png`;
 
+    plantillaCard.querySelector(".tags").innerHTML = "";
+    printTags(plantillaCard, meal);
+
     const clone = plantillaCard.cloneNode(true);
     fragment.appendChild(clone);
   });
 
   divCards.appendChild(fragment);
+}
+
+function printTags(plantillaCard, meal) {
+  //primero separaremos los tags
+  let strTags = meal.strTags;
+  let nuevalineaEtiqueta;
+  if (strTags) {
+    let listaEtiquetas = strTags.split(",");
+    listaEtiquetas.forEach((etiqueta) => {
+      if (etiqueta) {
+        nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
+        plantillaCard.querySelector(".tags").innerHTML = nuevalineaEtiqueta;
+      }
+    });
+  } else {
+    nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+    plantillaCard.querySelector(".tags").innerHTML = nuevalineaEtiqueta;
+  }
 }
 
 /*
