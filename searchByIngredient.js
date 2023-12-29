@@ -86,37 +86,35 @@ window.addEventListener("load", function () {
     "ph",
   ];
 
-  async function getAllIngredients() {
-    const urlFetch = listIngredients;
-    const response = await fetch(urlFetch);
-    const json = await response.json();
-    return json;
-  }
-
-  getAllIngredients().then((ingredients) => {
-    ingredients.meals.forEach((ingredient) => {
-      datalistOptions.innerHTML += `<option value="${ingredient.strIngredient}"></option>`;
-    });
-  });
-
   async function getMealsByName(nombreComida) {
     let urlFetch = urlComidas + "?s=" + nombreComida;
-    console.log(urlFetch);
     let listaComidas = await fetch(urlFetch);
     let json = await listaComidas.json();
     return json;
   }
-
+  
   async function getIngredientsByName(name) {
     const urlFetch = urlIngredients + "filter.php?i=" + name;
     const response = await fetch(urlFetch);
     const json = await response.json();
     return json;
   }
-
+  
+  async function getAllIngredients() {
+    const urlFetch = listIngredients;
+    const response = await fetch(urlFetch);
+    const json = await response.json();
+    return json;
+  }
+  
+  getAllIngredients().then((ingredients) => {
+    ingredients.meals.forEach((ingredient) => {
+      datalistOptions.innerHTML += `<option value="${ingredient.strIngredient}"></option>`;
+    });
+  });
+  
   busquedaIngrediente.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(nombreIngrediente.value);
 
     divCards.innerHTML = "";
 
@@ -146,7 +144,6 @@ window.addEventListener("load", function () {
     let indice = region.indexOf(nombrePais);
     //con ese indice sacamos la abreviación
     let countryAbrev = countryFlags[indice];
-    console.log(countryAbrev);
     //y establecemos esa abreviación
 
     return "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
@@ -156,7 +153,7 @@ window.addEventListener("load", function () {
     const fragment = document.createDocumentFragment();
 
     meals.meals.forEach((meal) => {
-      console.log(meal.strMealThumb);
+
       //CAMBIAR TODOS LAS IDS A CLASES PORQUE SE REPITEN
       plantillaCard.querySelector("#mealImage").src = meal.strMealThumb;
       plantillaCard.querySelector("#mealName").textContent = meal.strMeal;
@@ -186,20 +183,43 @@ window.addEventListener("load", function () {
         "#ingredient4image"
       ).src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient4}-small.png`;
 
+      plantillaCard.querySelector(".tags").innerHTML="";
+      printTags(plantillaCard,meal);
+      
+
       const clone = plantillaCard.cloneNode(true);
       fragment.appendChild(clone);
     });
 
     divCards.appendChild(fragment);
 
+   
     nombreIngrediente.value = "";
   }
 
+  function printTags(clone,comida){
+    //primero separaremos los tags
+    let zonaEtiquetas = clone.querySelector(".tags");
+    let strTags = comida.strTags;
+    let nuevalineaEtiqueta;
+    if (strTags) {
+        let listaEtiquetas = strTags.split(','); 
+        listaEtiquetas.forEach(etiqueta => {
+            if (etiqueta) {
+                nuevalineaEtiqueta='<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#'+etiqueta+'</p>';
+                zonaEtiquetas.innerHTML+=nuevalineaEtiqueta;      
+            }
+             
+        });   
+    }
+    else{
+        nuevalineaEtiqueta='<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+            zonaEtiquetas.innerHTML+=nuevalineaEtiqueta;      
+    }   
+}
+
   divCards.addEventListener("click",evento => {
     let nombreIngrediente;
-    console.log("Has hecho click en una comida");
-    
-
 /*si hacemosclick en el nombre    
     if(evento.target.parentNode.classList.contains("ingredient")){
   
@@ -211,7 +231,6 @@ window.addEventListener("load", function () {
     /*else*/
     if(evento.target.parentNode.parentNode.classList.contains("ingredient")) {
       nombreIngrediente=evento.target.parentNode.parentNode.querySelector(".ingredient p").textContent;
-      console.log("Has hecho click en la imagen del ingrediente "+ nombreIngrediente);
       divCards.innerHTML = "";
 
       mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con el ingrediente '"+nombreIngrediente+"'";

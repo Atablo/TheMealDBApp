@@ -32,17 +32,15 @@
                     </ul>
                     <form class="d-flex my-2 my-lg-0" id="searchByName">
                         <input class="form-control" type="text" placeholder="Por Nombre" id="mealName" />
-                        <datalist id="datalistOptions"></datalist>
                         <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">
                             Buscar
                         </button>
                     </form>
-                    <form class="d-flex  my-lg-0 " id="searchByIngredient">
-                        <input class="form-control  " type="text" placeholder="Por Ingrediente"
-                            id="nombreIngrediente" />
-                        <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">
-                            Buscar
-                        </button>
+                    <form action="#" class="d-flex my-lg-0" id="searchByIngredient">
+                        <input class="form-control" type="text" list="datalistOptions" placeholder="Por Ingrediente" id="nombreIngrediente" />
+                        <datalist id="datalistOptions"></datalist>
+          
+                        <button class="btn btn-outline-success my-2 my-sm-0 mr-10 ms-1" type="submit">Buscar</button>
                     </form>
                 </div>
             </div>

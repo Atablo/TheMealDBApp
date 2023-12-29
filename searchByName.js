@@ -23,7 +23,6 @@ function pintaComidas(comidas) {
         let clone = plantilla.cloneNode(true);//copiamos toda la temlate con lo que venga dentro
         //ponemos la imgaen
         let imagen = clone.getElementById("mealImage");
-        console.log(imagen);
         imagen.src = comida.strMealThumb;
         //le ponemos también el pais de la comida
         clone.getElementById("country").textContent = comida.strArea;
@@ -118,7 +117,6 @@ formulario.addEventListener("submit", e => {
 
 async function getMealsByName(nombreComida) {
     let urlFetch = urlComidas + "?s=" + nombreComida;
-    console.log(urlFetch);
     let listaComidas = await fetch(urlFetch);
     let json = await listaComidas.json();
     return json;
@@ -132,7 +130,6 @@ function establishFlag(nombrePais) {
     let indice = region.indexOf(nombrePais);
     //con ese indice sacamos la abreviación
     let countryAbrev = countryFlags[indice];
-    console.log(countryAbrev);
     //y establecemos esa abreviación
     return ("https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png");
 
