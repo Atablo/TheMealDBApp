@@ -123,7 +123,8 @@ busquedaIngrediente.addEventListener("submit", (e) => {
           webMessage.classList.remove("alert-danger");
           webMessage.classList.add("alert-info");
 
-          webMessage.querySelector("p").textContent = "Resultados para la búsqueda de comida con '" + nombreIngrediente.value + "'";
+          webMessage.querySelector("p").textContent =
+            "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'";
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
@@ -132,13 +133,14 @@ busquedaIngrediente.addEventListener("submit", (e) => {
           });
           nombreIngrediente.value = "";
         } else {
-          throw new Error("No existen resultados para la búsqueda de comida con '" + nombreIngrediente.value + "'");
+          throw new Error("No existen resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'");
         }
       })
       .catch((error) => {
+        const mensaje = error.toString().split(":");
         webMessage.classList.remove("alert-info");
         webMessage.classList.add("alert-danger");
-        webMessage.querySelector("p").textContent = error;
+        webMessage.querySelector("p").textContent = mensaje[1];
       });
   }
 });
