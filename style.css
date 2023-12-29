@@ -45,3 +45,6 @@ hr {
 .ingredient img:hover{
     cursor:pointer;
 }
+.tags p{
+    font-size: small;
+}

@@ -59,9 +59,37 @@ function pintaComidas(comidas) {
         let imagenIngrediente4=clone.getElementById("ingredient4image");
         imagenIngrediente4.src=urlFotoIngredientes+comida.strIngredient4+".png"
 
+        printTags(clone,comida);
+
         fragment.appendChild(clone);
     });
     divResultados.appendChild(fragment);
+}
+
+function printTags(clone,comida){
+    //primero separaremos los tags
+    let zonaEtiquetas = clone.querySelector(".tags");
+    let strTags = comida.strTags;
+    let nuevalineaEtiqueta;
+    if (strTags) {
+        let listaEtiquetas = strTags.split(','); 
+        listaEtiquetas.forEach(etiqueta => {
+            if (etiqueta) {
+                nuevalineaEtiqueta='<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#'+etiqueta+'</p>';
+                zonaEtiquetas.innerHTML+=nuevalineaEtiqueta;      
+            }
+             
+        });   
+    }
+    else{
+        nuevalineaEtiqueta='<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+            zonaEtiquetas.innerHTML+=nuevalineaEtiqueta;      
+    }
+    
+
+
+    
+    
 }
 
 formulario.addEventListener("submit", e => {
