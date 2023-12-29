@@ -9,7 +9,7 @@ let divResultados = document.getElementById("results");
 //arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas
 const region = ['British', 'American', 'French', 'Canadian', 'Jamaican', 'Chinese', 'Dutch', 'Egyptian', 'Greek',
     'Indian', 'Irish', 'Italian', 'Japanese', 'Kenian', 'Malaysian', 'Mexican', 'Moroccan', 'Croatian', 'Norwegian', 'Portuguese',
-    'Russian', 'Argentinian', 'Spanish', 'Slovakian', 'Thai', 'Arabian', 'Vietnamese', 'Turkish', 'Syrian', 'Argelian', 'Tunisian', 'Poli', 'Filipino'];
+    'Russian', 'Argentinian', 'Spanish', 'Slovakian', 'Thai', 'Arabian', 'Vietnamese', 'Turkish', 'Syrian', 'Argelian', 'Tunisian', 'Polish', 'Filipino'];
 
 
 const countryFlags = ['gb', 'us', 'fr', 'ca', 'jm', 'cn', 'nl', 'eg', 'gr', 'in', 'ie', 'it', 'jp', 'kn', 'my', 'mx', 'ma', 'hr', 'no',
@@ -33,7 +33,9 @@ function pintaComidas(comidas) {
         clone.querySelector("strong#country").textContent = countryName;
 
         imagen = clone.getElementById("countryFlag");
-        imagen.src = establishFlag(countryName);
+        if (clone.querySelector("#country").textContent != "Unknown") {
+            imagen.src = establishFlag(countryName);
+          }
         //ahora le establecemos la foto usando el nombre del pais con el siguiente método
 
 
