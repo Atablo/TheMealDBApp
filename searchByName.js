@@ -103,16 +103,17 @@ formulario.addEventListener("submit", e => {
                 mensajeWeb.classList.remove("alert-danger")
                 mensajeWeb.classList.add("alert-info")
             }
-            mensajeWeb.querySelector("p").textContent="Resultados para la búsqueda de comida con '"+nombreComida+"'";
+            mensajeWeb.querySelector("p").textContent="Search results for the meal: '"+nombreComida+"'";
         }
     ).catch(
         //pinto el mensaje de su color
         mensajeWeb.classList.remove("alert-info"),
         mensajeWeb.classList.add("alert-danger"),
-        mensajeWeb.querySelector("p").textContent="No existen resultados para la búsqueda de comida con '"+nombreComida+"'",
+        mensajeWeb.querySelector("p").textContent="No matching results for the meal: '"+nombreComida+"'",
         
         
         )
+        document.querySelector("#mealName").value = "";
 })
 
 async function getMealsByName(nombreComida) {
