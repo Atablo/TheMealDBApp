@@ -11,6 +11,9 @@ const datalistOptions = document.querySelector("#datalistOptions");
 const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
 const listIngredients = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
 
+const listCategories = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
+const urlFilters = "www.themealdb.com/api/json/v1/1/filter.php?";
+
 const regiones = [
   "British",
   "American",
@@ -97,6 +100,32 @@ async function getAllIngredients() {
   return json;
 }
 
+async function getAllCategories() {
+  const urlFetch = listCategories;
+  const response = await fetch(urlFetch);
+  const json = await response.json();
+  return json;
+}
+
+async function getFilters() {
+  const urlFetch = urlFilters;
+  const response = await fetch(urlFetch);
+  const json = await response.json();
+  return json;
+}
+
+// let pais = document.querySelector("#pais");
+// regiones.forEach((region) => {
+//   pais.innerHTML += `<option value="value1">${region}</option>`;
+// });
+
+getAllCategories().then((categories) => {
+  categories.meals.forEach((category) => {
+    let categoria = document.querySelector("#categoria");
+    categoria.innerHTML += `<option value="value1">${category.strCategory}</option>`;
+  });
+});
+
 getAllIngredients().then((ingredients) => {
   ingredients.meals.forEach((ingredient) => {
     datalistOptions.innerHTML += `<option value="${ingredient.strIngredient}"></option>`;
@@ -128,10 +157,13 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
+              console.log(meals.meals);
               pintarMeals(meals);
             });
           });
           nombreIngrediente.value = "";
+
+          document.querySelector("#filtros").style.display = "block";
         } else {
           throw new Error("No existen resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'");
         }
@@ -238,6 +270,8 @@ function printTags(plantillaCard, meal) {
     plantillaCard.querySelector(".tags").innerHTML = nuevalineaEtiqueta;
   }
 }
+
+document.querySelector("#filtros").style.display = "none";
 
 /*
 Errores:
