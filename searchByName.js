@@ -3,6 +3,10 @@ let plantilla = document.getElementById("meal").content;
 let resultados = document.getElementById("results");
 const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
 const urlFotoIngredientes = "https://www.themealdb.com/images/ingredients/";
+
+const listCategories = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
+const urlFilters = "www.themealdb.com/api/json/v1/1/filter.php?";
+
 let mensajeWeb = document.getElementById("webMessage");
 let divResultados = document.getElementById("results");
 
@@ -39,7 +43,7 @@ const region = [
   "Syrian",
   "Argelian",
   "Tunisian",
-  "Poli",
+  "Polish",
   "Filipino",
 ];
 
@@ -79,6 +83,8 @@ const countryFlags = [
   "ph",
 ];
 
+document.querySelector("#filtros").style.display = "none";
+
 function pintaComidas(comidas) {
   divResultados.innerHTML = "";
   const fragment = new DocumentFragment();
@@ -87,7 +93,6 @@ function pintaComidas(comidas) {
     let clone = plantilla.cloneNode(true); //copiamos toda la temlate con lo que venga dentro
     //ponemos la imgaen
     let imagen = clone.getElementById("mealImage");
-    console.log(imagen);
     imagen.src = comida.strMealThumb;
     //le ponemos también el pais de la comida
     clone.getElementById("country").textContent = comida.strArea;
@@ -98,11 +103,9 @@ function pintaComidas(comidas) {
     clone.querySelector("strong#country").textContent = countryName;
 
     imagen = clone.getElementById("countryFlag");
-
     if (clone.querySelector("#country").textContent != "Unknown") {
       imagen.src = establishFlag(countryName);
     }
-
     //ahora le establecemos la foto usando el nombre del pais con el siguiente método
 
     //le ponemos ahora el nombre de la comida
@@ -164,16 +167,16 @@ formulario.addEventListener("submit", (e) => {
         mensajeWeb.classList.remove("alert-danger");
         mensajeWeb.classList.add("alert-info");
       }
-      mensajeWeb.querySelector("p").textContent = "Resultados para la búsqueda de comida con '" + nombreComida + "'";
+      mensajeWeb.querySelector("p").textContent = "Search results for the meal: '" + nombreComida + "'";
     })
     .catch(
       //pinto el mensaje de su color
       mensajeWeb.classList.remove("alert-info"),
       mensajeWeb.classList.add("alert-danger"),
-      (mensajeWeb.querySelector("p").textContent = "No existen resultados para la búsqueda de comida con '" + nombreComida + "'")
+      (mensajeWeb.querySelector("p").textContent = "No matching results for the meal: '" + nombreComida + "'")
     );
-
   document.querySelector("#mealName").value = "";
+  document.querySelector("#filtros").style.display = "block";
 });
 
 async function getMealsByName(nombreComida) {
@@ -183,12 +186,37 @@ async function getMealsByName(nombreComida) {
   return json;
 }
 
+async function getAllCategories() {
+  const urlFetch = listCategories;
+  const response = await fetch(urlFetch);
+  const json = await response.json();
+  return json;
+}
+
+async function getFilters() {
+  const urlFetch = urlFilters;
+  const response = await fetch(urlFetch);
+  const json = await response.json();
+  return json;
+}
+
+// let pais = document.querySelector("#pais");
+// regiones.forEach((region) => {
+//   pais.innerHTML += `<option value="value1">${region}</option>`;
+// });
+
+getAllCategories().then((categories) => {
+  categories.meals.forEach((category) => {
+    let categoria = document.querySelector("#categoria");
+    categoria.innerHTML += `<option value="value1">${category.strCategory}</option>`;
+  });
+});
+
 function establishFlag(nombrePais) {
   //tenemos que buscar el pais y obtener el indice
   let indice = region.indexOf(nombrePais);
   //con ese indice sacamos la abreviación
   let countryAbrev = countryFlags[indice];
-  console.log(countryAbrev);
   //y establecemos esa abreviación
   return "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
 }

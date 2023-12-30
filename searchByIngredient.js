@@ -11,9 +11,6 @@ const datalistOptions = document.querySelector("#datalistOptions");
 const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
 const listIngredients = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
 
-const listCategories = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
-const urlFilters = "www.themealdb.com/api/json/v1/1/filter.php?";
-
 const regiones = [
   "British",
   "American",
