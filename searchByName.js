@@ -208,7 +208,7 @@ async function getFilters() {
 getAllCategories().then((categories) => {
   categories.meals.forEach((category) => {
     let categoria = document.querySelector("#categoria");
-    categoria.innerHTML += `<option value="value1">${category.strCategory}</option>`;
+    categoria.innerHTML += `<option value="${category.strCategory}">${category.strCategory}</option>`;
   });
 });
 
