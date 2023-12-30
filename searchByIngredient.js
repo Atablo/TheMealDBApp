@@ -86,6 +86,69 @@ const banderaPaises = [
   "ph",
 ];
 
+const etiquetas = [
+  "Rice",
+  "Sidedish",
+  "Speciality",
+  "Fruity",
+  "Pudding",
+  "Dessert",
+  "Snack",
+  "Treat",
+  "Summer",
+  "Dairy",
+  "Tart",
+  "Cake",
+  "Sweet",
+  "Breakfast",
+  "Greasy",
+  "Unhealthy",
+  "Calorific",
+  "Breakfast",
+  "Bbq",
+  "Bun",
+  "Baking",
+  "Heavy",
+  "Nutty",
+  "Light ",
+  "Desert",
+  "Caramel",
+  "Soup",
+  "Dinnerparty",
+  "Chocolate",
+  "Vegetables",
+  "Egg",
+  "Glazed",
+  "Fish",
+  "Seafood",
+  "Shellfish",
+  "Pie",
+  "Warm",
+  "Desert",
+  "Mainmeal",
+  "Speciality",
+  "Snack",
+  "Strongflavor",
+  "Alcoholic",
+  "Meat",
+  "Datenight",
+  "Expensive",
+  "Cheasy",
+  "Chilli",
+  "Curry",
+  "Spicy",
+  "Savory",
+  "Stew",
+  "Vegan",
+  "Paella",
+  "Mild",
+  "Pulse",
+  "Pasta",
+  "Fresh",
+  "Pancake",
+  "Sausages",
+];
+
 async function getIngredientsByName(name) {
   const urlFetch = urlIngredients + "filter.php?i=" + name;
   const response = await fetch(urlFetch);
@@ -114,16 +177,21 @@ async function getFilters() {
   return json;
 }
 
-// let pais = document.querySelector("#pais");
-// regiones.forEach((region) => {
-//   pais.innerHTML += `<option value="value1">${region}</option>`;
-// });
+let pais = document.querySelector("#pais");
+regiones.forEach((region) => {
+  pais.innerHTML += `<option value="${region}">${region}</option>`;
+});
 
 getAllCategories().then((categories) => {
   categories.meals.forEach((category) => {
     let categoria = document.querySelector("#categoria");
-    categoria.innerHTML += `<option value="value1">${category.strCategory}</option>`;
+    categoria.innerHTML += `<option value="${category.strCategory}">${category.strCategory}</option>`;
   });
+});
+
+let tag = document.querySelector("#etiqueta");
+etiquetas.forEach((etiqueta) => {
+  tag.innerHTML += `<option value="${etiqueta}">${etiqueta}</option>`;
 });
 
 getAllIngredients().then((ingredients) => {
