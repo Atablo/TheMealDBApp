@@ -267,8 +267,7 @@ function aplicarFiltrosSeleccionados() {
       etiqueta.options[etiqueta.selectedIndex].value != "--"
     ) {
       arrayPreparado.forEach((plato) => {
-        if ( pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") 
-        {
+        if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
           //copiaremos el array que me ha resultado de las comidas de antes
           arrayFiltrado = arrayFiltrado.filter(
             (plato) => plato.strArea == pais.options[pais.selectedIndex].value
@@ -276,19 +275,24 @@ function aplicarFiltrosSeleccionados() {
         }
         if (categoria.options[categoria.selectedIndex].value != plato.strCategory && categoria.options[categoria.selectedIndex].value != "--"
         ) {
-          arrayFiltrado = arrayFiltrado.filter((plato) =>plato.strCategory == categoria.options[categoria.selectedIndex].value
+          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value
           );
         }
-        if ((plato.strTags != null && (!(plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value))) && etiqueta.options[etiqueta.selectedIndex].value != "--")||plato.strTags == null ) { 
+        if ((plato.strTags != null && (!(plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value))) && etiqueta.options[etiqueta.selectedIndex].value != "--") || plato.strTags == null) {
           //obtenemos el indice dle plato
-          let indexPlato = arrayFiltrado.indexOf(plato);
-          //quitamos el plato que no tenga esa etiqueta
-          if (indexPlato != -1){
-            arrayFiltrado.splice(indexPlato,1);
+          if (etiqueta.options[etiqueta.selectedIndex].value != "--") {
+
+            let indexPlato = arrayFiltrado.indexOf(plato);
+            //quitamos el plato que no tenga esa etiqueta
+            if (indexPlato != -1) {
+              arrayFiltrado.splice(indexPlato, 1);
+            }
+
           }
+
           ////////////////////////El diablo loco 💀//////
         }
-       
+
       });
     }
 
