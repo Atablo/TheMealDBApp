@@ -83,6 +83,75 @@ const banderaPaises = [
   "ph",
 ];
 
+const etiquetas = [
+  "Rice",
+  "Christmas",
+  "Sidedish",
+  "Speciality",
+  "Fruity",
+  "Pudding",
+  "Dessert",
+  "Snack",
+  "Treat",
+  "Summer",
+  "Dairy",
+  "Tart",
+  "Cake",
+  "Sweet",
+  "Breakfast",
+  "Greasy",
+  "Unhealthy",
+  "Calorific",
+  "Breakfast",
+  "Bbq",
+  "Bun",
+  "Baking",
+  "Heavy",
+  "Nutty",
+  "Light ",
+  "Desert",
+  "Caramel",
+  "Soup",
+  "Dinnerparty",
+  "Chocolate",
+  "Vegetables",
+  "Egg",
+  "Glazed",
+  "Fish",
+  "Seafood",
+  "Shellfish",
+  "Pie",
+  "Warm",
+  "Desert",
+  "Mainmeal",
+  "Speciality",
+  "Snack",
+  "Strongflavor",
+  "Alcoholic",
+  "Meat",
+  "Datenight",
+  "Expensive",
+  "Cheasy",
+  "Chilli",
+  "Curry",
+  "Spicy",
+  "Savory",
+  "Stew",
+  "Vegan",
+  "Paella",
+  "Mild",
+  "Pulse",
+  "Pasta",
+  "Fresh",
+  "Pancake",
+  "Sausages",
+];
+
+
+
+let listaImpresa = new Array();
+let listaImpresa2 = new Array();
+
 async function getIngredientsByName(name) {
   const urlFetch = urlIngredients + "filter.php?i=" + name;
   const response = await fetch(urlFetch);
@@ -117,21 +186,25 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 
     getIngredientsByName(nombreIngrediente.value.trim())
       .then((meals) => {
-
         if (meals.meals != null) {
           webMessage.classList.remove("alert-danger");
           webMessage.classList.add("alert-info");
 
-          webMessage.querySelector("p").textContent = "Search results of meals with the ingredient: '" + nombreIngrediente.value + "'";
+          webMessage.querySelector("p").textContent =
+            "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'";
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
+              listaImpresa.push(meals);
+              listaImpresa2.push(meals.meals);
               pintarMeals(meals);
             });
           });
           nombreIngrediente.value = "";
+
+          document.querySelector("#filtros").style.display = "block";
         } else {
-          throw new Error("No matching results of meals with the ingredient '" + nombreIngrediente.value + "'");
+          throw new Error("No existen resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'");
         }
       })
       .catch((error) => {
@@ -144,7 +217,6 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 });
 
 divCards.addEventListener("click", (evento) => {
-
   if (evento.target.parentNode.parentNode.classList.contains("ingredient")) {
     let nombreIngrediente = evento.target.parentNode.parentNode.querySelector(".ingredient p").textContent;
 
@@ -184,7 +256,6 @@ function validarIngrediente(nombreIngrediente) {
 
 function pintarMeals(meals) {
   const fragment = document.createDocumentFragment();
-
   meals.meals.forEach((meal) => {
     //CAMBIAR TODOS LAS IDS A CLASES PORQUE SE REPITEN
     plantillaCard.querySelector("#mealImage").src = meal.strMealThumb;
@@ -193,7 +264,10 @@ function pintarMeals(meals) {
     plantillaCard.querySelector("#type").textContent = meal.strCategory;
 
     plantillaCard.querySelector("#country").textContent = meal.strArea;
-    plantillaCard.querySelector("#countryFlag").src = establishFlag(meal.strArea);
+
+    if (plantillaCard.querySelector("#country").textContent != "Unknown") {
+      plantillaCard.querySelector("#countryFlag").src = establishFlag(meal.strArea);
+    }
 
     plantillaCard.querySelector("#ingredient1").textContent = meal.strIngredient1;
     plantillaCard.querySelector("#ingredient1image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient1}-small.png`;
@@ -223,6 +297,7 @@ function printTags(plantillaCard, meal) {
   let nuevalineaEtiqueta;
   if (strTags) {
     let listaEtiquetas = strTags.split(",");
+    listaEtiquetas.sort();
     listaEtiquetas.forEach((etiqueta) => {
       if (etiqueta) {
         nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
@@ -235,12 +310,89 @@ function printTags(plantillaCard, meal) {
   }
 }
 
+document.querySelector("#filtros").style.display = "none";
+
 /*
 Errores:
 1. Utilizar Ids está mal, cambiarlo todo a clases
-2. El array de paises, "Polish" (penúltimo pais) está mal escrito, escribirlo bien
-2. Hay platos que tienen pais "unknown", hay que comtemplar el caso para que no ejecute la funcion por ejemplo
-3. Llega un momento en el que peta la API, por demasiadas solicitudes creo, y te bloquean el traer datos
-4. Al recargar la página con el LiveServer, y el DevTools de Chrome da el siguiente error: "TypeError: function call() { [native code] } is not a constructor"
-    y no permite recargar la página hasta cerrar el DevTools (es posible abrirlo de nuevo una vez cerrado)
 */
+
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////////FILTERS//////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+async function getFilters() {
+  const urlFetch = urlFilters;
+  const response = await fetch(urlFetch);
+  const json = await response.json();
+  return json;
+}
+
+///////////Código para mostrar opciones en el front//////////////////////////
+let pais = document.querySelector("#pais");
+regiones.forEach((region) => {
+  pais.innerHTML += `<option value="${region}">${region}</option>`;
+});
+
+let categoria = document.querySelector("#categoria");
+
+let tag = document.querySelector("#etiqueta");
+etiquetas.forEach((etiqueta) => {
+  tag.innerHTML += `<option value="${etiqueta}">${etiqueta}</option>`;
+});
+
+/////////////////////////////////////////////////////////////////////////
+
+const applyFilters = document.querySelector("#applyFilters");
+
+applyFilters.addEventListener("click", (e) => {
+  divCards.innerHTML = "";
+
+  listaImpresa.forEach((platos) => {
+    // if (pais.options[pais.selectedIndex].value == "--" || categoria.options[categoria.selectedIndex].value == "--") {
+    //   pintarMeals(platos);
+    // }
+    const fragment = document.createDocumentFragment();
+    platos.meals.forEach((plato) => {
+      if (pais.options[pais.selectedIndex].value == plato.strArea) {
+        pintarFiltroComida(plato);
+        const clone = plantillaCard.cloneNode(true);
+        fragment.appendChild(clone);
+      }
+
+      if (categoria.options[categoria.selectedIndex].value == plato.strCategory) {
+        pintarFiltroComida(plato);
+        const clone = plantillaCard.cloneNode(true);
+        fragment.appendChild(clone);
+      }
+    });
+    divCards.appendChild(fragment);
+  });
+});
+
+function pintarFiltroComida(plato) {
+  plantillaCard.querySelector("#mealImage").src = plato.strMealThumb;
+  plantillaCard.querySelector("#mealName").textContent = plato.strMeal;
+
+  plantillaCard.querySelector("#type").textContent = plato.strCategory;
+
+  plantillaCard.querySelector("#country").textContent = plato.strArea;
+
+  if (plantillaCard.querySelector("#country").textContent != "Unknown") {
+    plantillaCard.querySelector("#countryFlag").src = establishFlag(plato.strArea);
+  }
+
+  plantillaCard.querySelector("#ingredient1").textContent = plato.strIngredient1;
+  plantillaCard.querySelector("#ingredient1image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient1}-small.png`;
+
+  plantillaCard.querySelector("#ingredient2").textContent = plato.strIngredient2;
+  plantillaCard.querySelector("#ingredient2image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient2}-small.png`;
+
+  plantillaCard.querySelector("#ingredient3").textContent = plato.strIngredient3;
+  plantillaCard.querySelector("#ingredient3image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient3}-small.png`;
+
+  plantillaCard.querySelector("#ingredient4").textContent = plato.strIngredient4;
+  plantillaCard.querySelector("#ingredient4image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient4}-small.png`;
+
+  plantillaCard.querySelector(".tags").innerHTML = "";
+  printTags(plantillaCard, plato);
+}
