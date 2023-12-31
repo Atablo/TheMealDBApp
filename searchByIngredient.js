@@ -151,9 +151,6 @@ const etiquetas = [
 let listaImpresa = new Array();
 let listaImpresa2 = new Array();
 
-let listaImpresa = new Array();
-let listaImpresa2 = new Array();
-
 async function getIngredientsByName(name) {
   const urlFetch = urlIngredients + "filter.php?i=" + name;
   const response = await fetch(urlFetch);
