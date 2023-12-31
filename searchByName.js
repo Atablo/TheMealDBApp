@@ -276,12 +276,17 @@ function aplicarFiltrosSeleccionados() {
         }
         if (categoria.options[categoria.selectedIndex].value != plato.strCategory && categoria.options[categoria.selectedIndex].value != "--"
         ) {
-          arrayFiltrado = arrayFiltrado.filter((plato) =>plato.strCategory ==categoria.options[categoria.selectedIndex].value
+          arrayFiltrado = arrayFiltrado.filter((plato) =>plato.strCategory == categoria.options[categoria.selectedIndex].value
           );
         }
-        if ( plato.strTags!= null && plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) && etiqueta.options[etiqueta.selectedIndex].value != "--"
-        ) { 
-          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value));
+        if ((plato.strTags != null && (!(plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value))) && etiqueta.options[etiqueta.selectedIndex].value != "--")||plato.strTags == null ) { 
+          //obtenemos el indice dle plato
+          let indexPlato = arrayFiltrado.indexOf(plato);
+          //quitamos el plato que no tenga esa etiqueta
+          if (indexPlato != -1){
+            arrayFiltrado.splice(indexPlato,1);
+          }
+          ////////////////////////El diablo loco 💀//////
         }
        
       });

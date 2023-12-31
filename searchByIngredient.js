@@ -86,7 +86,7 @@ const banderaPaises = [
 const etiquetas = [
   "Rice",
   "Christmas",
-  "Sidedish",
+  "SideDish",
   "Speciality",
   "Fruity",
   "Pudding",
@@ -138,6 +138,7 @@ const etiquetas = [
   "Savory",
   "Stew",
   "Vegan",
+  "Vegetarian",
   "Paella",
   "Mild",
   "Pulse",
