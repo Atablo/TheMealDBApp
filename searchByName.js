@@ -233,77 +233,88 @@ Si no imprimos la lista*/
 let arrayFiltrado = new Array();
 let arrayPreparado = new Array();
 
-// btnaplicarFiltros.addEventListener("click", aplicarFiltrosSeleccionados);
+btnaplicarFiltros.addEventListener("click", aplicarFiltrosSeleccionados);
 
-// function aplicarFiltrosSeleccionados() {
-//   arrayFiltrado = [];
-//   arrayPreparado = [];
-//   getMealsByName(nombreComida).then((comidasResultantesSBN) => {
-//     //con esto sacaremos una copia tal como la queremos del array resultante de comidas
-//     comidasResultantesSBN.meals.forEach((plato) => {
-//       arrayPreparado.push(plato);
-//     });
-//     //una vez tengo ya preparado mi array me creo el array que usaré después copiandolo del array resultante de la búsqueda
-//     arrayFiltrado = arrayPreparado.slice();
+function aplicarFiltrosSeleccionados() {
+  arrayFiltrado = [];
+  arrayPreparado = [];
+  getMealsByName(nombreComida).then((comidasResultantesSBN) => {
+    //con esto sacaremos una copia tal como la queremos del array resultante de comidas
 
-//     if (
-//       pais.options[pais.selectedIndex].value != "--" ||
-//       categoria.options[categoria.selectedIndex].value != "--" ||
-//       etiqueta.options[etiqueta.selectedIndex].value != "--"
-//     ) {
-//       arrayPreparado.forEach((plato) => {
-//         if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
-//           //copiaremos el array que me ha resultado de las comidas de antes
-//           arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
-//           //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
-//         }
-//         if (
-//           categoria.options[categoria.selectedIndex].value != plato.strCategory &&
-//           categoria.options[categoria.selectedIndex].value != "--"
-//         ) {
-//           arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
-//         }
-//         if (
-//           plato.strTags != null &&
-//           !plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value.toString) &&
-//           etiqueta.options[etiqueta.selectedIndex].value != "--"
-//         ) {
-//           arrayFiltrado = arrayFiltrado.filter((plato) => plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value));
-//         }
-//       });
-//     }
+    console.log(comidasResultantesSBN);
+    comidasResultantesSBN.meals.forEach((plato) => {
+      arrayPreparado.push(plato);
+    });
+    //una vez tengo ya preparado mi array me creo el array que usaré después copiandolo del array resultante de la búsqueda
+    arrayFiltrado = arrayPreparado.slice();
 
-//     /*
-//       arrayTrasPais = [];
-//       //vamosa establecer el arrayTras mirar lo del pais
-//       comidasResultantesSBN.meals.forEach((plato) => {
+    if (
+      pais.options[pais.selectedIndex].value != "--" ||
+      categoria.options[categoria.selectedIndex].value != "--" ||
+      etiqueta.options[etiqueta.selectedIndex].value != "--"
+    ) {
+      arrayPreparado.forEach((plato) => {
+        if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+          //copiaremos el array que me ha resultado de las comidas de antes
+          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+        }
+        if (
+          categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+          categoria.options[categoria.selectedIndex].value != "--"
+        ) {
+          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+        }
+        if (
+          (plato.strTags != null &&
+            !plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) &&
+            etiqueta.options[etiqueta.selectedIndex].value != "--") ||
+          plato.strTags == null
+        ) {
+          //obtenemos el indice del plato
+          if (etiqueta.options[etiqueta.selectedIndex].value != "--") {
+            let indexPlato = arrayFiltrado.indexOf(plato);
+            //quitamos el plato que no tenga esa etiqueta
+            if (indexPlato != -1) {
+              arrayFiltrado.splice(indexPlato, 1);
+            }
+          }
 
-//         if (pais.options[pais.selectedIndex].value == plato.strArea) {
-//           //copiaremos el array que me ha resultado de las comidas de antes
-//           arrayTrasPais.push(plato)
-//           //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
-//         }
-//       })
+          ////////////////////////El diablo loco 💀//////
+        }
+      });
+    }
 
-//       arrayTrasPyCategoria=[];
-//       arrayTrasPais.forEach((plato)=>{
-//         if (categoria.options[categoria.selectedIndex].value == plato.strCategory) {
-//           arrayTrasPyCategoria.push(plato);
-//         }
-//       })
-
-//       arrayTrasPCyTag=[];
-//       arrayTrasPyCategoria.forEach((plato)=>{
-//         if (plato.strTags.include(etiqueta.options[etiqueta.selectedIndex].value)) {
-//           arrayTrasPCyTag.push(plato);
-//         }
-//       })
-//       console.log(arrayTrasPais);
-//       console.log(arrayTrasPyCategoria);
-//       console.log(arrayTrasPCyTag);*/
-//     pintaComidasFiltradas(arrayFiltrado);
-//   });
-// }
+    /*
+      arrayTrasPais = [];
+      //vamosa establecer el arrayTras mirar lo del pais
+      comidasResultantesSBN.meals.forEach((plato) => {
+    
+        if (pais.options[pais.selectedIndex].value == plato.strArea) {
+          //copiaremos el array que me ha resultado de las comidas de antes
+          arrayTrasPais.push(plato)
+          //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+        }
+      })
+    
+      arrayTrasPyCategoria=[];
+      arrayTrasPais.forEach((plato)=>{
+        if (categoria.options[categoria.selectedIndex].value == plato.strCategory) {
+          arrayTrasPyCategoria.push(plato);
+        }
+      })
+    
+      arrayTrasPCyTag=[];
+      arrayTrasPyCategoria.forEach((plato)=>{ 
+        if (plato.strTags.include(etiqueta.options[etiqueta.selectedIndex].value)) {
+          arrayTrasPCyTag.push(plato);
+        }
+      })
+      console.log(arrayTrasPais);
+      console.log(arrayTrasPyCategoria);
+      console.log(arrayTrasPCyTag);*/
+    pintaComidasFiltradas(arrayFiltrado);
+  });
+}
 
 function pintaComidasFiltradas(comidas) {
   divResultados.innerHTML = "";

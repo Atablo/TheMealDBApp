@@ -123,7 +123,6 @@ const etiquetas = [
   "Shellfish",
   "Pie",
   "Warm",
-  "Desert",
   "Mainmeal",
   "Speciality",
   "Snack",
@@ -183,11 +182,10 @@ busquedaIngrediente.addEventListener("submit", (e) => {
   if (valido) {
     divCards.innerHTML = "";
 
-    nombreIngrediente2 = nombreIngrediente.value;
+    nombreIngrediente2 = nombreIngrediente.value.trim();
 
     getIngredientsByName(nombreIngrediente.value.trim())
       .then((meals) => {
-        console.log(meals);
         if (meals.meals != null) {
           webMessage.classList.remove("alert-danger");
           webMessage.classList.add("alert-info");
@@ -347,147 +345,102 @@ etiquetas.forEach((etiqueta) => {
 
 /////////////////////////////////////////////////////////////////////////
 
-const applyFilters = document.querySelector("#applyFilters");
+// const applyFilters = document.querySelector("#applyFilters");
 
 // applyFilters.addEventListener("click", (e) => {
-//   divCards.innerHTML = "";
+//   arrayFiltrado = new Array();
+//   arrayPreparado = new Array();
 
-//   listaImpresa.forEach((platos) => {
-//     // if (pais.options[pais.selectedIndex].value == "--" || categoria.options[categoria.selectedIndex].value == "--") {
-//     //   pintarMeals(platos);
-//     // }
-//     const fragment = document.createDocumentFragment();
-//     platos.meals.forEach((plato) => {
-//       if (pais.options[pais.selectedIndex].value == plato.strArea) {
-//         pintarFiltroComida(plato);
-//         const clone = plantillaCard.cloneNode(true);
-//         fragment.appendChild(clone);
-//       }
+//   getIngredientsByName(nombreIngrediente2).then((meals) => {
+//     meals.meals.forEach((meal) => {
+//       getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
+//         comidasResultantesSBI.meals.forEach((plato) => {
+//           arrayPreparado.push(plato);
 
-//       if (categoria.options[categoria.selectedIndex].value == plato.strCategory) {
-//         pintarFiltroComida(plato);
-//         const clone = plantillaCard.cloneNode(true);
-//         fragment.appendChild(clone);
-//       }
+//           arrayFiltrado = arrayPreparado;
+
+//           if (
+//             pais.options[pais.selectedIndex].value != "--" ||
+//             categoria.options[categoria.selectedIndex].value != "--" ||
+//             tag.options[tag.selectedIndex].value != "--"
+//           ) {
+//             arrayPreparado.forEach((plato) => {
+//               if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+//                 //copiaremos el array que me ha resultado de las comidas de antes
+//                 arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+//                 //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+//               }
+//               if (
+//                 categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+//                 categoria.options[categoria.selectedIndex].value != "--"
+//               ) {
+//                 arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+//               }
+//               if (tag.options[tag.selectedIndex].value != "--") {
+//                 let indexPlato = arrayFiltrado.indexOf(plato);
+//                 //quitamos el plato que no tenga esa etiqueta
+//                 if (indexPlato != -1) {
+//                   arrayFiltrado.splice(indexPlato, 1);
+//                 }
+//               }
+//             });
+//           }
+//           pintaComidasFiltradas(arrayFiltrado);
+//         });
+//       });
 //     });
-//     divCards.appendChild(fragment);
 //   });
 // });
 
-// function pintarFiltroComida(plato) {
-//   plantillaCard.querySelector("#mealImage").src = plato.strMealThumb;
-//   plantillaCard.querySelector("#mealName").textContent = plato.strMeal;
+// function pintaComidasFiltradas(comidas) {
+//   divResultados.innerHTML = "";
+//   const fragment = document.createDocumentFragment();
 
-//   plantillaCard.querySelector("#type").textContent = plato.strCategory;
+//   comidas.forEach((comida) => {
+//     plantillaCard.querySelector("#mealImage").src = comida.strMealThumb;
+//     plantillaCard.querySelector("#mealName").textContent = comida.strMeal;
 
-//   plantillaCard.querySelector("#country").textContent = plato.strArea;
+//     plantillaCard.querySelector("#type").textContent = comida.strCategory;
 
-//   if (plantillaCard.querySelector("#country").textContent != "Unknown") {
-//     plantillaCard.querySelector("#countryFlag").src = establishFlag(plato.strArea);
-//   }
+//     plantillaCard.querySelector("#country").textContent = comida.strArea;
 
-//   plantillaCard.querySelector("#ingredient1").textContent = plato.strIngredient1;
-//   plantillaCard.querySelector("#ingredient1image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient1}-small.png`;
+//     if (plantillaCard.querySelector("#country").textContent != "Unknown") {
+//       plantillaCard.querySelector("#countryFlag").src = establishFlag(comida.strArea);
+//     }
 
-//   plantillaCard.querySelector("#ingredient2").textContent = plato.strIngredient2;
-//   plantillaCard.querySelector("#ingredient2image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient2}-small.png`;
+//     plantillaCard.querySelector("#ingredient1").textContent = comida.strIngredient1;
+//     plantillaCard.querySelector(
+//       "#ingredient1image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient1}-small.png`;
 
-//   plantillaCard.querySelector("#ingredient3").textContent = plato.strIngredient3;
-//   plantillaCard.querySelector("#ingredient3image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient3}-small.png`;
+//     plantillaCard.querySelector("#ingredient2").textContent = comida.strIngredient2;
+//     plantillaCard.querySelector(
+//       "#ingredient2image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient2}-small.png`;
 
-//   plantillaCard.querySelector("#ingredient4").textContent = plato.strIngredient4;
-//   plantillaCard.querySelector("#ingredient4image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient4}-small.png`;
+//     plantillaCard.querySelector("#ingredient3").textContent = comida.strIngredient3;
+//     plantillaCard.querySelector(
+//       "#ingredient3image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient3}-small.png`;
 
-//   plantillaCard.querySelector(".tags").innerHTML = "";
-//   printTags(plantillaCard, plato);
+//     plantillaCard.querySelector("#ingredient4").textContent = comida.strIngredient4;
+//     plantillaCard.querySelector(
+//       "#ingredient4image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient4}-small.png`;
+
+//     plantillaCard.querySelector(".tags").innerHTML = "";
+//     printTags(plantillaCard, comida);
+
+//     const clone = plantillaCard.cloneNode(true);
+//     fragment.appendChild(clone);
+//   });
+//   divResultados.appendChild(fragment);
 // }
 
-applyFilters.addEventListener("click", (e) => {
-  arrayFiltrado = new Array();
-  arrayPreparado = new Array();
+//
 
-  getIngredientsByName(nombreIngrediente2.trim()).then((meals) => {
-    meals.meals.forEach((meal) => {
-      getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
-        comidasResultantesSBI.meals.forEach((plato) => {
-          arrayPreparado.push(plato);
+// ERROR DE LOS FILTROS
 
-          arrayFiltrado = arrayPreparado;
-
-          if (
-            pais.options[pais.selectedIndex].value != "--" ||
-            categoria.options[categoria.selectedIndex].value != "--" ||
-            tag.options[tag.selectedIndex].value != "--"
-          ) {
-            arrayPreparado.forEach((plato) => {
-              if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
-                //copiaremos el array que me ha resultado de las comidas de antes
-                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
-                //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
-              }
-              if (
-                categoria.options[categoria.selectedIndex].value != plato.strCategory &&
-                categoria.options[categoria.selectedIndex].value != "--"
-              ) {
-                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
-              }
-              if (
-                plato.strTags != null &&
-                !plato.strTags.includes(tag.options[tag.selectedIndex].value.toString) &&
-                tag.options[tag.selectedIndex].value != "--"
-              ) {
-                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strTags.includes(tag.options[tag.selectedIndex].value));
-              }
-            });
-          }
-          pintaComidasFiltradas(arrayFiltrado);
-        });
-      });
-    });
-  });
-});
-
-function pintaComidasFiltradas(comidas) {
-  divResultados.innerHTML = "";
-  const fragment = document.createDocumentFragment();
-
-  comidas.forEach((comida) => {
-    plantillaCard.querySelector("#mealImage").src = comida.strMealThumb;
-    plantillaCard.querySelector("#mealName").textContent = comida.strMeal;
-
-    plantillaCard.querySelector("#type").textContent = comida.strCategory;
-
-    plantillaCard.querySelector("#country").textContent = comida.strArea;
-
-    if (plantillaCard.querySelector("#country").textContent != "Unknown") {
-      plantillaCard.querySelector("#countryFlag").src = establishFlag(comida.strArea);
-    }
-
-    plantillaCard.querySelector("#ingredient1").textContent = comida.strIngredient1;
-    plantillaCard.querySelector(
-      "#ingredient1image"
-    ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient1}-small.png`;
-
-    plantillaCard.querySelector("#ingredient2").textContent = comida.strIngredient2;
-    plantillaCard.querySelector(
-      "#ingredient2image"
-    ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient2}-small.png`;
-
-    plantillaCard.querySelector("#ingredient3").textContent = comida.strIngredient3;
-    plantillaCard.querySelector(
-      "#ingredient3image"
-    ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient3}-small.png`;
-
-    plantillaCard.querySelector("#ingredient4").textContent = comida.strIngredient4;
-    plantillaCard.querySelector(
-      "#ingredient4image"
-    ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient4}-small.png`;
-
-    plantillaCard.querySelector(".tags").innerHTML = "";
-    printTags(plantillaCard, comida);
-
-    const clone = plantillaCard.cloneNode(true);
-    fragment.appendChild(clone);
-  });
-  divResultados.appendChild(fragment);
-}
+// AL PULSAR EL BOTON DE APLICAR FILTROS, SE ACTIVA EL TRIGGER DE LOS 2
+// ARCHIVOS DE JAVASCRIPT Y SE EJECUTAN LAS 2 FUNCIONES SIMULTANEAMENTE,
+// POR ELLO UNO DE ELLOS SIEMPRE VA A DAR ERROR Y PUEDE ENTRAR EN CONFLICTO ENTRE ELLOS
