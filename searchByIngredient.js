@@ -301,7 +301,7 @@ function printTags(plantillaCard, meal) {
     listaEtiquetas.forEach((etiqueta) => {
       if (etiqueta) {
         nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
-        plantillaCard.querySelector(".tags").innerHTML = nuevalineaEtiqueta;
+        plantillaCard.querySelector(".tags").innerHTML += nuevalineaEtiqueta;
       }
     });
   } else {

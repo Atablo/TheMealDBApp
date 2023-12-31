@@ -4,7 +4,8 @@ let resultados = document.getElementById("results");
 const urlComidas = "https://www.themealdb.com/api/json/v1/1/search.php";
 const urlFotoIngredientes = "https://www.themealdb.com/images/ingredients/";
 
-const listCategories = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
+const listCategories =
+  "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
 
 const urlFilters = "www.themealdb.com/api/json/v1/1/filter.php?";
 
@@ -89,10 +90,6 @@ const countryFlags = [
 //lo primero que hacemos es esconder los filtros al entrar por primera vez en la página
 document.querySelector("#filtros").style.display = "none";
 
-
-
-
-
 ///////////////////////////////////////////////////Imprimir platos/////////////////////////////////////////
 //funcion para pintar los platos
 function pintaComidas(comidas) {
@@ -128,16 +125,20 @@ function pintaComidas(comidas) {
 
     //para construir la foto de los ingredientes necesitamos saber sus nombres
     let imagenIngrediente1 = clone.getElementById("ingredient1image");
-    imagenIngrediente1.src = urlFotoIngredientes + comida.strIngredient1 + ".png";
+    imagenIngrediente1.src =
+      urlFotoIngredientes + comida.strIngredient1 + ".png";
 
     let imagenIngrediente2 = clone.getElementById("ingredient2image");
-    imagenIngrediente2.src = urlFotoIngredientes + comida.strIngredient2 + ".png";
+    imagenIngrediente2.src =
+      urlFotoIngredientes + comida.strIngredient2 + ".png";
 
     let imagenIngrediente3 = clone.getElementById("ingredient3image");
-    imagenIngrediente3.src = urlFotoIngredientes + comida.strIngredient3 + ".png";
+    imagenIngrediente3.src =
+      urlFotoIngredientes + comida.strIngredient3 + ".png";
 
     let imagenIngrediente4 = clone.getElementById("ingredient4image");
-    imagenIngrediente4.src = urlFotoIngredientes + comida.strIngredient4 + ".png";
+    imagenIngrediente4.src =
+      urlFotoIngredientes + comida.strIngredient4 + ".png";
 
     printTags(clone, comida);
 
@@ -152,7 +153,11 @@ function establishFlag(nombrePais) {
   //con ese indice sacamos la abreviación
   let countryAbrev = countryFlags[indice];
   //y establecemos esa abreviación
-  return "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
+  return (
+    "https://www.themealdb.com/images/icons/flags/big/32/" +
+    countryAbrev +
+    ".png"
+  );
 }
 //funcion auxiliar para pintar las etiquetas a los platos
 function printTags(clone, comida) {
@@ -164,18 +169,19 @@ function printTags(clone, comida) {
     let listaEtiquetas = strTags.split(",");
     listaEtiquetas.forEach((etiqueta) => {
       if (etiqueta) {
-        nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
+        nuevalineaEtiqueta =
+          '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' +
+          etiqueta +
+          "</p>";
         zonaEtiquetas.innerHTML += nuevalineaEtiqueta;
       }
     });
   } else {
-    nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+    nuevalineaEtiqueta =
+      '<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
     zonaEtiquetas.innerHTML += nuevalineaEtiqueta;
   }
 }
-
-
-
 
 /////////////////////////////////////////////Busqueda por nombre////////////////////////////////
 //Buscar por nombre
@@ -192,13 +198,15 @@ formulario.addEventListener("submit", (e) => {
         mensajeWeb.classList.remove("alert-danger");
         mensajeWeb.classList.add("alert-info");
       }
-      mensajeWeb.querySelector("p").textContent = "Search results for the meal: '" + nombreComida + "'";
+      mensajeWeb.querySelector("p").textContent =
+        "Search results for the meal: '" + nombreComida + "'";
     })
     .catch(
       //pinto el mensaje de su color
       mensajeWeb.classList.remove("alert-info"),
       mensajeWeb.classList.add("alert-danger"),
-      (mensajeWeb.querySelector("p").textContent = "No matching results for the meal: '" + nombreComida + "'")
+      (mensajeWeb.querySelector("p").textContent =
+        "No matching results for the meal: '" + nombreComida + "'")
     );
   document.querySelector("#mealName").value = "";
   document.querySelector("#filtros").style.display = "block";
@@ -211,8 +219,6 @@ async function getMealsByName(nombreComida) {
   let json = await listaComidas.json();
   return json;
 }
-
-
 
 ////////////////////////////////////////////Obtención de todas las categorías////////////////
 //funcion para obtener todas las categorías
@@ -229,8 +235,6 @@ getAllCategories().then((categories) => {
   });
 });
 
-
-
 /*Cada vez que se pulsa aplicar filtros se limpia la comida
 Cuando el usuario seleccione una región o una categoría o ambos a la vez --> Lista de los nombres de platos que cumplen esas categorías.
 
@@ -246,41 +250,44 @@ let arrayPreparado = new Array();
 
 btnaplicarFiltros.addEventListener("click", aplicarFiltrosSeleccionados);
 
-
 function aplicarFiltrosSeleccionados() {
-
   arrayFiltrado = [];
   arrayPreparado = [];
-  getMealsByName(nombreComida)
-    .then((comidasResultantesSBN) => {
-      //con esto sacaremos una copia tal como la queremos del array resultante de comidas
-      comidasResultantesSBN.meals.forEach((plato) => {
-        arrayPreparado.push(plato)
-      })
-      //una vez tengo ya preparado mi array me creo el array que usaré después copiandolo del array resultante de la búsqueda
-      arrayFiltrado = arrayPreparado.slice();
+  getMealsByName(nombreComida).then((comidasResultantesSBN) => {
+    //con esto sacaremos una copia tal como la queremos del array resultante de comidas
+    comidasResultantesSBN.meals.forEach((plato) => {
+      arrayPreparado.push(plato);
+    });
+    //una vez tengo ya preparado mi array me creo el array que usaré después copiandolo del array resultante de la búsqueda
+    arrayFiltrado = arrayPreparado.slice();
 
-      if (pais.options[pais.selectedIndex].value != "--" || categoria.options[categoria.selectedIndex].value != "--" || etiqueta.options[etiqueta.selectedIndex].value != "--") { 
+    if (
+      pais.options[pais.selectedIndex].value != "--" ||
+      categoria.options[categoria.selectedIndex].value != "--" ||
+      etiqueta.options[etiqueta.selectedIndex].value != "--"
+    ) {
       arrayPreparado.forEach((plato) => {
-        if (pais.options[pais.selectedIndex].value != plato.strArea  && pais.options[pais.selectedIndex].value != "--") {
+        if ( pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") 
+        {
           //copiaremos el array que me ha resultado de las comidas de antes
-          arrayFiltrado = arrayFiltrado.filter(plato => plato.strArea == pais.options[pais.selectedIndex].value)
-          //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+          arrayFiltrado = arrayFiltrado.filter(
+            (plato) => plato.strArea == pais.options[pais.selectedIndex].value
+          );
         }
-        if (categoria.options[categoria.selectedIndex].value != plato.strCategory && categoria.options[categoria.selectedIndex].value != "--") {
-          arrayFiltrado = arrayFiltrado.filter(plato => plato.strCategory == categoria.options[categoria.selectedIndex].value)
+        if (categoria.options[categoria.selectedIndex].value != plato.strCategory && categoria.options[categoria.selectedIndex].value != "--"
+        ) {
+          arrayFiltrado = arrayFiltrado.filter((plato) =>plato.strCategory ==categoria.options[categoria.selectedIndex].value
+          );
         }
-        if (plato.strTags != null && !(plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value.toString)) && etiqueta.options[etiqueta.selectedIndex].value != "--") {
-          arrayFiltrado = arrayFiltrado.filter(plato => plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value))
+        if ( plato.strTags!= null && plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) && etiqueta.options[etiqueta.selectedIndex].value != "--"
+        ) { 
+          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value));
         }
-      })
-
+       
+      });
     }
 
-
-
-
-      /*
+    /*
       arrayTrasPais = [];
       //vamosa establecer el arrayTras mirar lo del pais
       comidasResultantesSBN.meals.forEach((plato) => {
@@ -308,70 +315,65 @@ function aplicarFiltrosSeleccionados() {
       console.log(arrayTrasPais);
       console.log(arrayTrasPyCategoria);
       console.log(arrayTrasPCyTag);*/
-      pintaComidasFiltradas(arrayFiltrado);
-
-    })
-
-
-  function pintaComidasFiltradas(comidas) {
-    divResultados.innerHTML = "";
-    const fragment = new DocumentFragment();
-
-    comidas.forEach((comida) => {
-      let clone = plantilla.cloneNode(true); //copiamos toda la temlate con lo que venga dentro
-      //ponemos la imgaen
-      let imagen = clone.getElementById("mealImage");
-      imagen.src = comida.strMealThumb;
-      //le ponemos también el pais de la comida
-      clone.getElementById("country").textContent = comida.strArea;
-      //establecemos el tipo de comida
-      clone.getElementById("type").textContent = comida.strCategory;
-      //obtenemos el pais y de paso se lo ponemos
-      let countryName = comida.strArea;
-      clone.querySelector("strong#country").textContent = countryName;
-
-      imagen = clone.getElementById("countryFlag");
-      if (clone.querySelector("#country").textContent != "Unknown") {
-        imagen.src = establishFlag(countryName);
-      }
-      //ahora le establecemos la foto usando el nombre del pais con el siguiente método
-
-      //le ponemos ahora el nombre de la comida
-      clone.querySelector("#mealName").textContent = comida.strMeal;
-      //ahora le ponemos los nombres de los 4 ingredientes principales
-      clone.querySelector("#ingredient1").textContent = comida.strIngredient1;
-      clone.querySelector("#ingredient2").textContent = comida.strIngredient2;
-      clone.querySelector("#ingredient3").textContent = comida.strIngredient3;
-      clone.querySelector("#ingredient4").textContent = comida.strIngredient4;
-
-      //para construir la foto de los ingredientes necesitamos saber sus nombres
-      let imagenIngrediente1 = clone.getElementById("ingredient1image");
-      imagenIngrediente1.src = urlFotoIngredientes + comida.strIngredient1 + ".png";
-
-      let imagenIngrediente2 = clone.getElementById("ingredient2image");
-      imagenIngrediente2.src = urlFotoIngredientes + comida.strIngredient2 + ".png";
-
-      let imagenIngrediente3 = clone.getElementById("ingredient3image");
-      imagenIngrediente3.src = urlFotoIngredientes + comida.strIngredient3 + ".png";
-
-      let imagenIngrediente4 = clone.getElementById("ingredient4image");
-      imagenIngrediente4.src = urlFotoIngredientes + comida.strIngredient4 + ".png";
-
-      printTags(clone, comida);
-
-      fragment.appendChild(clone);
-    });
-    divResultados.appendChild(fragment);
-  }
-
-
-
-
-
-
-
+    pintaComidasFiltradas(arrayFiltrado);
+  });
 }
 
+
+function pintaComidasFiltradas(comidas) {
+  divResultados.innerHTML = "";
+  const fragment = new DocumentFragment();
+
+  comidas.forEach((comida) => {
+    let clone = plantilla.cloneNode(true); //copiamos toda la temlate con lo que venga dentro
+    //ponemos la imgaen
+    let imagen = clone.getElementById("mealImage");
+    imagen.src = comida.strMealThumb;
+    //le ponemos también el pais de la comida
+    clone.getElementById("country").textContent = comida.strArea;
+    //establecemos el tipo de comida
+    clone.getElementById("type").textContent = comida.strCategory;
+    //obtenemos el pais y de paso se lo ponemos
+    let countryName = comida.strArea;
+    clone.querySelector("strong#country").textContent = countryName;
+
+    imagen = clone.getElementById("countryFlag");
+    if (clone.querySelector("#country").textContent != "Unknown") {
+      imagen.src = establishFlag(countryName);
+    }
+    //ahora le establecemos la foto usando el nombre del pais con el siguiente método
+
+    //le ponemos ahora el nombre de la comida
+    clone.querySelector("#mealName").textContent = comida.strMeal;
+    //ahora le ponemos los nombres de los 4 ingredientes principales
+    clone.querySelector("#ingredient1").textContent = comida.strIngredient1;
+    clone.querySelector("#ingredient2").textContent = comida.strIngredient2;
+    clone.querySelector("#ingredient3").textContent = comida.strIngredient3;
+    clone.querySelector("#ingredient4").textContent = comida.strIngredient4;
+
+    //para construir la foto de los ingredientes necesitamos saber sus nombres
+    let imagenIngrediente1 = clone.getElementById("ingredient1image");
+    imagenIngrediente1.src =
+      urlFotoIngredientes + comida.strIngredient1 + ".png";
+
+    let imagenIngrediente2 = clone.getElementById("ingredient2image");
+    imagenIngrediente2.src =
+      urlFotoIngredientes + comida.strIngredient2 + ".png";
+
+    let imagenIngrediente3 = clone.getElementById("ingredient3image");
+    imagenIngrediente3.src =
+      urlFotoIngredientes + comida.strIngredient3 + ".png";
+
+    let imagenIngrediente4 = clone.getElementById("ingredient4image");
+    imagenIngrediente4.src =
+      urlFotoIngredientes + comida.strIngredient4 + ".png";
+
+    printTags(clone, comida);
+
+    fragment.appendChild(clone);
+  });
+  divResultados.appendChild(fragment);
+}
 
 async function getFilters() {
   const urlFetch = urlFilters;
@@ -379,6 +381,3 @@ async function getFilters() {
   const json = await response.json();
   return json;
 }
-
-
-
