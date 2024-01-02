@@ -177,10 +177,14 @@ function printTags(clone, comida) {
 let nombreComida;
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  nombreIngrediente2 = null;
+
   nombreComida = document.getElementById("mealName");
   nombreComida = nombreComida.value.trim();
   getMealsByName(nombreComida)
     .then((comidas) => {
+      resetearFiltros();
       divResultados.innerHTML = "";
       if (comidas.meals != null) {
         pintaComidas(comidas);
@@ -288,6 +292,56 @@ function aplicarFiltrosSeleccionados() {
       }
 
       pintaComidasFiltradas(arrayFiltrado);
+    }
+  });
+
+  getIngredientsByName(nombreIngrediente2).then((meals) => {
+    if (meals.meals) {
+      meals.meals.forEach((meal) => {
+        getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
+          comidasResultantesSBI.meals.forEach((plato) => {
+            arrayPreparado.push(plato);
+
+            arrayFiltrado = arrayPreparado;
+
+            if (
+              pais.options[pais.selectedIndex].value != "--" ||
+              categoria.options[categoria.selectedIndex].value != "--" ||
+              tag.options[tag.selectedIndex].value != "--"
+            ) {
+              arrayPreparado.forEach((plato) => {
+                if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+                  //copiaremos el array que me ha resultado de las comidas de antes
+                  arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+                  //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+                }
+                if (
+                  categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+                  categoria.options[categoria.selectedIndex].value != "--"
+                ) {
+                  arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+                }
+                if (
+                  (plato.strTags != null &&
+                    !plato.strTags.includes(tag.options[tag.selectedIndex].value) &&
+                    tag.options[tag.selectedIndex].value != "--") ||
+                  plato.strTags == null
+                ) {
+                  //obtenemos el indice del plato
+                  if (tag.options[tag.selectedIndex].value != "--") {
+                    let indexPlato = arrayFiltrado.indexOf(plato);
+                    //quitamos el plato que no tenga esa etiqueta
+                    if (indexPlato != -1) {
+                      arrayFiltrado.splice(indexPlato, 1);
+                    }
+                  }
+                }
+              });
+            }
+            pintaComidasFiltradas(arrayFiltrado);
+          });
+        });
+      });
     }
   });
 }
