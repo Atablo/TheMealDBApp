@@ -164,6 +164,19 @@ async function getAllIngredients() {
   return json;
 }
 
+async function showRandomMeals() {
+  const urlFetch = "https://www.themealdb.com/api/json/v1/1/random.php";
+  const response = await fetch(urlFetch);
+  const json = await response.json();
+  return json;
+}
+
+for (i = 0; i < 8; i++) {
+  showRandomMeals().then((meals) => {
+    pintarMeals(meals);
+  });
+}
+
 getAllIngredients().then((ingredients) => {
   ingredients.meals.forEach((ingredient) => {
     datalistOptions.innerHTML += `<option value="${ingredient.strIngredient}"></option>`;
@@ -190,8 +203,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
           webMessage.classList.remove("alert-danger");
           webMessage.classList.add("alert-info");
 
-          webMessage.querySelector("p").textContent =
-            "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'";
+          webMessage.querySelector("p").textContent = "Search results for the meal: '" + nombreIngrediente.value + "'";
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
@@ -203,7 +215,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 
           document.querySelector("#filtros").style.display = "block";
         } else {
-          throw new Error("No existen resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'");
+          throw new Error("No matching results for the meal: '" + nombreIngrediente.value + "'");
         }
       })
       .catch((error) => {
@@ -219,6 +231,8 @@ divCards.addEventListener("click", (evento) => {
   if (evento.target.parentNode.parentNode.classList.contains("ingredient")) {
     let nombreIngrediente = evento.target.parentNode.parentNode.querySelector(".ingredient p").textContent;
 
+    nombreIngrediente2 = nombreIngrediente;
+
     divCards.innerHTML = "";
 
     webMessage.querySelector("p").textContent = "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente + "'";
@@ -229,6 +243,9 @@ divCards.addEventListener("click", (evento) => {
         });
       });
     });
+
+    document.querySelector("#filtros").style.display = "block";
+
     evento.stopPropagation();
   }
 });
@@ -352,51 +369,53 @@ applyFilters.addEventListener("click", (e) => {
   arrayPreparado = new Array();
 
   getIngredientsByName(nombreIngrediente2).then((meals) => {
-    meals.meals.forEach((meal) => {
-      getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
-        comidasResultantesSBI.meals.forEach((plato) => {
-          arrayPreparado.push(plato);
+    if (meals.meals) {
+      meals.meals.forEach((meal) => {
+        getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
+          comidasResultantesSBI.meals.forEach((plato) => {
+            arrayPreparado.push(plato);
 
-          arrayFiltrado = arrayPreparado;
+            arrayFiltrado = arrayPreparado;
 
-          if (
-            pais.options[pais.selectedIndex].value != "--" ||
-            categoria.options[categoria.selectedIndex].value != "--" ||
-            tag.options[tag.selectedIndex].value != "--"
-          ) {
-            arrayPreparado.forEach((plato) => {
-              if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
-                //copiaremos el array que me ha resultado de las comidas de antes
-                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
-                //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
-              }
-              if (
-                categoria.options[categoria.selectedIndex].value != plato.strCategory &&
-                categoria.options[categoria.selectedIndex].value != "--"
-              ) {
-                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
-              }
-              if (
-                (plato.strTags != null &&
-                  !plato.strTags.includes(tag.options[tag.selectedIndex].value) &&
-                  tag.options[tag.selectedIndex].value != "--") ||
-                plato.strTags == null
-              ) {
-                //obtenemos el indice del plato
-                if (tag.options[tag.selectedIndex].value != "--") {
-                  let indexPlato = arrayFiltrado.indexOf(plato);
-                  //quitamos el plato que no tenga esa etiqueta
-                  if (indexPlato != -1) {
-                    arrayFiltrado.splice(indexPlato, 1);
+            if (
+              pais.options[pais.selectedIndex].value != "--" ||
+              categoria.options[categoria.selectedIndex].value != "--" ||
+              tag.options[tag.selectedIndex].value != "--"
+            ) {
+              arrayPreparado.forEach((plato) => {
+                if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+                  //copiaremos el array que me ha resultado de las comidas de antes
+                  arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+                  //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+                }
+                if (
+                  categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+                  categoria.options[categoria.selectedIndex].value != "--"
+                ) {
+                  arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+                }
+                if (
+                  (plato.strTags != null &&
+                    !plato.strTags.includes(tag.options[tag.selectedIndex].value) &&
+                    tag.options[tag.selectedIndex].value != "--") ||
+                  plato.strTags == null
+                ) {
+                  //obtenemos el indice del plato
+                  if (tag.options[tag.selectedIndex].value != "--") {
+                    let indexPlato = arrayFiltrado.indexOf(plato);
+                    //quitamos el plato que no tenga esa etiqueta
+                    if (indexPlato != -1) {
+                      arrayFiltrado.splice(indexPlato, 1);
+                    }
                   }
                 }
-              }
-            });
-          }
-          pintaComidasFiltradas(arrayFiltrado);
+              });
+            }
+            pintaComidasFiltradas(arrayFiltrado);
+          });
         });
       });
-    });
+    }
   });
 });
 

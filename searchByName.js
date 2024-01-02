@@ -14,6 +14,8 @@ let divResultados = document.getElementById("results");
 
 let btnaplicarFiltros = document.getElementById("applyFilters");
 
+let btnresetFiltros = document.getElementById("resetFilters");
+
 //arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas
 const region = [
   "British",
@@ -346,4 +348,12 @@ async function getFilters() {
   const response = await fetch(urlFetch);
   const json = await response.json();
   return json;
+}
+
+btnresetFiltros.addEventListener("click", (e) => resetearFiltros());
+
+function resetearFiltros() {
+  document.getElementById("pais").getElementsByTagName("option")[0].selected = "selected";
+  document.getElementById("categoria").getElementsByTagName("option")[0].selected = "selected";
+  document.getElementById("etiqueta").getElementsByTagName("option")[0].selected = "selected";
 }
