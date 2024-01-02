@@ -11,6 +11,8 @@ const datalistOptions = document.querySelector("#datalistOptions");
 const urlIngredients = "https://www.themealdb.com/api/json/v1/1/";
 const listIngredients = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
 
+let nombreIngrediente2;
+
 const regiones = [
   "British",
   "American",
@@ -85,8 +87,7 @@ const banderaPaises = [
 
 const etiquetas = [
   "Rice",
-  "Christmas",
-  "SideDish",
+  "Sidedish",
   "Speciality",
   "Fruity",
   "Pudding",
@@ -122,7 +123,6 @@ const etiquetas = [
   "Shellfish",
   "Pie",
   "Warm",
-  "Desert",
   "Mainmeal",
   "Speciality",
   "Snack",
@@ -138,7 +138,6 @@ const etiquetas = [
   "Savory",
   "Stew",
   "Vegan",
-  "Vegetarian",
   "Paella",
   "Mild",
   "Pulse",
@@ -147,8 +146,6 @@ const etiquetas = [
   "Pancake",
   "Sausages",
 ];
-
-
 
 let listaImpresa = new Array();
 let listaImpresa2 = new Array();
@@ -185,23 +182,24 @@ busquedaIngrediente.addEventListener("submit", (e) => {
   if (valido) {
     divCards.innerHTML = "";
 
+    nombreIngrediente2 = nombreIngrediente.value.trim();
+
     getIngredientsByName(nombreIngrediente.value.trim())
       .then((meals) => {
         if (meals.meals != null) {
           webMessage.classList.remove("alert-danger");
-          webMessage.classList.add("alert-light");
+          webMessage.classList.add("alert-info");
 
           webMessage.querySelector("p").textContent =
-            "Search results for the meals containing the ingredient: '" + nombreIngrediente.value + "'";
+            "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'";
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
-              listaImpresa.push(meals);
-              listaImpresa2.push(meals.meals);
               pintarMeals(meals);
             });
           });
-          nombreIngrediente.value = "";
+
+          document.querySelector("#nombreIngrediente").value = "";
 
           document.querySelector("#filtros").style.display = "block";
         } else {
@@ -210,7 +208,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
       })
       .catch((error) => {
         const mensaje = error.toString().split(":");
-        webMessage.classList.remove("alert-light");
+        webMessage.classList.remove("alert-info");
         webMessage.classList.add("alert-danger");
         webMessage.querySelector("p").textContent = mensaje[1];
       });
@@ -293,6 +291,8 @@ function pintarMeals(meals) {
 }
 
 function printTags(plantillaCard, meal) {
+  plantillaCard.querySelector(".tags").innerHTML = "";
+
   //primero separaremos los tags
   let strTags = meal.strTags;
   let nuevalineaEtiqueta;
@@ -321,6 +321,8 @@ Errores:
 /////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////FILTERS//////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
+
+//Innecesario?? ----- Podemos borrarlo
 async function getFilters() {
   const urlFetch = urlFilters;
   const response = await fetch(urlFetch);
@@ -346,54 +348,107 @@ etiquetas.forEach((etiqueta) => {
 const applyFilters = document.querySelector("#applyFilters");
 
 applyFilters.addEventListener("click", (e) => {
-  divCards.innerHTML = "";
+  arrayFiltrado = new Array();
+  arrayPreparado = new Array();
 
-  listaImpresa.forEach((platos) => {
-    // if (pais.options[pais.selectedIndex].value == "--" || categoria.options[categoria.selectedIndex].value == "--") {
-    //   pintarMeals(platos);
-    // }
-    const fragment = document.createDocumentFragment();
-    platos.meals.forEach((plato) => {
-      if (pais.options[pais.selectedIndex].value == plato.strArea) {
-        pintarFiltroComida(plato);
-        const clone = plantillaCard.cloneNode(true);
-        fragment.appendChild(clone);
-      }
+  getIngredientsByName(nombreIngrediente2).then((meals) => {
+    meals.meals.forEach((meal) => {
+      getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
+        comidasResultantesSBI.meals.forEach((plato) => {
+          arrayPreparado.push(plato);
 
-      if (categoria.options[categoria.selectedIndex].value == plato.strCategory) {
-        pintarFiltroComida(plato);
-        const clone = plantillaCard.cloneNode(true);
-        fragment.appendChild(clone);
-      }
+          arrayFiltrado = arrayPreparado;
+
+          if (
+            pais.options[pais.selectedIndex].value != "--" ||
+            categoria.options[categoria.selectedIndex].value != "--" ||
+            tag.options[tag.selectedIndex].value != "--"
+          ) {
+            arrayPreparado.forEach((plato) => {
+              if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+                //copiaremos el array que me ha resultado de las comidas de antes
+                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+                //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+              }
+              if (
+                categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+                categoria.options[categoria.selectedIndex].value != "--"
+              ) {
+                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+              }
+              if (
+                (plato.strTags != null &&
+                  !plato.strTags.includes(tag.options[tag.selectedIndex].value) &&
+                  tag.options[tag.selectedIndex].value != "--") ||
+                plato.strTags == null
+              ) {
+                //obtenemos el indice del plato
+                if (tag.options[tag.selectedIndex].value != "--") {
+                  let indexPlato = arrayFiltrado.indexOf(plato);
+                  //quitamos el plato que no tenga esa etiqueta
+                  if (indexPlato != -1) {
+                    arrayFiltrado.splice(indexPlato, 1);
+                  }
+                }
+              }
+            });
+          }
+          pintaComidasFiltradas(arrayFiltrado);
+        });
+      });
     });
-    divCards.appendChild(fragment);
   });
 });
 
-function pintarFiltroComida(plato) {
-  plantillaCard.querySelector("#mealImage").src = plato.strMealThumb;
-  plantillaCard.querySelector("#mealName").textContent = plato.strMeal;
+// function pintaComidasFiltradas(comidas) {
+//   divResultados.innerHTML = "";
+//   const fragment = document.createDocumentFragment();
 
-  plantillaCard.querySelector("#type").textContent = plato.strCategory;
+//   comidas.forEach((comida) => {
+//     plantillaCard.querySelector("#mealImage").src = comida.strMealThumb;
+//     plantillaCard.querySelector("#mealName").textContent = comida.strMeal;
 
-  plantillaCard.querySelector("#country").textContent = plato.strArea;
+//     plantillaCard.querySelector("#type").textContent = comida.strCategory;
 
-  if (plantillaCard.querySelector("#country").textContent != "Unknown") {
-    plantillaCard.querySelector("#countryFlag").src = establishFlag(plato.strArea);
-  }
+//     plantillaCard.querySelector("#country").textContent = comida.strArea;
 
-  plantillaCard.querySelector("#ingredient1").textContent = plato.strIngredient1;
-  plantillaCard.querySelector("#ingredient1image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient1}-small.png`;
+//     if (plantillaCard.querySelector("#country").textContent != "Unknown") {
+//       plantillaCard.querySelector("#countryFlag").src = establishFlag(comida.strArea);
+//     }
 
-  plantillaCard.querySelector("#ingredient2").textContent = plato.strIngredient2;
-  plantillaCard.querySelector("#ingredient2image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient2}-small.png`;
+//     plantillaCard.querySelector("#ingredient1").textContent = comida.strIngredient1;
+//     plantillaCard.querySelector(
+//       "#ingredient1image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient1}-small.png`;
 
-  plantillaCard.querySelector("#ingredient3").textContent = plato.strIngredient3;
-  plantillaCard.querySelector("#ingredient3image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient3}-small.png`;
+//     plantillaCard.querySelector("#ingredient2").textContent = comida.strIngredient2;
+//     plantillaCard.querySelector(
+//       "#ingredient2image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient2}-small.png`;
 
-  plantillaCard.querySelector("#ingredient4").textContent = plato.strIngredient4;
-  plantillaCard.querySelector("#ingredient4image").src = `https://www.themealdb.com/images/ingredients/${plato.strIngredient4}-small.png`;
+//     plantillaCard.querySelector("#ingredient3").textContent = comida.strIngredient3;
+//     plantillaCard.querySelector(
+//       "#ingredient3image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient3}-small.png`;
 
-  plantillaCard.querySelector(".tags").innerHTML = "";
-  printTags(plantillaCard, plato);
-}
+//     plantillaCard.querySelector("#ingredient4").textContent = comida.strIngredient4;
+//     plantillaCard.querySelector(
+//       "#ingredient4image"
+//     ).src = `https://www.themealdb.com/images/ingredients/${comida.strIngredient4}-small.png`;
+
+//     plantillaCard.querySelector(".tags").innerHTML = "";
+//     printTags(plantillaCard, comida);
+
+//     const clone = plantillaCard.cloneNode(true);
+//     fragment.appendChild(clone);
+//   });
+//   divResultados.appendChild(fragment);
+// }
+
+//
+
+// ERROR DE LOS FILTROS
+
+// AL PULSAR EL BOTON DE APLICAR FILTROS, SE ACTIVA EL TRIGGER DE LOS 2
+// ARCHIVOS DE JAVASCRIPT Y SE EJECUTAN LAS 2 FUNCIONES SIMULTANEAMENTE,
+// POR ELLO UNO DE ELLOS SIEMPRE VA A DAR ERROR Y PUEDE ENTRAR EN CONFLICTO ENTRE ELLOS
