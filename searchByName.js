@@ -179,22 +179,25 @@ formulario.addEventListener("submit", (e) => {
   nombreComida = nombreComida.value.trim();
   getMealsByName(nombreComida)
     .then((comidas) => {
-      pintaComidas(comidas);
-
-      if (mensajeWeb.classList.contains("alert-danger")) {
-        mensajeWeb.classList.remove("alert-danger");
-        mensajeWeb.classList.add("alert-info");
+      divResultados.innerHTML = "";
+      if (comidas.meals != null) {
+        pintaComidas(comidas);
+        if (mensajeWeb.classList.contains("alert-danger")) {
+          mensajeWeb.classList.remove("alert-danger");
+          mensajeWeb.classList.add("alert-light");
+        }
+        mensajeWeb.querySelector("p").textContent = "Search results for the meal: '" + nombreComida + "'";
+        document.querySelector("#filtros").style.display = "block";
       }
-      mensajeWeb.querySelector("p").textContent = "Search results for the meal: '" + nombreComida + "'";
     })
     .catch(
       //pinto el mensaje de su color
-      mensajeWeb.classList.remove("alert-info"),
+      mensajeWeb.classList.remove("alert-light"),
       mensajeWeb.classList.add("alert-danger"),
-      (mensajeWeb.querySelector("p").textContent = "No matching results for the meal: '" + nombreComida + "'")
+      (mensajeWeb.querySelector("p").textContent = "No matching results for the meal: '" + nombreComida + "'"),
+      (document.querySelector("#filtros").style.display = "none")
     );
   document.querySelector("#mealName").value = "";
-  document.querySelector("#filtros").style.display = "block";
 });
 
 //Funcion para obtener todas las comidas que contengan el nombre que le hemos escrito
@@ -241,78 +244,49 @@ function aplicarFiltrosSeleccionados() {
   getMealsByName(nombreComida).then((comidasResultantesSBN) => {
     //con esto sacaremos una copia tal como la queremos del array resultante de comidas
 
-    console.log(comidasResultantesSBN);
-    comidasResultantesSBN.meals.forEach((plato) => {
-      arrayPreparado.push(plato);
-    });
-    //una vez tengo ya preparado mi array me creo el array que usaré después copiandolo del array resultante de la búsqueda
-    arrayFiltrado = arrayPreparado.slice();
+    if (comidasResultantesSBN.meals) {
+      comidasResultantesSBN.meals.forEach((plato) => {
+        arrayPreparado.push(plato);
+      });
+      //una vez tengo ya preparado mi array me creo el array que usaré después copiandolo del array resultante de la búsqueda
+      arrayFiltrado = arrayPreparado.slice();
 
-    if (
-      pais.options[pais.selectedIndex].value != "--" ||
-      categoria.options[categoria.selectedIndex].value != "--" ||
-      etiqueta.options[etiqueta.selectedIndex].value != "--"
-    ) {
-      arrayPreparado.forEach((plato) => {
-        if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
-          //copiaremos el array que me ha resultado de las comidas de antes
-          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
-        }
-        if (
-          categoria.options[categoria.selectedIndex].value != plato.strCategory &&
-          categoria.options[categoria.selectedIndex].value != "--"
-        ) {
-          arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
-        }
-        if (
-          (plato.strTags != null &&
-            !plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) &&
-            etiqueta.options[etiqueta.selectedIndex].value != "--") ||
-          plato.strTags == null
-        ) {
-          //obtenemos el indice del plato
-          if (etiqueta.options[etiqueta.selectedIndex].value != "--") {
-            let indexPlato = arrayFiltrado.indexOf(plato);
-            //quitamos el plato que no tenga esa etiqueta
-            if (indexPlato != -1) {
-              arrayFiltrado.splice(indexPlato, 1);
+      if (
+        pais.options[pais.selectedIndex].value != "--" ||
+        categoria.options[categoria.selectedIndex].value != "--" ||
+        etiqueta.options[etiqueta.selectedIndex].value != "--"
+      ) {
+        arrayPreparado.forEach((plato) => {
+          if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+            //copiaremos el array que me ha resultado de las comidas de antes
+            arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+          }
+          if (
+            categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+            categoria.options[categoria.selectedIndex].value != "--"
+          ) {
+            arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+          }
+          if (
+            (plato.strTags != null &&
+              !plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) &&
+              etiqueta.options[etiqueta.selectedIndex].value != "--") ||
+            plato.strTags == null
+          ) {
+            //obtenemos el indice del plato
+            if (etiqueta.options[etiqueta.selectedIndex].value != "--") {
+              let indexPlato = arrayFiltrado.indexOf(plato);
+              //quitamos el plato que no tenga esa etiqueta
+              if (indexPlato != -1) {
+                arrayFiltrado.splice(indexPlato, 1);
+              }
             }
           }
+        });
+      }
 
-          ////////////////////////El diablo loco 💀//////
-        }
-      });
+      pintaComidasFiltradas(arrayFiltrado);
     }
-
-    /*
-      arrayTrasPais = [];
-      //vamosa establecer el arrayTras mirar lo del pais
-      comidasResultantesSBN.meals.forEach((plato) => {
-    
-        if (pais.options[pais.selectedIndex].value == plato.strArea) {
-          //copiaremos el array que me ha resultado de las comidas de antes
-          arrayTrasPais.push(plato)
-          //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
-        }
-      })
-    
-      arrayTrasPyCategoria=[];
-      arrayTrasPais.forEach((plato)=>{
-        if (categoria.options[categoria.selectedIndex].value == plato.strCategory) {
-          arrayTrasPyCategoria.push(plato);
-        }
-      })
-    
-      arrayTrasPCyTag=[];
-      arrayTrasPyCategoria.forEach((plato)=>{ 
-        if (plato.strTags.include(etiqueta.options[etiqueta.selectedIndex].value)) {
-          arrayTrasPCyTag.push(plato);
-        }
-      })
-      console.log(arrayTrasPais);
-      console.log(arrayTrasPyCategoria);
-      console.log(arrayTrasPCyTag);*/
-    pintaComidasFiltradas(arrayFiltrado);
   });
 }
 

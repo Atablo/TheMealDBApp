@@ -17,37 +17,35 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-sm navbar-light bg-cardbody">
-        <div class="container">
-          <a class="navbar-brand" href="#">ComidaDB</a>
+      <nav class="navbar navbar-expand-sm navbar-light bg-dark">
+        <div class="container-lg">
+          <a class="navbar-brand" href="index.html">
+            <img src="https://www.themealdb.com/images/logo-small.png" alt="" height="30" />
+          </a>
           <button
-            class="navbar-toggler d-lg-none"
+            class="navbar-toggler d-lg-none text-light bg-light"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapsibleNavId"
             aria-controls="collapsibleNavId"
             aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon text-dark"></span>
           </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" href="#" aria-current="page">
-                  Home
-                  <span class="visually-hidden">(current)</span>
-                </a>
-              </li>
-            </ul>
-            <form class="d-flex my-2 my-lg-0" id="searchByName">
-              <input class="form-control" type="text" placeholder="Por Nombre" id="mealName" />
-              <button class="btn btn-outline-success my-2 my-sm-0 mr-10" type="submit">Buscar</button>
+          <div class="collapse navbar-collapse justify-content-evenly" id="collapsibleNavId">
+            <form class="d-flex my-2 my-lg-0 w-40" id="searchByName">
+              <input class="form-control text-center" type="text" placeholder="Search a meal by name" id="mealName" />
+              <button class="btn btn-outline-light my-2 my-sm-0 mr-10 mx-2" type="submit">Search</button>
             </form>
-            <form action="#" class="d-flex my-lg-0" id="searchByIngredient">
-              <input class="form-control" type="text" list="datalistOptions" placeholder="Por Ingrediente" id="nombreIngrediente" />
+            <form action="#" class="d-flex my-lg-0 w-40" id="searchByIngredient">
+              <input
+                class="form-control text-center"
+                type="text"
+                list="datalistOptions"
+                placeholder="Search a meal by an ingredient"
+                id="nombreIngrediente" />
               <datalist id="datalistOptions"></datalist>
-
-              <button class="btn btn-outline-success my-2 my-sm-0 mr-10 ms-1" type="submit">Buscar</button>
+              <button class="btn btn-outline-light my-2 my-sm-0 mr-10 mx-2" type="submit">Search</button>
             </form>
           </div>
         </div>
@@ -56,34 +54,34 @@
 
     <main>
       <div class="container">
-        <div class="alert alert-info my-5 text-center" role="alert" id="webMessage">
-          <p class="text-center fs-1">Bienvenido a nuestro catalogo de comidas</p>
+        <div class="alert alert-light my-5 text-center" role="alert" id="webMessage">
+          <p class="text-center fs-1 text-dark">Welcome to the biggest food database</p>
           <img src="https://www.themealdb.com/images/logo-small.png" alt="" style="width: 150px" />
         </div>
 
         <div class="alert alert-info my-5 text-center" role="alert" id="filtros">
-          <p class="text-center fs-1">Filtros</p>
+          <p class="text-center fs-1">Filters</p>
           <div class="row">
             <div class="col-4">
-              <span>Pais</span>
+              <span>Country</span>
               <select name="select" class="text-center" id="pais">
-                <option>--</option>
+                <option selected>--</option>
               </select>
             </div>
             <div class="col-4">
-              <span>Categoria</span>
+              <span>Meal category</span>
               <select name="select" class="text-center" id="categoria">
-                <option>--</option>
+                <option selected>--</option>
               </select>
             </div>
             <div class="col-4">
-              <span>Etiquetas</span>
+              <span>Tags</span>
               <select name="select" class="text-center" id="etiqueta">
-                <option>--</option>
+                <option selected>--</option>
               </select>
             </div>
           </div>
-          <button class="btn btn-primary mt-4" id="applyFilters">Aplicar filtros</button>
+          <button class="btn btn-success mt-4" id="applyFilters">Apply Filters</button>
         </div>
 
         <div id="results" class="row flex-wrap justify-content-around"></div>

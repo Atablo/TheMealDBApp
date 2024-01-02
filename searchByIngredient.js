@@ -345,52 +345,60 @@ etiquetas.forEach((etiqueta) => {
 
 /////////////////////////////////////////////////////////////////////////
 
-// const applyFilters = document.querySelector("#applyFilters");
+const applyFilters = document.querySelector("#applyFilters");
 
-// applyFilters.addEventListener("click", (e) => {
-//   arrayFiltrado = new Array();
-//   arrayPreparado = new Array();
+applyFilters.addEventListener("click", (e) => {
+  arrayFiltrado = new Array();
+  arrayPreparado = new Array();
 
-//   getIngredientsByName(nombreIngrediente2).then((meals) => {
-//     meals.meals.forEach((meal) => {
-//       getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
-//         comidasResultantesSBI.meals.forEach((plato) => {
-//           arrayPreparado.push(plato);
+  getIngredientsByName(nombreIngrediente2).then((meals) => {
+    meals.meals.forEach((meal) => {
+      getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
+        comidasResultantesSBI.meals.forEach((plato) => {
+          arrayPreparado.push(plato);
 
-//           arrayFiltrado = arrayPreparado;
+          arrayFiltrado = arrayPreparado;
 
-//           if (
-//             pais.options[pais.selectedIndex].value != "--" ||
-//             categoria.options[categoria.selectedIndex].value != "--" ||
-//             tag.options[tag.selectedIndex].value != "--"
-//           ) {
-//             arrayPreparado.forEach((plato) => {
-//               if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
-//                 //copiaremos el array que me ha resultado de las comidas de antes
-//                 arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
-//                 //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
-//               }
-//               if (
-//                 categoria.options[categoria.selectedIndex].value != plato.strCategory &&
-//                 categoria.options[categoria.selectedIndex].value != "--"
-//               ) {
-//                 arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
-//               }
-//               if (tag.options[tag.selectedIndex].value != "--") {
-//                 let indexPlato = arrayFiltrado.indexOf(plato);
-//                 //quitamos el plato que no tenga esa etiqueta
-//                 if (indexPlato != -1) {
-//                   arrayFiltrado.splice(indexPlato, 1);
-//                 }
-//               }
-//             });
-//           }
-//           pintaComidasFiltradas(arrayFiltrado);
-//         });
-//       });
-//     });
-//   });
-// });
+          if (
+            pais.options[pais.selectedIndex].value != "--" ||
+            categoria.options[categoria.selectedIndex].value != "--" ||
+            tag.options[tag.selectedIndex].value != "--"
+          ) {
+            arrayPreparado.forEach((plato) => {
+              if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
+                //copiaremos el array que me ha resultado de las comidas de antes
+                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
+                //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
+              }
+              if (
+                categoria.options[categoria.selectedIndex].value != plato.strCategory &&
+                categoria.options[categoria.selectedIndex].value != "--"
+              ) {
+                arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
+              }
+              if (
+                (plato.strTags != null &&
+                  !plato.strTags.includes(tag.options[tag.selectedIndex].value) &&
+                  tag.options[tag.selectedIndex].value != "--") ||
+                plato.strTags == null
+              ) {
+                //obtenemos el indice del plato
+                if (tag.options[tag.selectedIndex].value != "--") {
+                  let indexPlato = arrayFiltrado.indexOf(plato);
+                  //quitamos el plato que no tenga esa etiqueta
+                  if (indexPlato != -1) {
+                    arrayFiltrado.splice(indexPlato, 1);
+                  }
+                }
+              }
+            });
+          }
+          pintaComidasFiltradas(arrayFiltrado);
+        });
+      });
+    });
+  });
+});
 
 // function pintaComidasFiltradas(comidas) {
 //   divResultados.innerHTML = "";

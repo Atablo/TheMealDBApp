@@ -42,10 +42,18 @@ hr {
     width: 30%;
 }
 
+.w-40 {
+    width: 40%;
+}
+
 .ingredient img:hover {
     cursor: pointer;
 }
 
-.error>input {
-    border-color: red;
+.tags p {
+    font-size: small;
+}
+
+.ingredient img:hover {
+    cursor: pointer;
 }
