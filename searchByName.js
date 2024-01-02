@@ -96,7 +96,7 @@ function pintaComidas(comidas) {
   divResultados.innerHTML = "";
   const fragment = new DocumentFragment();
 
-  comidas.meals.forEach((comida) => {
+    comidas.meals.forEach((comida) => {
     let clone = plantilla.cloneNode(true); //copiamos toda la temlate con lo que venga dentro
     //ponemos la imgaen
     let imagen = clone.getElementById("mealImage");
@@ -145,6 +145,9 @@ function pintaComidas(comidas) {
     fragment.appendChild(clone);
   });
   divResultados.appendChild(fragment);
+  
+
+ 
 }
 //funcio auxiliar para pintar las banderas a los platos
 function establishFlag(nombrePais) {
@@ -192,24 +195,31 @@ formulario.addEventListener("submit", (e) => {
   nombreComida = nombreComida.value.trim();
   getMealsByName(nombreComida)
     .then((comidas) => {
-      pintaComidas(comidas);
-
-      if (mensajeWeb.classList.contains("alert-danger")) {
-        mensajeWeb.classList.remove("alert-danger");
-        mensajeWeb.classList.add("alert-info");
+      divResultados.innerHTML = "";
+      if (comidas.meals != null) {  
+        pintaComidas(comidas)
+        if (mensajeWeb.classList.contains("alert-danger")) {
+          mensajeWeb.classList.remove("alert-danger");
+          mensajeWeb.classList.add("alert-light");
+        }
+        mensajeWeb.querySelector("p").textContent =
+          "Search results for the meal: '" + nombreComida + "'";
+          document.querySelector("#filtros").style.display = "block"; 
       }
-      mensajeWeb.querySelector("p").textContent =
-        "Search results for the meal: '" + nombreComida + "'";
+
+     
+      
     })
     .catch(
       //pinto el mensaje de su color
-      mensajeWeb.classList.remove("alert-info"),
+      mensajeWeb.classList.remove("alert-light"),
       mensajeWeb.classList.add("alert-danger"),
       (mensajeWeb.querySelector("p").textContent =
-        "No matching results for the meal: '" + nombreComida + "'")
+        "No matching results for the meal: '" + nombreComida + "'"),
+        document.querySelector("#filtros").style.display = "none"
+      
     );
   document.querySelector("#mealName").value = "";
-  document.querySelector("#filtros").style.display = "block";
 });
 
 //Funcion para obtener todas las comidas que contengan el nombre que le hemos escrito
@@ -290,10 +300,8 @@ function aplicarFiltrosSeleccionados() {
 
           }
 
-          ////////////////////////El diablo loco 💀//////
         }
-
-      });
+      })
     }
 
     /*
@@ -380,7 +388,7 @@ function pintaComidasFiltradas(comidas) {
     printTags(clone, comida);
 
     fragment.appendChild(clone);
-  });
+  })
   divResultados.appendChild(fragment);
 }
 

@@ -189,10 +189,10 @@ busquedaIngrediente.addEventListener("submit", (e) => {
       .then((meals) => {
         if (meals.meals != null) {
           webMessage.classList.remove("alert-danger");
-          webMessage.classList.add("alert-info");
+          webMessage.classList.add("alert-light");
 
           webMessage.querySelector("p").textContent =
-            "Resultados para la búsqueda de comida con el ingrediente '" + nombreIngrediente.value + "'";
+            "Search results for the meals containing the ingredient: '" + nombreIngrediente.value + "'";
 
           meals.meals.forEach((meal) => {
             getMealsByName(meal.strMeal).then((meals) => {
@@ -210,7 +210,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
       })
       .catch((error) => {
         const mensaje = error.toString().split(":");
-        webMessage.classList.remove("alert-info");
+        webMessage.classList.remove("alert-light");
         webMessage.classList.add("alert-danger");
         webMessage.querySelector("p").textContent = mensaje[1];
       });
