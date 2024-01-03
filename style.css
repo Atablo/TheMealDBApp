@@ -57,3 +57,7 @@ hr {
 .ingredient img:hover {
     cursor: pointer;
 }
+
+.error>input {
+    border-color: red;
+}
