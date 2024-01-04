@@ -109,7 +109,6 @@ const etiquetas = [
   "Greasy",
   "Unhealthy",
   "Calorific",
-  "Breakfast",
   "Bbq",
   "Bun",
   "Baking",
@@ -153,6 +152,10 @@ const etiquetas = [
   "Sausages",
 ];
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////FUNCIONES ASÍNCRONAS///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //Función asíncrona para obtener los platos por nombre
 async function getIngredientsByName(name) {
   //Creamos una variable que sea igual a "urlIngredients" + "filter.php?i=" + el nombre que introduzca el usuario
@@ -189,6 +192,10 @@ async function showRandomMeals() {
   return json;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //Creamos un bucle for de 8 veces para que pinte 8 platos en la página principal al entrar
 for (i = 0; i < 8; i++) {
   //Invocamos la función asíncrona de obtener platos aleatoriamente, y el objeto que nos trae
@@ -207,10 +214,22 @@ getAllIngredients().then((ingredients) => {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////BUSQUEDA DE INGREDIENTES//////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //Hacemos un eventListener submit al botón de buscar ingredientes
 busquedaIngrediente.addEventListener("submit", (e) => {
   //Cancelamos el evento del submit para que no se recargue la página
   e.preventDefault();
+
+  //Si el párrafo de la busqueda por nombre contiene la clase "error-feedback":
+  if (document.querySelector("#mealName").parentNode.parentNode.querySelector(".text-danger").classList.contains("error-feedback")) {
+    //Removemos el texto en el párrafo del html en caso de haberlo
+    document.querySelector("#mealName").parentNode.parentNode.querySelector(".error-feedback").textContent = "";
+    //Y removemos al padre del input la clase "error" en caso de haberlo
+    document.querySelector("#mealName").parentNode.classList.remove("error");
+  }
 
   //Igualo esta variable a nulo declarada en el otro archivo js para que no haya problemas entre funciones
   nombreComida = null;
@@ -240,7 +259,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
       .then((meals) => {
         //Entonces, si el array meals del objeto meals no está vacio:
         if (meals.meals != null) {
-          //Removemos la calse "alert-danger" en caso de que haya e incluimos el "alert-info" en el webMessage declarado en el otro archivo js
+          //Removemos la calse "alert-danger" en caso de que haya e incluimos el "alert-light" en el webMessage declarado en el otro archivo js
           webMessage.classList.remove("alert-danger");
           webMessage.classList.add("alert-light");
 
@@ -283,6 +302,10 @@ busquedaIngrediente.addEventListener("submit", (e) => {
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////BÚSQUEDA ANIDADA//////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //Hacemos un eventListener click a los platos de los cards
 divCards.addEventListener("click", (evento) => {
   //Si se hace un click dentro del divCards, se halla el elemento clickado,
@@ -320,22 +343,25 @@ divCards.addEventListener("click", (evento) => {
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////VALIDACIONES EN LAS BÚSQUEDAS//////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //Función para validar que el campo de busqueda por ingrediente no se encuentre vacío
-function validarIngrediente(nombreIngrediente) {
+function validarIngrediente(elemento) {
   //En caso de dejarlo vacío:
-  if (!nombreIngrediente.value) {
+  if (!elemento.value) {
     //Agregamos un texto para que el usuario sepa del error en el párrafo del html
-    nombreIngrediente.parentNode.parentNode.querySelector(".error-feedback").textContent =
-      "You must introduce something in the field above";
+    elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "You must introduce something in the field above";
     //Agregar al padre del input la clase "error"
-    nombreIngrediente.parentNode.classList.add("error");
+    elemento.parentNode.classList.add("error");
     //Devolver false
     return false;
   } else {
     //Sino remover el texto en el párrafo del html
-    nombreIngrediente.parentNode.parentNode.querySelector(".error-feedback").textContent = "";
+    elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "";
     //Y remover al padre del input la clase "error"
-    nombreIngrediente.parentNode.classList.remove("error");
+    elemento.parentNode.classList.remove("error");
     //Devolver true
     return true;
   }
@@ -361,6 +387,10 @@ function validarNombre(elemento) {
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////FUNCIONES PARA PINTAR/////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
 //Funcion para pintar los platos en los cards
 function pintarMeals(meals) {
   //Creamos una variable fragment, donde iremos acumulando clones de la plantilla
@@ -379,12 +409,16 @@ function pintarMeals(meals) {
     plantillaCard.querySelector(".type").textContent = meal.strCategory;
 
     //Ponemos el pais del plato
-    plantillaCard.querySelector(".country").textContent = meal.strArea;
+    plantillaCard.querySelector("strong.country").textContent = meal.strArea;
 
     //En caso de que el nombre del pais del plato sea distinto "Unknown":
-    if (plantillaCard.querySelector(".country").textContent != "Unknown") {
+
+    if (plantillaCard.querySelector("strong.country").textContent != "Unknown") {
       //Ejecutamos la función que nos pone la bandera del país
       plantillaCard.querySelector(".countryFlag").src = establishFlag(meal.strArea);
+    } else {
+      //Sino no ponemos ninguna imagen de bandera del pais
+      plantillaCard.querySelector(".countryFlag").remove();
     }
 
     //Ponemos el nombre del primer ingrediente
@@ -423,31 +457,38 @@ function printTags(plantillaCard, meal) {
   //Vaciamos las etiquetas en caso de que hayan
   plantillaCard.querySelector(".tags").innerHTML = "";
 
-  //Primero separaremos los tags
+  //Creamos una variable que tenga las etiquetas del plato
   let strTags = meal.strTags;
+  //Creamos otra variable vacía
   let nuevalineaEtiqueta;
+
+  //En caso de que "strTags" no esté vacio:
   if (strTags) {
+    //Dividimos las etiquetas por ","
     let listaEtiquetas = strTags.split(",");
+    //Ordenamos la lista de etiquetas
     listaEtiquetas.sort();
+
+    //Por cada etiqueta que haya en la lista de etiquetas =>
     listaEtiquetas.forEach((etiqueta) => {
+      //Si la etiqueta no está vacía:
       if (etiqueta) {
+        //Agregamos la etiqueta en la variable creada anteriormente como párrafo con sus estilos
         nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
+        //Y lo vamos acumulando en la plantillaCard
         plantillaCard.querySelector(".tags").innerHTML += nuevalineaEtiqueta;
       }
     });
   } else {
+    //Sino la variable será no tags
     nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+    //Y lo metemos en la plantillaCard
     plantillaCard.querySelector(".tags").innerHTML = nuevalineaEtiqueta;
   }
 }
 
-/*
-Errores:
-1. Utilizar Ids está mal, cambiarlo todo a clases
-*/
-
 /////////////////////////////////////////////////////////////////////////////
-///////////////////////////////FILTERS//////////////////////////////////////
+///////////////////////////////FILTROS//////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
 ///////////Código para mostrar opciones en el front//////////////////////////
@@ -468,9 +509,3 @@ etiquetas.forEach((etiqueta) => {
 });
 
 /////////////////////////////////////////////////////////////////////////
-
-/*Errores:
-1. CAMBIAR TODOS LAS IDS A CLASES PORQUE SE REPITEN
-*/
-
-//PRINTTAGS NO ESTÁ COMENTADO AÚN

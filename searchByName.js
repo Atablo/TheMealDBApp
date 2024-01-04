@@ -109,10 +109,23 @@ let nombreComida;
 pondremos la variable nombreIngrediente2 a null para que no confunda esta busqueda de comida por nombre
 con la que se hará luego en searchByIngredient
 
-Nombre ingrediente 2 se utiliza para utilizarlo en el filtrado de las comidas buscadas por ingredientes*/
+
+*/
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  //Si el párrafo de la busqueda por ingrediente contiene la clase "error-feedback":
+  if (
+    document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".text-danger").classList.contains("error-feedback")
+  ) {
+    //Removemos el texto en el párrafo del html en caso de haberlo
+    document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".error-feedback").textContent = "";
+    //Y removemos al padre del input la clase "error" en caso de haberlo
+    document.querySelector("#nombreIngrediente").parentNode.classList.remove("error");
+  }
+
+  //Nombre ingrediente 2 se utiliza para utilizarlo en el filtrado de las comidas buscadas por ingredientes
   nombreIngrediente2 = null;
 
   let valido = true;
@@ -174,45 +187,48 @@ function pintaComidas(comidas) {
     let clone = plantilla.cloneNode(true);
     /*A continuación establecemos toda la información al clon que acabamos de crear*/
     //En este caso,imagen será una variable que se reescriba varias veces en función de nuestras necesidades
-    let imagen = clone.getElementById("mealImage");
+    let imagen = clone.querySelector(".mealImage");
     imagen.src = comida.strMealThumb;
     //le ponemos también el pais de la comida
-    clone.getElementById("country").textContent = comida.strArea;
+    clone.querySelector("strong.country").textContent = comida.strArea;
     //establecemos el tipo de comida
-    clone.getElementById("type").textContent = comida.strCategory;
+    clone.querySelector(".type").textContent = comida.strCategory;
     //obtenemos el pais y de paso se lo esccribimos
     let countryName = comida.strArea;
-    clone.querySelector("strong#country").textContent = countryName;
-    imagen = clone.getElementById("countryFlag");
+    clone.querySelector("strong.country").textContent = countryName;
+    imagen = clone.querySelector(".countryFlag");
 
     /*Como unas comidas pueden tener un pais desconocido tenemos que contemplar ese caso,y si se da
     no tendría asignada la imagen de una bandera ,por lo que no entraría en el if de abajo*/
-    if (clone.querySelector("#country").textContent != "Unknown") {
+    if (clone.querySelector("strong.country").textContent != "Unknown") {
       /*si el pais no es desconocido llamamos a la funcion establish flag,que bsucará la correspondencia entre
       el array de paises y su abrebiatura para construir la url de la imagen de la bandera que necesitamos*/
       imagen.src = establishFlag(countryName);
+    } else {
+      //si el pais es desconocido es string de la imagen la quitamos pues no existe la bandera de un pais desconocido
+      imagen.remove();
     }
 
     //le ponemos ahora el nombre de la comida
-    clone.querySelector("#mealName").textContent = comida.strMeal;
+    clone.querySelector(".mealName").textContent = comida.strMeal;
     //ahora le ponemos los nombres de los 4 ingredientes principales
-    clone.querySelector("#ingredient1").textContent = comida.strIngredient1;
-    clone.querySelector("#ingredient2").textContent = comida.strIngredient2;
-    clone.querySelector("#ingredient3").textContent = comida.strIngredient3;
-    clone.querySelector("#ingredient4").textContent = comida.strIngredient4;
+    clone.querySelector(".ingredient1").textContent = comida.strIngredient1;
+    clone.querySelector(".ingredient2").textContent = comida.strIngredient2;
+    clone.querySelector(".ingredient3").textContent = comida.strIngredient3;
+    clone.querySelector(".ingredient4").textContent = comida.strIngredient4;
 
     /*para construir la foto de los ingredientes necesitamos saber sus nombres y con la variable urlFotoIngredientes
      podremos obtener una imagen de los ingredintes*/
-    let imagenIngrediente1 = clone.getElementById("ingredient1image");
+    let imagenIngrediente1 = clone.querySelector(".ingredient1image");
     imagenIngrediente1.src = urlFotoIngredientes + comida.strIngredient1 + ".png";
 
-    let imagenIngrediente2 = clone.getElementById("ingredient2image");
+    let imagenIngrediente2 = clone.querySelector(".ingredient2image");
     imagenIngrediente2.src = urlFotoIngredientes + comida.strIngredient2 + ".png";
 
-    let imagenIngrediente3 = clone.getElementById("ingredient3image");
+    let imagenIngrediente3 = clone.querySelector(".ingredient3image");
     imagenIngrediente3.src = urlFotoIngredientes + comida.strIngredient3 + ".png";
 
-    let imagenIngrediente4 = clone.getElementById("ingredient4image");
+    let imagenIngrediente4 = clone.querySelector(".ingredient4image");
     imagenIngrediente4.src = urlFotoIngredientes + comida.strIngredient4 + ".png";
 
     //Establecemos tambien las etiquetas con la siguiente función
@@ -407,35 +423,35 @@ function pintaComidasFiltradas(comidas) {
 
   comidas.forEach((comida) => {
     let clone = plantilla.cloneNode(true);
-    let imagen = clone.getElementById("mealImage");
+    let imagen = clone.querySelector(".mealImage");
     imagen.src = comida.strMealThumb;
-    clone.getElementById("country").textContent = comida.strArea;
-    clone.getElementById("type").textContent = comida.strCategory;
+    clone.querySelector(".country").textContent = comida.strArea;
+    clone.querySelector(".type").textContent = comida.strCategory;
     let countryName = comida.strArea;
-    clone.querySelector("strong#country").textContent = countryName;
+    clone.querySelector("strong.country").textContent = countryName;
 
-    imagen = clone.getElementById("countryFlag");
-    if (clone.querySelector("#country").textContent != "Unknown") {
+    imagen = clone.querySelector(".countryFlag");
+    if (clone.querySelector(".country").textContent != "Unknown") {
       imagen.src = establishFlag(countryName);
     }
 
-    clone.querySelector("#mealName").textContent = comida.strMeal;
-    clone.querySelector("#ingredient1").textContent = comida.strIngredient1;
-    clone.querySelector("#ingredient2").textContent = comida.strIngredient2;
-    clone.querySelector("#ingredient3").textContent = comida.strIngredient3;
-    clone.querySelector("#ingredient4").textContent = comida.strIngredient4;
+    clone.querySelector(".mealName").textContent = comida.strMeal;
+    clone.querySelector(".ingredient1").textContent = comida.strIngredient1;
+    clone.querySelector(".ingredient2").textContent = comida.strIngredient2;
+    clone.querySelector(".ingredient3").textContent = comida.strIngredient3;
+    clone.querySelector(".ingredient4").textContent = comida.strIngredient4;
 
     //para construir la foto de los ingredientes necesitamos saber sus nombres
-    let imagenIngrediente1 = clone.getElementById("ingredient1image");
+    let imagenIngrediente1 = clone.querySelector(".ingredient1image");
     imagenIngrediente1.src = urlFotoIngredientes + comida.strIngredient1 + ".png";
 
-    let imagenIngrediente2 = clone.getElementById("ingredient2image");
+    let imagenIngrediente2 = clone.querySelector(".ingredient2image");
     imagenIngrediente2.src = urlFotoIngredientes + comida.strIngredient2 + ".png";
 
-    let imagenIngrediente3 = clone.getElementById("ingredient3image");
+    let imagenIngrediente3 = clone.querySelector(".ingredient3image");
     imagenIngrediente3.src = urlFotoIngredientes + comida.strIngredient3 + ".png";
 
-    let imagenIngrediente4 = clone.getElementById("ingredient4image");
+    let imagenIngrediente4 = clone.querySelector(".ingredient4image");
     imagenIngrediente4.src = urlFotoIngredientes + comida.strIngredient4 + ".png";
 
     printTags(clone, comida);
