@@ -125,6 +125,8 @@ formulario.addEventListener("submit", (e) => {
     document.querySelector("#nombreIngrediente").parentNode.classList.remove("error");
   }
 
+  document.querySelector("#nombreIngrediente").value = "";
+
   //Nombre ingrediente 2 se utiliza para utilizarlo en el filtrado de las comidas buscadas por ingredientes
   nombreIngrediente2 = null;
 

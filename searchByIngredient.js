@@ -231,6 +231,8 @@ busquedaIngrediente.addEventListener("submit", (e) => {
     document.querySelector("#mealName").parentNode.classList.remove("error");
   }
 
+  document.querySelector("#mealName").value = "";
+
   //Igualo esta variable a nulo declarada en el otro archivo js para que no haya problemas entre funciones
   nombreComida = null;
 
