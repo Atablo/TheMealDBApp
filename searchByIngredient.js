@@ -351,10 +351,19 @@ divCards.addEventListener("click", (evento) => {
 
 //Función para validar que el campo de busqueda por ingrediente no se encuentre vacío
 function validarIngrediente(elemento) {
+  const regex = /^[a-zA-Z\s]*$/;
+
   //En caso de dejarlo vacío:
   if (!elemento.value) {
     //Agregamos un texto para que el usuario sepa del error en el párrafo del html
     elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "You must introduce something in the field above";
+    //Agregar al padre del input la clase "error"
+    elemento.parentNode.classList.add("error");
+    //Devolver false
+    return false;
+  } else if (!elemento.value.match(regex)) {
+    //Agregamos un texto para que el usuario sepa del error en el párrafo del html
+    elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "Please introduce a valid meal name";
     //Agregar al padre del input la clase "error"
     elemento.parentNode.classList.add("error");
     //Devolver false
@@ -371,10 +380,19 @@ function validarIngrediente(elemento) {
 
 //Función para validar que el campo de busqueda por nombre no se encuentre vacío
 function validarNombre(elemento) {
+  const regex = /^[a-zA-Z\s]+$/;
+
   //En caso de dejarlo vacío:
   if (!elemento.value) {
     //Agregamos un texto para que el usuario sepa del error en el párrafo del html
     elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "You must introduce something in the field above";
+    //Agregar al padre del input la clase "error"
+    elemento.parentNode.classList.add("error");
+    //Devolver false
+    return false;
+  } else if (!elemento.value.match(regex)) {
+    //Agregamos un texto para que el usuario sepa del error en el párrafo del html
+    elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "Please introduce a valid meal name";
     //Agregar al padre del input la clase "error"
     elemento.parentNode.classList.add("error");
     //Devolver false
