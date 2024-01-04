@@ -109,7 +109,7 @@ const etiquetas = [
   "Greasy",
   "Unhealthy",
   "Calorific",
-  "Bbq",
+  "BBQ",
   "Bun",
   "Baking",
   "Heavy",
@@ -440,7 +440,7 @@ function pintarMeals(meals) {
       plantillaCard.querySelector(".countryFlag").src = establishFlag(meal.strArea);
     } else {
       //Sino no ponemos ninguna imagen de bandera del pais
-      plantillaCard.querySelector(".countryFlag").remove();
+      plantillaCard.querySelector(".countryFlag").src="";
     }
 
     //Ponemos el nombre del primer ingrediente

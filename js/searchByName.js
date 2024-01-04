@@ -346,7 +346,7 @@ function aplicarFiltrosSeleccionados() {
           /*En el caso de las etiquetas: si un plato tiene etiquetas que no son la etiqueta seleccionada ni la opción seleccionada es "--" o bien se da la condición unica de que los platos no tengan etiquetas entramos al if*/
           if (
             (plato.strTags != null &&
-              !plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) &&
+              !plato.strTags.toUpperCase().includes(etiqueta.options[etiqueta.selectedIndex].value.toUpperCase()) &&
               etiqueta.options[etiqueta.selectedIndex].value != "--") ||
             plato.strTags == null
           ) {
