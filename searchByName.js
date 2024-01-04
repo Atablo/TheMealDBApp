@@ -109,10 +109,25 @@ let nombreComida;
 pondremos la variable nombreIngrediente2 a null para que no confunda esta busqueda de comida por nombre
 con la que se hará luego en searchByIngredient
 
-Nombre ingrediente 2 se utiliza para utilizarlo en el filtrado de las comidas buscadas por ingredientes*/
+
+*/
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  //Si el párrafo de la busqueda por ingrediente contiene la clase "error-feedback":
+  if (
+    document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".text-danger").classList.contains("error-feedback")
+  ) {
+    //Removemos el texto en el párrafo del html en caso de haberlo
+    document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".error-feedback").textContent = "";
+    //Y removemos al padre del input la clase "error" en caso de haberlo
+    document.querySelector("#nombreIngrediente").parentNode.classList.remove("error");
+  }
+
+  document.querySelector("#nombreIngrediente").value = "";
+
+  //Nombre ingrediente 2 se utiliza para utilizarlo en el filtrado de las comidas buscadas por ingredientes
   nombreIngrediente2 = null;
 
   let valido = true;
@@ -191,8 +206,7 @@ function pintaComidas(comidas) {
       /*si el pais no es desconocido llamamos a la funcion establish flag,que bsucará la correspondencia entre
       el array de paises y su abrebiatura para construir la url de la imagen de la bandera que necesitamos*/
       imagen.src = establishFlag(countryName);
-    }
-    else{
+    } else {
       //si el pais es desconocido es string de la imagen la quitamos pues no existe la bandera de un pais desconocido
       imagen.remove();
     }
@@ -300,7 +314,7 @@ function aplicarFiltrosSeleccionados() {
   //lo primero que haré será vaciar los arrays
   arrayFiltrado = [];
   arrayPreparado = [];
-  //Realizaré una busqueda por nombre como se han hecho siemmpre (con esto sacaremos una copia tal como la queremos del array resultante de comidas)
+  //Realizaré una busqueda por nombre como se han hecho siempre (con esto sacaremos una copia tal como la queremos del array resultante de comidas)
   getMealsByName(nombreComida).then((comidasResultantesSBN) => {
     //copiamos el array resultante de la búsqueda en arrayPreparado
     if (comidasResultantesSBN.meals) {
@@ -317,7 +331,7 @@ function aplicarFiltrosSeleccionados() {
         etiqueta.options[etiqueta.selectedIndex].value != "--"
       ) {
         arrayPreparado.forEach((plato) => {
-          //si el pais seleccionado no es el del plato y su valor tampoco es "--"
+          //si el pais seleccionado no es el del plato y su valor tampoco es "--":
           if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
             //filtraremos dejando en el array aquellos paises que sí coincidan con el  pais seleccionado
             arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
@@ -329,7 +343,7 @@ function aplicarFiltrosSeleccionados() {
           ) {
             arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
           }
-          /**En el caso de las etiquetas: si un plato tiene etiquetas que no son la etiqueta seleccionada ni la opción seleccionada es "--" o bien se da la condición unica de que los platos no tengan etiquetas entramos al if*/
+          /*En el caso de las etiquetas: si un plato tiene etiquetas que no son la etiqueta seleccionada ni la opción seleccionada es "--" o bien se da la condición unica de que los platos no tengan etiquetas entramos al if*/
           if (
             (plato.strTags != null &&
               !plato.strTags.includes(etiqueta.options[etiqueta.selectedIndex].value) &&
@@ -338,7 +352,7 @@ function aplicarFiltrosSeleccionados() {
           ) {
             //si la opción de etiqueta seleccionada no es "--"
             if (etiqueta.options[etiqueta.selectedIndex].value != "--") {
-              //entonces hallaremosel indice del plato en nuestro array
+              //entonces hallaremos el indice del plato en nuestro array
               let indexPlato = arrayFiltrado.indexOf(plato);
               //con ese indice le sacaremos del array filtrado,pues no cumple con la etiqueta seleccionada
               if (indexPlato != -1) {
@@ -353,42 +367,55 @@ function aplicarFiltrosSeleccionados() {
     }
   });
 
+  //Realizaré otra búsqueda por ingrediente para los filtros
   getIngredientsByName(nombreIngrediente2).then((meals) => {
+    //Si el array meals del objeto meal no está vacío:
     if (meals.meals) {
+      //Por cada elemento del array meals del objeto meals =>
       meals.meals.forEach((meal) => {
+        //Invocamos la función asíncrona de obtener los platos por ingrediente pasándole el nombre del plato
         getMealsByName(meal.strMeal).then((comidasResultantesSBI) => {
+          //Entonces de cada elemento del array meals del objeto "comidasResultantesSBI" =>
           comidasResultantesSBI.meals.forEach((plato) => {
+            //Agregamos el elemento plato al array de "arrayPreparado"
             arrayPreparado.push(plato);
 
+            //Igualamos "arrayFiltrado" con "arrayPreparado" para que tenga los mismos elementos
             arrayFiltrado = arrayPreparado;
 
+            //Ahora, si hay algún filtro que se ha modificado (es decir,que su valor no sea "--") empezaremos a aplicar filtros
             if (
               pais.options[pais.selectedIndex].value != "--" ||
               categoria.options[categoria.selectedIndex].value != "--" ||
               tag.options[tag.selectedIndex].value != "--"
             ) {
+              //De cada elemento del arrayPreparado =>
               arrayPreparado.forEach((plato) => {
+                //si el pais seleccionado no es el del plato y su valor tampoco es "--":
                 if (pais.options[pais.selectedIndex].value != plato.strArea && pais.options[pais.selectedIndex].value != "--") {
-                  //copiaremos el array que me ha resultado de las comidas de antes
+                  //filtraremos dejando en el array aquellos paises que sí coincidan con el  pais seleccionado
                   arrayFiltrado = arrayFiltrado.filter((plato) => plato.strArea == pais.options[pais.selectedIndex].value);
-                  //recorremos el arrayTrasPais quitando los que no cumplen la condicion del pais
                 }
+                //Del mismo modo trabajamos con la categoría:
                 if (
                   categoria.options[categoria.selectedIndex].value != plato.strCategory &&
                   categoria.options[categoria.selectedIndex].value != "--"
                 ) {
                   arrayFiltrado = arrayFiltrado.filter((plato) => plato.strCategory == categoria.options[categoria.selectedIndex].value);
                 }
+                //En el caso de las etiquetas: si un plato tiene etiquetas que no son la etiqueta seleccionada ni la opción
+                //seleccionada es "--" o bien se da la condición unica de que los platos no tengan etiquetas:
                 if (
                   (plato.strTags != null &&
                     !plato.strTags.includes(tag.options[tag.selectedIndex].value) &&
                     tag.options[tag.selectedIndex].value != "--") ||
                   plato.strTags == null
                 ) {
-                  //obtenemos el indice del plato
+                  //Si la opción de etiqueta seleccionada no es "--":
                   if (tag.options[tag.selectedIndex].value != "--") {
+                    //entonces hallaremos el indice del plato en nuestro array
                     let indexPlato = arrayFiltrado.indexOf(plato);
-                    //quitamos el plato que no tenga esa etiqueta
+                    //Con ese indice le sacaremos del array filtrado,pues no cumple con la etiqueta seleccionada
                     if (indexPlato != -1) {
                       arrayFiltrado.splice(indexPlato, 1);
                     }
@@ -396,6 +423,7 @@ function aplicarFiltrosSeleccionados() {
                 }
               });
             }
+            //Una vez hayamos filtrado las commidas lo pintaremos con la función pintaComidasFiltradas
             pintaComidasFiltradas(arrayFiltrado);
           });
         });
