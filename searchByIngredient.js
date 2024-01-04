@@ -285,6 +285,8 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 
           //En caso de que el array meals del objeto meals se encuentre vacío:
         } else {
+          //Ocultamos la caja de filtros
+          document.querySelector("#filtros").style.display = "none";
           //Lanzamos un nuevo error que contenga el siguiente mensaje: "No matching results for the meal:" + ingrediente introducido por el usuario
           throw new Error("No matching results for the ingredient: '" + nombreIngrediente.value + "'");
         }
