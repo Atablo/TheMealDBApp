@@ -245,7 +245,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
           webMessage.classList.add("alert-light");
 
           //Hacemos que el mensaje dentro de la etiqueta del párrafo sea "Search results for the meal:" + el nombre del ingrediente introducido por el usuario
-          webMessage.querySelector("p").textContent = "Search results for the meal: '" + nombreIngrediente.value + "'";
+          webMessage.querySelector("p").textContent = "Search results for the ingredient: '" + nombreIngrediente.value + "'";
 
           //Por cada array meals del objeto meals:
           meals.meals.forEach((meal) => {
@@ -265,7 +265,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
           //En caso de que el array meals del objeto meals se encuentre vacío:
         } else {
           //Lanzamos un nuevo error que contenga el siguiente mensaje: "No matching results for the meal:" + ingrediente introducido por el usuario
-          throw new Error("No matching results for the meal: '" + nombreIngrediente.value + "'");
+          throw new Error("No matching results for the ingredient: '" + nombreIngrediente.value + "'");
         }
       })
       .catch((error) => {
@@ -298,7 +298,7 @@ divCards.addEventListener("click", (evento) => {
     divCards.innerHTML = "";
 
     //Hacemos que el mensaje dentro de la etiqueta del párrafo sea "Search results for the meal:" + el nombre del ingrediente clickado anteriormente
-    webMessage.querySelector("p").textContent = "Search results for the meal: '" + nombreIngrediente + "'";
+    webMessage.querySelector("p").textContent = "Search results for the ingredient: '" + nombreIngrediente + "'";
 
     //Invocamos la función asíncrona de obtener todos los ingredientes
     getIngredientsByName(nombreIngrediente).then((meals) => {
@@ -320,21 +320,11 @@ divCards.addEventListener("click", (evento) => {
   }
 });
 
-///////////////////////////////////////BORRABLE???/////////////////////////////////////////////////////
-function establishFlag(nombrePais) {
-  //tenemos que buscar el pais y obtener el indice
-  let indice = regiones.indexOf(nombrePais);
-  //con ese indice sacamos la abreviación
-  let countryAbrev = banderaPaises[indice];
-  //y establecemos esa abreviación
-
-  return "https://www.themealdb.com/images/icons/flags/big/32/" + countryAbrev + ".png";
-}
-
-//Función para validar que el campo de ingrediente no se encuentre vacío
+//Función para validar que el campo de busqueda por ingrediente no se encuentre vacío
 function validarIngrediente(nombreIngrediente) {
   //En caso de dejarlo vacío:
   if (!nombreIngrediente.value) {
+    //Agregamos un texto para que el usuario sepa del error en el párrafo del html
     nombreIngrediente.parentNode.parentNode.querySelector(".error-feedback").textContent =
       "You must introduce something in the field above";
     //Agregar al padre del input la clase "error"
@@ -342,26 +332,29 @@ function validarIngrediente(nombreIngrediente) {
     //Devolver false
     return false;
   } else {
+    //Sino remover el texto en el párrafo del html
     nombreIngrediente.parentNode.parentNode.querySelector(".error-feedback").textContent = "";
-    //Sino remover al padre del input la clase "error"
+    //Y remover al padre del input la clase "error"
     nombreIngrediente.parentNode.classList.remove("error");
     //Devolver true
     return true;
   }
 }
 
-//Función para validar que el campo de ingrediente no se encuentre vacío
+//Función para validar que el campo de busqueda por nombre no se encuentre vacío
 function validarNombre(elemento) {
   //En caso de dejarlo vacío:
   if (!elemento.value) {
+    //Agregamos un texto para que el usuario sepa del error en el párrafo del html
     elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "You must introduce something in the field above";
     //Agregar al padre del input la clase "error"
     elemento.parentNode.classList.add("error");
     //Devolver false
     return false;
   } else {
+    //Sino remover el texto en el párrafo del html
     elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "";
-    //Sino remover al padre del input la clase "error"
+    //Y remover al padre del input la clase "error"
     elemento.parentNode.classList.remove("error");
     //Devolver true
     return true;
@@ -378,41 +371,41 @@ function pintarMeals(meals) {
     //CAMBIAR TODOS LAS IDS A CLASES PORQUE SE REPITEN
 
     //Ponemos la imagen del plato
-    plantillaCard.querySelector("#mealImage").src = meal.strMealThumb;
+    plantillaCard.querySelector(".mealImage").src = meal.strMealThumb;
     //Ponemos el nombre del plato
-    plantillaCard.querySelector("#mealName").textContent = meal.strMeal;
+    plantillaCard.querySelector(".mealName").textContent = meal.strMeal;
 
     //Ponemos la categoria del plato
-    plantillaCard.querySelector("#type").textContent = meal.strCategory;
+    plantillaCard.querySelector(".type").textContent = meal.strCategory;
 
     //Ponemos el pais del plato
-    plantillaCard.querySelector("#country").textContent = meal.strArea;
+    plantillaCard.querySelector(".country").textContent = meal.strArea;
 
     //En caso de que el nombre del pais del plato sea distinto "Unknown":
-    if (plantillaCard.querySelector("#country").textContent != "Unknown") {
+    if (plantillaCard.querySelector(".country").textContent != "Unknown") {
       //Ejecutamos la función que nos pone la bandera del país
-      plantillaCard.querySelector("#countryFlag").src = establishFlag(meal.strArea);
+      plantillaCard.querySelector(".countryFlag").src = establishFlag(meal.strArea);
     }
 
     //Ponemos el nombre del primer ingrediente
-    plantillaCard.querySelector("#ingredient1").textContent = meal.strIngredient1;
+    plantillaCard.querySelector(".ingredient1").textContent = meal.strIngredient1;
     //Ponemos la imagen del primer ingrediente
-    plantillaCard.querySelector("#ingredient1image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient1}-small.png`;
+    plantillaCard.querySelector(".ingredient1image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient1}-small.png`;
 
     //Ponemos el nombre del segundo ingrediente
-    plantillaCard.querySelector("#ingredient2").textContent = meal.strIngredient2;
+    plantillaCard.querySelector(".ingredient2").textContent = meal.strIngredient2;
     //Ponemos la imagen del segundo ingrediente
-    plantillaCard.querySelector("#ingredient2image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient2}-small.png`;
+    plantillaCard.querySelector(".ingredient2image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient2}-small.png`;
 
     //Ponemos el nombre del tercer ingrediente
-    plantillaCard.querySelector("#ingredient3").textContent = meal.strIngredient3;
+    plantillaCard.querySelector(".ingredient3").textContent = meal.strIngredient3;
     //Ponemos la imagen del tercer ingrediente
-    plantillaCard.querySelector("#ingredient3image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient3}-small.png`;
+    plantillaCard.querySelector(".ingredient3image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient3}-small.png`;
 
     //Ponemos el nombre del cuarto ingrediente
-    plantillaCard.querySelector("#ingredient4").textContent = meal.strIngredient4;
+    plantillaCard.querySelector(".ingredient4").textContent = meal.strIngredient4;
     //Ponemos la imagen del cuarto ingrediente
-    plantillaCard.querySelector("#ingredient4image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient4}-small.png`;
+    plantillaCard.querySelector(".ingredient4image").src = `https://www.themealdb.com/images/ingredients/${meal.strIngredient4}-small.png`;
 
     //Ejecutamos la función que nos pinta las etiquetas del plato
     printTags(plantillaCard, meal);
