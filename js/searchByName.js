@@ -17,7 +17,7 @@ let btnaplicarFiltros = document.getElementById("applyFilters");
 let btnresetFiltros = document.getElementById("resetFilters");
 
 //arrays para ver la correspondencia entre  la abreviación del pais y la abreviación de las banderas según la API
-const regiones = [
+const region = [
   "British",
   "American",
   "French",
@@ -246,7 +246,7 @@ function pintaComidas(comidas) {
 //Función auxiliar para pintar las banderas a los platos
 function establishFlag(nombrePais) {
   //tenemos que buscar el pais en el array de regiones y obtener el indice
-  let indice = regiones.indexOf(nombrePais);
+  let indice = region.indexOf(nombrePais);
   //con ese indice sacamos la abreviación
   let countryAbrev = countryFlags[indice];
   //y establecemos esa abreviación en la url que nos traerá la abreviatura correspondiente
