@@ -220,7 +220,6 @@ busquedaIngrediente.addEventListener("submit", (e) => {
 
   //Ponemos una validación al usuario, en caso de que no se cumpla:
   if (!validarIngrediente(nombreIngrediente)) {
-    4;
     //La variable bandera se cambia a false
     valido = false;
   }
@@ -336,13 +335,34 @@ function establishFlag(nombrePais) {
 function validarIngrediente(nombreIngrediente) {
   //En caso de dejarlo vacío:
   if (!nombreIngrediente.value) {
+    nombreIngrediente.parentNode.parentNode.querySelector(".error-feedback").textContent =
+      "You must introduce something in the field above";
     //Agregar al padre del input la clase "error"
     nombreIngrediente.parentNode.classList.add("error");
     //Devolver false
     return false;
   } else {
+    nombreIngrediente.parentNode.parentNode.querySelector(".error-feedback").textContent = "";
     //Sino remover al padre del input la clase "error"
     nombreIngrediente.parentNode.classList.remove("error");
+    //Devolver true
+    return true;
+  }
+}
+
+//Función para validar que el campo de ingrediente no se encuentre vacío
+function validarNombre(elemento) {
+  //En caso de dejarlo vacío:
+  if (!elemento.value) {
+    elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "You must introduce something in the field above";
+    //Agregar al padre del input la clase "error"
+    elemento.parentNode.classList.add("error");
+    //Devolver false
+    return false;
+  } else {
+    elemento.parentNode.parentNode.querySelector(".error-feedback").textContent = "";
+    //Sino remover al padre del input la clase "error"
+    elemento.parentNode.classList.remove("error");
     //Devolver true
     return true;
   }
