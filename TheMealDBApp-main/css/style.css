@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("https://cdn.discordapp.com/attachments/1185126704809775146/1185129780287393832/4352003.jpg?ex=658e7d1e&is=657c081e&hm=b2418300362488200afac3ceebe696fcc2eb48d5b785959eaafb95c8805336c9&");
+    background-repeat: repeat-y;
+    background-size: auto;
+    margin: 0;
+    padding: 0 0 100px 0;
+}
+
+header {
+    background: linear-gradient(to right, #4CAF50, #45a049);
+    padding: 10px;
+}
+
+.navbar-nav a {
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar-nav a:hover {
+    color: #eee;
+}
+
+#searchByName,
+#searchByIngredient {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#mealName,
+#nombreIngrediente {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    padding: 15px;
+    border-radius: 8px;
+    color: #155724;
+}
+
+.btn {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+body.scrolled-footer-visible footer {
+    opacity: 1;
+}
+
+.mr-2 {
+    margin-right: 2%;
+}
+
+.mr-10 {
+    margin-right: 10%;
+}
+
+.ml-2 {
+    margin-left: 4%;
+}
+
+.bg-cardbody {
+    background-color: #efe2c4;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.bb {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+hr {
+    border: 2px solid rgb(0, 0, 0);
+    opacity: 100%;
+}
+
+.ingredient img:hover {
+    cursor: pointer;
+}
+
+.tags p {
+    font-size: small;
+}
+
+.error>input {
+    border: 5px solid orange;
+}
+
+.w-50-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 80px;
+}
+
+.card-description {
+    max-height: 18%;
+    height: 25vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ingredient-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.tags-container {
+    height: 100px;
+    overflow: hidden;
+}

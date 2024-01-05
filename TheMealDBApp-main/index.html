@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>The Meal DataBase</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-sm navbar-light bg-success">
+      <div class="container-lg">
+        <a class="navbar-brand" href="index.html">
+          <img src="https://www.themealdb.com/images/logo.png" alt="" height="30" />
+        </a>
+        <button class="navbar-toggler text-light bg-light" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon text-dark">
+            <!-- Puedes añadir un ícono personalizado aquí -->
+          </span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-evenly align-items-stretch" id="collapsibleNavId">
+          <div class="flex-column w-100 py-2 d-flex align-items-center">
+            <form class="d-flex flex-column my-2 my-sm-0 w-75" id="searchByName">
+              <input class="form-control text-center mb-2" type="text" placeholder="Search a meal by name"
+                id="mealName" />
+              <div class="w-100 d-flex justify-content-center align-items-center mt-2">
+                <button class="btn btn-outline-light my-2 my-sm-0 mx-2" type="submit">Search</button>
+              </div>
+            </form>
+            <div class="w-100 d-flex justify-content-center align-items-center">
+              <p class="error-feedback text-warning fw-bold p-0 mb-0"></p>
+            </div>
+          </div>
+
+          <div class="flex-column w-100 py-2 d-flex align-items-center">
+            <form action="#" class="d-flex flex-column my-sm-0 w-75" id="searchByIngredient">
+              <input class="form-control text-center mb-2" type="text" list="datalistOptions"
+                placeholder="Search a meal by an ingredient" id="nombreIngrediente" />
+              <datalist id="datalistOptions"></datalist>
+              <div class="w-100 d-flex justify-content-center align-items-center mt-2">
+                <button class="btn btn-outline-light my-2 my-sm-0 mx-2" type="submit">Search</button>
+              </div>
+            </form>
+            <div class="w-100 d-flex justify-content-center align-items-center">
+              <p class="error-feedback text-warning fw-bold p-0 mb-0"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="alert alert-success my-5 text-center" role="alert" id="webMessage">
+        <h1 class="display-4 mb-4">Welcome to the Main Food Database</h1>
+        <p class="lead mb-4">Discover a world of delicious recipes at your fingertips.</p>
+        <img src="https://www.themealdb.com/images/logo-small.png" alt="MealDB Logo" class="img-fluid"
+          style="max-width: 150px;" />
+      </div>
+
+
+      <div class="alert alert-primary my-5 text-center" role="alert" id="filtros">
+        <h2 class="mb-4">Filters</h2>
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="pais" class="form-label">Country</label>
+            <select class="form-select" id="pais">
+              <option selected>--</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="categoria" class="form-label">Meal category</label>
+            <select class="form-select" id="categoria">
+              <option selected>--</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="etiqueta" class="form-label">Tags</label>
+            <select class="form-select" id="etiqueta">
+              <option selected>--</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-success mt-4" id="applyFilters">Apply Filters</button>
+        <button class="btn btn-danger mt-4 ms-2" id="resetFilters">Reset Filters</button>
+      </div>
+
+      <div id="results" class="row flex-wrap justify-content-around"></div>
+      <!--div para los resultados-->
+    </div>
+  </main>
+
+  <template id="meal">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
+      <div class="card h-100">
+        <img class="card-img-top bb position-relative mealImage" src="" alt="Title" />
+        <div class="d-flex flex-wrap justify-content-between shadow p-3 rounded-5">
+          <div class="bg-warning w-100 d-flex justify-content-center rounded-4 align-items-center text-center">
+            <strong class="align-items-center type"></strong>
+          </div>
+          <div class="w-100 d-flex justify-content-center align-items-center mt-4">
+            <div class="w-50-ellipsis d-none d-xl-block">
+              <strong class="fs-6 country"></strong>
+            </div>
+            <img src="" alt="" class="ml-2 mr-2 d-xl-flex countryFlag" />
+          </div>
+
+        </div>
+        <div class="w-100 d-flex justify-content-center align-items-center card-description">
+          <p class="text-center mt-2 fs-3 fst-italic fw-bold mealName"></p>
+        </div>
+
+        <hr class="m-2" />
+
+        <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2"
+          id="divIngredients">
+          <h4 class="card-title mb-4 bg-info-subtle rounded-2 p-2 text-center">Main ingredients</h4>
+
+          <div class="ingredient col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient-container">
+            <div class="bg-cardbody rounded-4">
+              <img src="" alt="" class="card-img-top ingredient1image" />
+            </div>
+            <p class="ingredient1"></p>
+          </div>
+
+          <div class="col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient ingredient-container">
+            <div class="bg-cardbody rounded-4">
+              <img src="" alt="" class="card-img-top ingredient2image" />
+            </div>
+            <p class="ingredient2"></p>
+          </div>
+
+          <div class="col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient ingredient-container">
+            <div class="bg-cardbody rounded-4">
+              <img src="" alt="" class="card-img-top ingredient3image" />
+            </div>
+            <p class="ingredient3"></p>
+          </div>
+
+          <div class="col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient ingredient-container">
+            <div class="bg-cardbody rounded-4">
+              <img src="" alt="" class="card-img-top ingredient4image" />
+            </div>
+            <p class="ingredient4"></p>
+          </div>
+        </div>
+
+        <div class="row flex-wrap justify-content-center align-content-stretch shadow rounded-3 m-2">
+          <h5 class="mb-4 bg-info-subtle rounded-2 p-2 text-center">Tags</h5>
+
+          <div
+            class="tags d-flex flex-wrap justify-content-center align-items-center text-center rounded-3 w-100 tags-container">
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+
+  <footer class="bg-dark text-light text-center py-3">
+    <p>&copy; 2024 The Meal DataBase. Designed by Pablo Atahonero, Jhonny, and Saul Barrajon.</p>
+  </footer>
+
+
+  <script src="js/dynamicweb.js"></script>
+  <script src="js/searchByName.js"></script>
+  <script src="js/searchByIngredient.js"></script>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
