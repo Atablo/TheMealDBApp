@@ -29,15 +29,12 @@
           </span>
         </button>
         <div class="collapse navbar-collapse justify-content-evenly align-items-stretch" id="collapsibleNavId">
-          <div class="flex-column w-100 py-2 d-flex align-items-center">
-            <form class="d-flex my-2 my-sm-0 w-75" id="searchByName">
-              <input class="form-control text-center mb-0 w-75" type="text" placeholder="Search a meal by name"
-                id="mealName" />
-              <button class="btn btn-outline-light my-2 my-sm-0 mx-2 mb-0 mt-0" type="submit">Search</button>
+          <div class="flex-column w-40 py-2">
+            <form class="d-flex my-2 my-lg-0" id="searchByName">
+              <input class="form-control text-center" type="text" placeholder="Search a meal by name" id="mealName" />
+              <button class="btn btn-outline-light my-2 my-sm-0 mr-10 mx-2" type="submit">Search</button>
             </form>
-            <div class="w-100 d-flex justify-content-center align-items-center">
-              <p class="error-feedback text-danger fw-bold p-0 mb-0"></p>
-            </div>
+            <p class="error-feedback text-danger p-0 mb-0"></p>
           </div>
           <div class="flex-column w-100 py-2 d-flex align-items-center">
             <form class="d-flex my-2 my-sm-0 w-75" id="searchByIngredient">
@@ -104,11 +101,11 @@
     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 my-4">
       <div class="card h-100">
         <img class="card-img-top bb position-relative mealImage" src="" alt="Title" />
-        <div class="d-flex flex-wrap justify-content-between shadow p-3 rounded-5">
+        <div class="d-flex flex-wrap justify-content-between shadow p-2 rounded-5">
           <div class="bg-warning w-100 d-flex justify-content-center rounded-4 align-items-center text-center">
-            <strong class="align-items-center type"></strong>
+            <strong class="align-items-center type fs-5"></strong>
           </div>
-          <div class="w-100 d-flex justify-content-center align-items-center mt-4">
+          <div class="w-100 d-flex justify-content-center align-items-center mt-2">
             <div class="w-50-ellipsis d-none d-xl-block">
               <strong class="fs-6 country"></strong>
             </div>
@@ -117,7 +114,7 @@
 
         </div>
         <div class="w-100 d-flex justify-content-center align-items-center card-description">
-          <p class="text-center mt-2 fs-3 fst-italic fw-bold mealName"></p>
+          <p class="text-center mb-0 fs-3 fst-italic fw-bold mealName"></p>
         </div>
 
         <hr class="m-2" />
@@ -130,28 +127,28 @@
             <div class="bg-cardbody rounded-4">
               <img src="" alt="" class="card-img-top ingredient1image" />
             </div>
-            <p class="ingredient1"></p>
+            <p class="ingredient1 mb-0"></p>
           </div>
 
           <div class="col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient ingredient-container">
             <div class="bg-cardbody rounded-4">
               <img src="" alt="" class="card-img-top ingredient2image" />
             </div>
-            <p class="ingredient2"></p>
+            <p class="ingredient2 mb-0"></p>
           </div>
 
           <div class="col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient ingredient-container">
             <div class="bg-cardbody rounded-4">
               <img src="" alt="" class="card-img-top ingredient3image" />
             </div>
-            <p class="ingredient3"></p>
+            <p class="ingredient3 mb-0"></p>
           </div>
 
           <div class="col-3 col-sm-6 col-lg-6 col-xl-6 my-2 text-center ingredient ingredient-container">
             <div class="bg-cardbody rounded-4">
               <img src="" alt="" class="card-img-top ingredient4image" />
             </div>
-            <p class="ingredient4"></p>
+            <p class="ingredient4 mb-0"></p>
           </div>
         </div>
 
@@ -172,8 +169,7 @@
   </footer>
 
   <!-- Botón para subir al top de la página -->
-  <button id="scrollTopBtn" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4"
-    style="display:none">
+  <button id="scrollTopBtn" class="btn btn-light rounded-circle position-fixed bottom-0 end-0 m-4" style="display:none">
     <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
   </button>
 

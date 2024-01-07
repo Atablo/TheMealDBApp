@@ -3,11 +3,11 @@ document.addEventListener('scroll', function () {
     let windowHeight = window.innerHeight;
     let bodyHeight = document.body.clientHeight;
     // Muestra el footer cuando estás cerca del final de la página
-    document.body.classList.toggle('scrolled-footer-visible', scrolled + windowHeight >= bodyHeight - 100);
+    document.body.classList.toggle('scrolled-footer-visible', scrolled + windowHeight >= bodyHeight - 200);
 })
 
 /*-----------------------------------------------
-/*---------------boton scroll--------------------
+---------------boton scroll----------------------
 -------------------------------------------------*/
 
 window.onscroll = function () {
