@@ -224,7 +224,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
   e.preventDefault();
 
   //Si el párrafo de la busqueda por nombre contiene la clase "error-feedback":
-  if (document.querySelector("#mealName").parentNode.parentNode.querySelector(".text-warning").classList.contains("error-feedback")) {
+  if (document.querySelector("#mealName").parentNode.parentNode.querySelector(".text-danger").classList.contains("error-feedback")) {
     //Removemos el texto en el párrafo del html en caso de haberlo
     document.querySelector("#mealName").parentNode.parentNode.querySelector(".error-feedback").textContent = "";
     //Y removemos al padre del input la clase "error" en caso de haberlo

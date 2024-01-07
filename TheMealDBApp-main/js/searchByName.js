@@ -117,7 +117,7 @@ formulario.addEventListener("submit", (e) => {
 
   //Si el párrafo de la busqueda por ingrediente contiene la clase "error-feedback":
   if (
-    document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".text-warning").classList.contains("error-feedback")
+    document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".text-danger").classList.contains("error-feedback")
   ) {
     //Removemos el texto en el párrafo del html en caso de haberlo
     document.querySelector("#nombreIngrediente").parentNode.parentNode.querySelector(".error-feedback").textContent = "";

@@ -12,7 +12,7 @@ body {
 }
 
 header {
-    background: linear-gradient(to right, #4CAF50, #45a049);
+    background-color: #343a40;
     padding: 10px;
 }
 
@@ -49,13 +49,6 @@ header {
     color: #155724;
 }
 
-.btn {
-    background-color: #28a745;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 .card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
