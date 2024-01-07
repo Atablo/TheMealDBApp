@@ -31,7 +31,7 @@ const regiones = [
   "Irish",
   "Italian",
   "Japanese",
-  "Kenian",
+  "Kenyan",
   "Malaysian",
   "Mexican",
   "Moroccan",
@@ -68,7 +68,7 @@ const banderaPaises = [
   "ie",
   "it",
   "jp",
-  "kn",
+  "ke",
   "my",
   "mx",
   "ma",
@@ -149,6 +149,7 @@ const etiquetas = [
   "Pasta",
   "Fresh",
   "Pancake",
+  "Onthego",
   "Sausages",
 ];
 
