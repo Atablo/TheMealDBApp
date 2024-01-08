@@ -74,6 +74,6 @@ Estos filtros permiten al usuario utilizarlos tanto por separado como de manera 
 -function pintarMeals: función que sirve para pintar los array de platos que se han obtenido en formato JSON en los cards por pantalla. </br>
 -function printTags: función que sirve para pintar las etiquetas por pantalla a las distintas comidas en sus cards.
 
-
+</br>
 
 Para acceder a la página haga click en [este enlace](https://pabloatahonerogdb.github.io/TheMealDBApp/).
