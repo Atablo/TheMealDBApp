@@ -8,8 +8,7 @@ Hecho por:
 - Yiyang Ji (Johnny)
 - Pablo Atahonero García de Blas
 
-
-
+</br></br></br>
 
 <h2>Funcionamiento a nivel de usuario de la aplicación</h2>
 
