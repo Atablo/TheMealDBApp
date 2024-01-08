@@ -14,7 +14,6 @@ Hecho por:
 
 <p>Disponemos de la página principal, en la cabecera tenemos una imagen de logo, como elemento de navegación, que permite ir a la página principal. Seguido 2 tipos de búsqueda, que son: </br>
 -Búsqueda de platos por nombre: permite que el usuario introduzca un nombre y realice la búsqueda de todos los platos que incluyan el nombre introducido. En caso de dejarlo vacío se le avisará al usuario de introducir algo, y está controlado de forma que el usuario introduzca únicamente letras (espacios incluidos). </br>
-
 -Búsqueda de platos por ingrediente: permite que el usuario introduzca un nombre y realice la búsqueda de todos los platos que contengan el ingrediente introducido. En caso de dejarlo vacío se le avisará al usuario de introducir algo, y está controlado de forma que el usuario introduzca únicamente letras (espacios incluidos). También hay un datalist que ayudará al usuario a rellenar el campo, que incluye todos los ingredientes de la API.</p>
 
 </br>
