@@ -441,7 +441,7 @@ function pintarMeals(meals) {
       plantillaCard.querySelector(".countryFlag").src = establishFlag(meal.strArea);
     } else {
       //Sino no ponemos ninguna imagen de bandera del pais
-      plantillaCard.querySelector(".countryFlag").src="";
+      plantillaCard.querySelector(".countryFlag").src = "";
     }
 
     //Ponemos el nombre del primer ingrediente
@@ -497,14 +497,14 @@ function printTags(plantillaCard, meal) {
       //Si la etiqueta no está vacía:
       if (etiqueta) {
         //Agregamos la etiqueta en la variable creada anteriormente como párrafo con sus estilos
-        nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
+        nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2 fs-6">#' + etiqueta + "</p>";
         //Y lo vamos acumulando en la plantillaCard
         plantillaCard.querySelector(".tags").innerHTML += nuevalineaEtiqueta;
       }
     });
   } else {
     //Sino la variable será no tags
-    nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+    nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5 fs-6"><bold>No tags</bold></p>';
     //Y lo metemos en la plantillaCard
     plantillaCard.querySelector(".tags").innerHTML = nuevalineaEtiqueta;
   }

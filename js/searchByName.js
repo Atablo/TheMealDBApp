@@ -265,13 +265,13 @@ function printTags(clone, comida) {
     let listaEtiquetas = strTags.split(",");
     listaEtiquetas.forEach((etiqueta) => {
       if (etiqueta) {
-        nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2">#' + etiqueta + "</p>";
+        nuevalineaEtiqueta = '<p class=" rounded-4 bg-secondary-subtle align-content-center mx-2 px-2 fs-6">#' + etiqueta + "</p>";
         zonaEtiquetas.innerHTML += nuevalineaEtiqueta;
       }
     });
   } else {
     /** Si la comida no trae etiquetas entonces mostraremos un mensaje de que no hay etiquetas*/
-    nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5"><bold>No tags</bold></p>';
+    nuevalineaEtiqueta = '<p class="align-content-center mx-2 px-5 fs-6"><bold>No tags</bold></p>';
     zonaEtiquetas.innerHTML += nuevalineaEtiqueta;
   }
 }
