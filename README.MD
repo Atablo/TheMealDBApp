@@ -83,5 +83,5 @@ El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole t
 
 </br>
 
-> [!TIP]
+> [!NOTE]
 > Para acceder a la página haga click en [este enlace](https://pabloatahonerogdb.github.io/TheMealDBApp/).
