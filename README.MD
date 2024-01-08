@@ -29,4 +29,6 @@ El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole t
 Estos filtros permiten al usuario utilizarlos tanto por separado como de manera simultánea.
 </p>
 
-<p>Para acceder a la página haz click [aquí]:https://pabloatahonerogdb.github.io/TheMealDBApp/.</p>
+</br>
+
+Para acceder a la página haz click [aquí](https://pabloatahonerogdb.github.io/TheMealDBApp/)
