@@ -29,7 +29,7 @@ Realizado por:
 
 <h2>Funcionamiento a nivel de usuario de la aplicación</h2>
 
-<p>Disponemos de la página principal, en la cabecera tenemos una imagen de logo, como elemento de navegación, que permite ir a la página principal. Seguido 2 tipos de búsqueda, que son:</p></br>
+<p>Disponemos de la página principal, en la cabecera tenemos una imagen de logo, como elemento de navegación, que permite ir a la página principal. Seguido 2 tipos de búsqueda, que son:</p>
 
 <ul>
 <li>Búsqueda de platos por nombre: permite que el usuario introduzca un nombre y realice la búsqueda de todos los platos que incluyan el nombre introducido. En caso de dejarlo vacío se le avisará al usuario de introducir algo, y está controlado de forma que el usuario introduzca únicamente letras (espacios incluidos). </li>
@@ -43,7 +43,7 @@ Realizado por:
 <p>Siguiendo con el contenido, se le muestra al usuario un cuadro de introducción, seguido de 8 platos aleatorios como presentación de la página, donde se incluye información como es la imagen del plato, la categoría, el país, el nombre, los 4 ingredientes principales y las etiquetas del plato. </br>
 El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole todos los platos que se pueden realizar con dicho ingrediente.</p>
 
-<p>Cuando el usuario realiza cualquier búsqueda o realiza clic en alguno de los ingredientes, le aparecerá un cuadro de filtros, donde permiten al usuario buscar un o varios platos específicos que cumplan el requisito seleccionado. Los filtros que hemos implementado han sido 3, y son: </p></br>
+<p>Cuando el usuario realiza cualquier búsqueda o realiza clic en alguno de los ingredientes, le aparecerá un cuadro de filtros, donde permiten al usuario buscar un o varios platos específicos que cumplan el requisito seleccionado. Los filtros que hemos implementado han sido 3, y son: </p>
 <ul>
 <li>Filtro por país: el filtro permite que se muestren únicamente los platos del país seleccionado. </li>
 <li>Filtro por categoría: el filtro permite que se muestren únicamente los platos con la categoría seleccionada. </li>
@@ -58,7 +58,7 @@ El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole t
 
 <h2>Funciones principales de nuestro código de javaScript</h2>
 
-<p>**Métodos del archivo “searchByName.js”**: </p></br>
+<p>**Métodos del archivo “searchByName.js”**: </p>
 <ul>
 <li>function resetearFiltros: es una función que da funcionalidad a un botón que resetea los filtros, dejándolos como antes de introducir parámetros en ellos. </li>
 <li>function pintaComidas: función que sirve para pintar los array de platos que se han obtenido en formato JSON en los cards por pantalla. </li>
@@ -70,7 +70,7 @@ El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole t
 <li>function pintaComidasFiltradas: esta es una función que sirve para imprimir el array anteriormente mencionado una vez esté limpio. Esta función se ha hecho porque  “pintaComidas” trabaja con un array con 2 anidamientos,mientras que esta función trabaja con un array que contiene un solo anidamiento. </li>
 </ul>
 
-<p>**Funciones del archivo “searchByIngredient.js”**: </p></br>
+<p>**Funciones del archivo “searchByIngredient.js”**: </p>
 <ul>
 <li>function getIngredientsByName: función asíncrona que nos devuelve un objeto de arrays haciendo uso del nombre introducido en el campo de búsqueda por nombre. </li>
 <li>function getAllIngredients: función asíncrona que nos devuelve un objeto de arrays de todos los ingredientes que hay en la base de datos de la API. </li>
