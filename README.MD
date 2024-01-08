@@ -31,4 +31,4 @@ Estos filtros permiten al usuario utilizarlos tanto por separado como de manera 
 
 </br>
 
-Para acceder a la página haz click [aquí](https://pabloatahonerogdb.github.io/TheMealDBApp/)
+Para acceder a la página haga click en [este enlace](https://pabloatahonerogdb.github.io/TheMealDBApp/).
