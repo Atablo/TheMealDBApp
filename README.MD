@@ -1,14 +1,14 @@
 # Proyecto API/REST
 
-### Uso de la api de TheMealDB
+### Uso de la API de TheMealDB
 
-Hecho por:
+Realizado por:
 
 - Saúl Barrajón Ortiz
 - Yiyang Ji (Johnny)
 - Pablo Atahonero García de Blas
 
-</br></br></br>
+</br></br>
 
 
 <h2>Funcionalidades destacables de la aplicación</h2>
