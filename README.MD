@@ -58,7 +58,7 @@ El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole t
 
 <h2>Funciones principales de nuestro código de javaScript</h2>
 
-<p>**Métodos del archivo “searchByName.js”**: </p>
+**Métodos del archivo *“searchByName.js”***:
 <ul>
 <li>function resetearFiltros: es una función que da funcionalidad a un botón que resetea los filtros, dejándolos como antes de introducir parámetros en ellos. </li>
 <li>function pintaComidas: función que sirve para pintar los array de platos que se han obtenido en formato JSON en los cards por pantalla. </li>
@@ -70,7 +70,7 @@ El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole t
 <li>function pintaComidasFiltradas: esta es una función que sirve para imprimir el array anteriormente mencionado una vez esté limpio. Esta función se ha hecho porque  “pintaComidas” trabaja con un array con 2 anidamientos,mientras que esta función trabaja con un array que contiene un solo anidamiento. </li>
 </ul>
 
-<p>**Funciones del archivo “searchByIngredient.js”**: </p>
+**Funciones del archivo *“searchByIngredient.js”***:
 <ul>
 <li>function getIngredientsByName: función asíncrona que nos devuelve un objeto de arrays haciendo uso del nombre introducido en el campo de búsqueda por nombre. </li>
 <li>function getAllIngredients: función asíncrona que nos devuelve un objeto de arrays de todos los ingredientes que hay en la base de datos de la API. </li>
