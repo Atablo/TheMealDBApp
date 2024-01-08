@@ -18,6 +18,8 @@ Hecho por:
 
 -Búsqueda de platos por ingrediente: permite que el usuario introduzca un nombre y realice la búsqueda de todos los platos que contengan el ingrediente introducido. En caso de dejarlo vacío se le avisará al usuario de introducir algo, y está controlado de forma que el usuario introduzca únicamente letras (espacios incluidos). También hay un datalist que ayudará al usuario a rellenar el campo, que incluye todos los ingredientes de la API.</p>
 
+</br>
+
 <p>Siguiendo con el contenido, se le muestra al usuario un cuadro de introducción, seguido de 8 platos aleatorios como presentación de la página, donde se incluye información como es la imagen del plato, la categoría, el país, el nombre, los 4 ingredientes principales y las etiquetas del plato. </br>
 El usuario puede hacer clic en las imágenes de los ingredientes, mostrándole todos los platos que se pueden realizar con dicho ingrediente.</p>
 
