@@ -125,21 +125,27 @@ formulario.addEventListener("submit", (e) => {
     document.querySelector("#nombreIngrediente").parentNode.classList.remove("error");
   }
 
+  //Limpia el contenido que haya en la búsqueda por ingrediente
   document.querySelector("#nombreIngrediente").value = "";
 
   //Nombre ingrediente 2 se utiliza para utilizarlo en el filtrado de las comidas buscadas por ingredientes
   nombreIngrediente2 = null;
 
+  //Creo una variable bandera que sea true
   let valido = true;
 
   //capturamos el input donde nos han introducido la comida y lo recortamos
   nombreComida = document.getElementById("mealName");
 
+  //Ponemos una validación al usuario, en caso de que no se cumpla:
   if (!validarNombre(nombreComida)) {
+    //La variable bandera se cambia a false
     valido = false;
   }
 
+  //En caso de que la bandera sea true:
   if (valido) {
+    //Igualamos la variable nombreComida al valor que haya introducido el usuario quitando espacios al principio y al final
     nombreComida = nombreComida.value.trim();
 
     //llamamos la metodo que nos devuelve el listado de comidas al buscar por un nombre introducido por el usuario

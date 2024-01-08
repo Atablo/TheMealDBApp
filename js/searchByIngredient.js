@@ -232,6 +232,7 @@ busquedaIngrediente.addEventListener("submit", (e) => {
     document.querySelector("#mealName").parentNode.classList.remove("error");
   }
 
+  //Limpia el contenido que haya en la búsqueda por nombre
   document.querySelector("#mealName").value = "";
 
   //Igualo esta variable a nulo declarada en el otro archivo js para que no haya problemas entre funciones
